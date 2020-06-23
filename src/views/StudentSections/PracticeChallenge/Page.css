@@ -1,0 +1,116 @@
+a { 
+    cursor: pointer; 
+}
+.endtest{
+    margin:5px;
+    padding:10px 60px; line-height:1.42857143;text-decoration:none;color:white;
+    background-color:#cf1919; border:1px solid rgb(224, 23, 23);
+    border-radius:4px;
+}
+.testendcontainer{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+}
+.endtest:hover{
+    background-color:#690f0f;
+    font-weight:bolder;
+    font-size:15px;
+}
+.whitebg{
+    background-color:white;
+    width:90%;
+    margin-left: 5%;
+    margin-top: 3%;
+    padding-bottom: 7%;
+    border-radius:4px;
+}
+.competitionSkill{
+    /* background: #1182ba; */
+    padding-left: 10% ; 
+    margin:10px 30px 0px 20px;
+    color: black;
+}
+.competitionSkill p{
+    font-size:20px;
+}
+.competitionSkillpractice{
+    /* background: #1182ba; */
+    padding-left: 0% ; 
+    margin:10px 30px 0px 5px;
+    color: black;
+}
+.competitionSkillpractice p{
+    font-size:20px;
+}
+.comp{
+    /* background: url('../../images/bg3.gif') ; */
+  background-color:#ffffff;
+    margin: 5px 5px;
+    border-bottom-left-radius: 55px;
+    border-top-right-radius: 55px;
+    box-Shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+
+}
+.competitionNumber{
+    /* background: url('../../images/competitionNo.png') no-repeat; */
+    /* background-size:70% auto; */
+    height:100%;
+    width:100%;
+    color:black;
+    font-weight:bolder;
+    margin:1px 20px 0px 20px;
+    /* border:2px solid #1182ba; */
+}
+.competitionNumber h1{
+    font-size:500%;
+}
+
+.indexedStep {
+  color: white;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  background-color: rgba(211, 211, 211, 0.8);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.indexedStep.accomplished {
+  background-color: rgba(0, 116, 217, 1);
+}
+
+.pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px;font-size: larger; font-weight: 500;}
+.pagination>li{display:inline}
+.pagination>li>a,.pagination>li>span{position:relative;float:left;padding:6px 20px;line-height:1.42857143;text-decoration:none;color:#428bca;background-color:#fff;margin-left:-1px}
+.pagination>li:first-child>a,.pagination>li:first-child>span{margin-left:0;border-bottom-left-radius:4px;border-top-left-radius:4px}
+.pagination>li:last-child>a,.pagination>li:last-child>span{border-bottom-right-radius:4px;border-top-right-radius:4px}
+.pagination>li>a:hover,.pagination>li>span:hover,.pagination>li>a:focus,.pagination>li>span:focus{color:#2a6496;background-color:#eee;border-color:#ddd;border-radius:30px;cursor:default;height: 50px;padding-top: 10px;}
+.pagination>.active>a,.pagination>.active>span,.pagination>.active>a:hover,.pagination>.active>span:hover,.pagination>.active>a:focus,.pagination>.active>span:focus{z-index:2;color:#fff;background-color:#428bca;border-color:#428bca;border-radius:30px;cursor:default;height: 50px;padding-top: 10px;}
+.pagination>.disabled>span,.pagination>.disabled>span:hover,.pagination>.disabled>span:focus,.pagination>.disabled>a,.pagination>.disabled>a:hover,.pagination>.disabled>a:focus{color:#999;background-color:#fff;cursor:not-allowed;border-radius:30px;cursor:default;height: 50px;padding-top: 10px;}
+.pagination-lg>li>a,.pagination-lg>li>span{padding:10px 16px;font-size:18px}
+.pagination-lg>li:first-child>a,.pagination-lg>li:first-child>span{border-bottom-left-radius:6px;border-top-left-radius:6px}
+.pagination-lg>li:last-child>a,.pagination-lg>li:last-child>span{border-bottom-right-radius:6px;border-top-right-radius:6px}
+.pagination-sm>li>a,.pagination-sm>li>span{padding:5px 10px;font-size:12px}
+.pagination-sm>li:first-child>a,.pagination-sm>li:first-child>span{border-bottom-left-radius:3px;border-top-left-radius:3px}
+.pagination-sm>li:last-child>a,.pagination-sm>li:last-child>span{border-bottom-right-radius:3px;border-top-right-radius:3px}
+
+
+
+
+
+
+
+
+
+
+
+
+.compcard{
+margin: 90px 0px ;
+border-radius: 6px;
+box-Shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+} 

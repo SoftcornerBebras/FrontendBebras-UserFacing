@@ -1,0 +1,155 @@
+.pch{
+  border: 5px #111111;
+}
+.question{
+  display:block;
+    letter-spacing: 5em;
+    padding: 2% 5%; 
+    margin:0px 50px;
+    color: black;
+    font-size:1%;
+    /* border-bottom-right-radius: 55px; */
+  /* padding:1em; */
+  line-height:5px;
+  border-bottom:solid 10px rgb(0,143,179);
+  border-left:solid 10px rgb(0,143,179);
+  border-right:solid 10px rgb(0,143,179);
+    /* border-top-left-radius: 55px;
+    box-Shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2); */
+    background-color: white;
+}
+.practicequestion{
+  display:block;
+    /* letter-spacing: 5em; */
+    padding: 2% 5%; 
+    /* margin:0px 50px; */
+    color: black;
+    font-size:1%;
+    /* border-bottom-right-radius: 55px; */
+  /* padding:1em; */
+  line-height:5px;
+  border-bottom:solid 10px rgb(0,143,179);
+  border-left:solid 10px rgb(0,143,179);
+  border-right:solid 10px rgb(0,143,179);
+    /* border-top-left-radius: 55px;
+    box-Shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2); */
+    background-color: white;
+}
+
+
+.pch li{
+  color: #AAAAAA;
+  display: block;
+  position: relative;
+  float: left;
+  width: 90%;
+  height: fit-content;
+  /* border-bottom: 1px solid #111111; */
+}
+
+.pch ul li input[type=radio]{
+  position: absolute;
+  visibility: hidden;
+}
+
+.pch ul li label{
+  display: block;
+  position: relative;
+  color: rgb(62, 65, 62);
+  font-weight: bolder;
+  font-size: 1.35em;
+  padding: 5px 25px 5px 80px;
+  margin: 10px auto;
+  height: fit-content;
+  z-index: 9;
+  cursor: pointer;
+  transition: all 0.25s linear;
+  -webkit-transition: all 0.25s linear;
+}
+
+.pch ul li:hover label{
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.pch ul li .check{
+  display: block;
+  position: absolute;
+  border: 5px solid #AAAAAA;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  top: 15px;
+  left: 20px;
+    z-index: 5;
+    transition: border .25s linear;
+    -webkit-transition: border .25s linear;
+}
+
+.pch ul li:hover .check {
+  border: 5px solid rgb(0, 0, 0);
+}
+
+.pch ul li .check::before {
+  display: block;
+    position: absolute;
+    content: '';
+    border-radius: 100%;
+    height: 14px;
+    width: 14px;
+    top: 3px;
+    left: 3px;
+    margin: auto;
+    transition: background 0.25s linear;
+    -webkit-transition: background 0.25s linear;
+}
+
+.pch input[type=radio]:checked ~ .check {
+  border: 5px solid rgb(18, 67, 112);
+}
+
+.pch input[type=radio]:checked ~ .check::before{
+  background: rgb(18, 67, 112);;/*attr('data-background');*/
+}
+
+.pch input[type=radio]:checked ~ label{
+  color: rgb(18, 67, 112);
+  font-weight: bold;
+
+}
+ 
+.hidden {
+    display:none;
+ }
+ .show{
+    display:block;
+ }
+
+.slick-prev:before,
+.slick-next:before {
+  color: rgb(0, 0, 0);
+}
+.slick-dots li button:before {
+  color: rgb(0, 0, 0);
+}
+.slick-dots li.slick-active button:before {
+  color:rgb(0, 0, 0) !important;
+}
+
+
+.borderfancy{
+   display:block;
+   /* flex-wrap: wrap; */
+   /* flex-flow: column wrap; */
+   /* flex-direction: column; */
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  padding:1em;
+  line-height:5px;
+  background:hsla(67, 95%, 95%, 1);
+  border:solid 10px hsla(192, 100%, 35%, 1);
+}
+.linefancy{
+ 
+  line-height:5px;
+  border:solid 10px hsla(192, 100%, 35%, 1);
+}

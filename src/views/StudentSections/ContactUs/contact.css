@@ -1,0 +1,40 @@
+.contact-social li{display:inline-block;
+    margin-left:10px;}
+    .contact-social li{margin-left:0px;
+    margin-right:10px;}
+    .contact-social li a{border:2px solid #0091B4;
+    border-radius:50%;
+    width:35px;
+    height:35px;
+    display:block;
+    text-align:center;
+    padding-top:3px;
+    }
+    .contact-social li a{background:#0091B4;
+    text-decoration:none;
+    color:#ffffff;}
+    .contact-info li{margin-bottom:8px; text-align: left;}
+    .contact-info .fa{color:#0091B4;
+    margin-right:10px;
+    width:20px;
+    height:20px;
+    font-size:16px;
+    text-align:center;}
+  
+    .video-widget{
+      position: relative;
+      border: rgb(152, 159, 161) 1px solid;
+      padding-bottom: 56.25%; /* 16:9 ratio*/
+      height: 100%;
+      overflow: hidden;
+      margin-top:10px;
+  }
+  
+  .video-widget iframe{
+      position: absolute;
+      top: auto;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border:none;
+  } 
