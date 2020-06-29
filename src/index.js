@@ -33,6 +33,7 @@ ReactDOM.render(
       <Route path="/challenge" component={Challenge} /> 
       <Route path="/testend" component={TestEnd} />             
       <Route path="/teachernew" component={TeacherHeader} />
+      <Route path="/" component={StudentHeader} />
       <Route path="/studenthome" component={StudentHeader} />
       <Route path="/err404" component={Error404} />
       <Route path="/testendpractice" component={TestEndPractice} />

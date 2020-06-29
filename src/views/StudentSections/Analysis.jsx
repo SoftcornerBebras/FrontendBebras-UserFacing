@@ -48,18 +48,12 @@ export default function StudentResCompList(props) {
   };
   React.useEffect(() => {
     // code to run on component mount
-    Notiflix.Block.Dots("body");
     userService.getCompetitionNameResultList().then(
       (user) => {
-        Notiflix.Block.Remove("body");
         setUserdata(user);
       },
       (error) => {
-        if (error.response.status !== 401) {
-          Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
-        }
-        Notiflix.Block.Remove("body");
-        console.log(error.response.status);
+        
       }
     );
   }, []);

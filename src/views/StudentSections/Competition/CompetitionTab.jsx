@@ -73,7 +73,7 @@ export default function CompetitionTab(props) {
         setUserdata(user);
       },
       (error) => {
-        console.log(error.response.data);
+        // console.log(error.response.data);
       }
     );
   }, []);

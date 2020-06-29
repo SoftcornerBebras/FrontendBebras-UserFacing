@@ -486,7 +486,6 @@ function downloadSchoolTopperCertificate(class_id, competitionName) {
 }
 function getAgeGroupToppers() {
   try {
-    Notiflix.Block.Dots("body");
     return Axios({
       url: `${agegrouptoppers}`,
       method: "get",
@@ -496,18 +495,15 @@ function getAgeGroupToppers() {
     })
       .then((respons) => {
         console.log(respons.data);
-        Notiflix.Block.Remove("body");
         return respons.data;
       })
       .catch((err) => {
         console.log(err.response);
         Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-        Notiflix.Block.Remove("body");
         throw err;
       });
   } catch (error) {
     Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
-    Notiflix.Block.Remove("body");
     throw error;
   }
 }

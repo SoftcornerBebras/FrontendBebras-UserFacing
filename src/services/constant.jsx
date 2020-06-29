@@ -1,5 +1,5 @@
-export const baseurl='http://localhost:8000/'
-export const METABASE_URL = "http://localhost:3000";
+export const baseurl='http://3.84.169.90:8000/'
+export const METABASE_URL = "http://3.84.169.90:3000";
 export const Login = baseurl+'api/usr/login-page';
 export const Register = baseurl+'api/usr/registerteacher';
 export const RegisterSchool = baseurl+'api/usr/registerschool';
