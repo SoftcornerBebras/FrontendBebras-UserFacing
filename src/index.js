@@ -12,9 +12,7 @@ import ForgotPassword from "views/ForgotPassword/ForgotPassword.jsx";
 import PracticeChallenge from "views/StudentSections/PracticeChallenge/AgeGroupSection";
 import TeacherHeader from "views/TeacherNavBar/TeacherHeader.jsx";
 import PcPage from "views/StudentSections/PracticeChallenge/Page.jsx";
-import CompetitionTab from "views/StudentSections/Competition/CompetitionTab.jsx";
 import Challenge from "views/StudentSections/Competition/Challenge.jsx";
-import GeneralQuestion from "views/StudentSections/Competition/GeneralQuestion.jsx";
 import TestEnd from 'views/StudentSections/Competition/ExamSummary'
 import Error404 from 'views/Error404/Error404.jsx'
 
@@ -26,17 +24,15 @@ ReactDOM.render(
       <Route path="/forgot-password" component={ForgotPassword} />
       <Route path="/register-page" component={RegisterPage} />
       <Route path="/login-page" component={LoginPage} />
-      <Route path="/general" component={GeneralQuestion} />
       <Route path="/pc" component={PracticeChallenge} />
       <Route path="/pcpage" component={PcPage} />
-      <Route path="/competition" component={CompetitionTab} />  
       <Route path="/challenge" component={Challenge} /> 
-      <Route path="/testend" component={TestEnd} />             
+      <Route exact path="/testend" component={TestEnd} />             
       <Route path="/teachernew" component={TeacherHeader} />
-      <Route path="/" component={StudentHeader} />
+      <Route exact path="/" component={StudentHeader} />
       <Route path="/studenthome" component={StudentHeader} />
-      <Route path="/err404" component={Error404} />
-      <Route path="/testendpractice" component={TestEndPractice} />
+      <Route exact path="/err404" component={Error404} />
+      <Route exact path="/testendpractice" component={TestEndPractice} />
     </Switch>
   </Router>,
   document.getElementById("root")
