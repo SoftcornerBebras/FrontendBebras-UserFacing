@@ -1,7 +1,22 @@
 import React from "react";
+import { useContext } from 'react';
 import PropTypes from "prop-types";
 import "./pch.css";
 import "./Page.css";
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import {ShepherdTour, ShepherdTourContext} from 'react-shepherd';
+import 'shepherd.js/dist/css/shepherd.css';
+import newSteps from './steps';
+const tourOptions = {
+  defaultStepOptions: {
+    cancelIcon: {
+      enabled: true
+    }
+  },
+  useModalOverlay: true,
+};
 const propTypes = {
   items: PropTypes.array.isRequired,
   onChangePage: PropTypes.func.isRequired,
@@ -13,13 +28,53 @@ const defaultProps = {
   initialPage: 1,
   pageSize: 1,
 };
+function Content() {
+  const tour = useContext(ShepherdTourContext);
 
+  return (
+    <div>
+    {console.log(tour)}
+    <Button
+                style={{ backgroundColor: "#008FB3",color:"#ffffff" }}
+                onClick={tour.start}
+              >
+                Start Tour
+              </Button>
+    </div>
+  );
+}
 class Pagination extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { pager: {} };
+    this.state = { pager: {},
+    openpop:true,
+    };
+    // var anchorEl=null;
+    this.handleClose=this.handleClose.bind(this);
   }
+  handleTouchTap = (event) => {
+// This prevents ghost click.
+    event.preventDefault();
 
+    this.setState({
+      openpop: false,
+      anchorEl: event.currentTarget,
+     });
+    };
+    
+    clickHandle = () => {
+    	this.handleRequestClose();
+    };
+    
+    handleRequestClose = () => {
+      this.setState({
+        openpop: false,
+      });
+    };
+handleClose(){
+  this.setState({anchorEl:null});
+  this.setState({openpop:false});
+  };
   UNSAFE_componentWillMount() {
     // set page if items array isn't empty
     if (this.props.items && this.props.items.length) {
@@ -126,6 +181,7 @@ class Pagination extends React.Component {
                   e.preventDefault();
                   this.setPage(1);
                 }}
+                className="step1"
               >
                 First
               </a>
@@ -137,6 +193,7 @@ class Pagination extends React.Component {
                   e.preventDefault();
                   this.setPage(pager.currentPage - 1);
                 }}
+                className="step2"
               >
                 Previous
               </a>
@@ -152,6 +209,7 @@ class Pagination extends React.Component {
                     e.preventDefault();
                     this.setPage(page);
                   }}
+                  className="step3"
                 >
                   {page}
                 </a>
@@ -168,6 +226,7 @@ class Pagination extends React.Component {
                   e.preventDefault();
                   this.setPage(pager.currentPage + 1);
                 }}
+                className="step4"
               >
                 Next
               </a>
@@ -183,11 +242,41 @@ class Pagination extends React.Component {
                   e.preventDefault();
                   this.setPage(pager.totalPages);
                 }}
+                className="step5"
               >
                 Last
               </a>
             </li>
           </ul>
+
+          <Popover
+          open={this.state.openpop}
+            onRequestClose={this.handleRequestClose}
+        anchorEl={this.anchorEl}
+        onClose={this.handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        PaperProps={{
+              style: {
+                marginTop: "50px",
+                padding:"20px",
+
+              }
+            }}
+      >
+        <Typography >Let's take a tour of the page!</Typography>
+        <Typography >Click anywhere on the page if you don't want to!</Typography>
+        <br></br>
+                  <ShepherdTour steps={newSteps} tourOptions={tourOptions}>
+          <Content />
+        </ShepherdTour>
+      </Popover>
         </center>
       </div>
     );

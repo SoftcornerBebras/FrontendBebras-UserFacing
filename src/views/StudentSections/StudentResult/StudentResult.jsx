@@ -6,9 +6,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import { userService } from "services/user.service";
 import Paper from "@material-ui/core/Paper";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import GridContainer from "components/Grid/GridContainer.js";
+import GridItem from "components/Grid/GridItem.js";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import { Typography } from "@material-ui/core";
+
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { StyleRoot } from "radium";
 import "./studentresult.css";
@@ -52,39 +55,157 @@ const useStyles = makeStyles((theme) => ({
 export default function StudentResult(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+    const [expanded1, setExpanded1] = React.useState(false);
   const [data, setData] = React.useState(null);
   let cardRef = useRef([]);
+  let cardRef1 = useRef([]);
   React.useEffect(() => {
     // code to run on component mount
     userService
       .getCompetitionResult(JSON.parse(sessionStorage.getItem("competition")))
       .then(
         (user) => {
+          // console.log("1")
           setData(user);
+          // console.log("11")
         },
         (error) => {
+          // console.log("haggdiya")
           console.log(error);
         }
       );
   }, []);
+  const createarraymain = () => {
+    data.domain_wise_questions.map((item, index) => {
+      cardRef1.current[index] = "" + index;
+      // console.log("ye createarraymain hai" + index)
+      return true;
+    });
+  };
   const createarray = () => {
-    data.questions.map((item, index) => {
-      cardRef.current[index] = "" + index;
+    data.domain_wise_questions.map((item, index) => {
+      item.questions.map((item1, index1) => {
+        cardRef.current[index1] = "" + index1;
+        // console.log("ye createarray hai" + index1)
+        return true;
+      });
       return true;
     });
   };
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  const conditionRender = (quest, item) => {
+   const handleChange1 = (panel) => (event, isExpanded) => {
+    setExpanded1(isExpanded ? panel : false);
+  };
+  const conditionRenderMain = (domain, item1) => {
+    const exp1="p"+item1;
+    return (
+      // <GridContainer justify="center">
+                    
+      //                   <GridItem xs={12} sm={12} md={12} key={item1}>
+      //                   <br></br>
+      //   <br></br>
+      //                     <Grid container spacing={2}>
+      //           <Grid item xs>
+      //             <Typography component={"div"} className={classes.heading}>
+      //               <h4
+      //                 style={{ fontWeight: "900", fontFamily: "Righteous" }}
+      //               >
+      //                 DOMAIN NAME: {domain.domain}
+      //               </h4>
+      //             </Typography>
+      //           </Grid>
+      //           <Grid item xs>
+      //             <Typography component={"div"} className={classes.heading} style={{alignText:"right"}}>
+      //               <h5 style={{ fontWeight: "900", color: "red",alignText:"right" }}>
+      //                 Marks obtained:{domain.score}      Total marks: {domain.marks}
+      //               </h5>
+      //             </Typography>
+      //           </Grid>
+      //         </Grid>
+      //                   </GridItem>
+      //                   <GridItem xs={12} sm={12} md={12} key={item1}>
+      //                     {createarray()}
+      //         {
+               
+      //             Object.keys(domain.questions).map((i, item) => {
+      //               const quest = domain.questions[item];
+      //               return conditionRender(quest, item,item1);
+      //             })
+               
+      //         }
+      //                   </GridItem>
+      //                <Divider light />
+      //             </GridContainer>
+                  //===========================================
+      <Grid container spacing={10} style={{ paddingTop: "4%" }} key={item1}>
+      
+        <Grid item xs>
+          <ExpansionPanel
+            expanded={expanded1 === exp1}
+            onChange={handleChange1(exp1)}
+          >
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Grid container spacing={3}>
+                <Grid item xs>
+                  <Typography component={"div"} className={classes.heading}>
+                    <h4
+                      style={{ fontWeight: "900", fontFamily: "Righteous" }}
+                    >
+                      DOMAIN NAME: {domain.domain}
+                    </h4>
+                  </Typography>
+                </Grid>
+                <Grid item xs>
+                  <Typography component={"div"} className={classes.heading}>
+                    <h5 style={{ fontWeight: "900", color: "red" }}>
+                      Marks obtained:{domain.score}      Total marks: {domain.marks}
+                    </h5>
+                  </Typography>
+                </Grid>
+              </Grid>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+          
+              {createarray()}
+               <GridContainer justify="center">
+              {
+           
+                  Object.keys(domain.questions).map((i, item) => {
+                    
+                    const quest = domain.questions[item];
+                    return (
+                      <GridItem xs={12} sm={12} md={12} key={item}>
+                      {conditionRender(quest, item,item1)}
+                      </GridItem>
+                      );
+                  })
+               
+              }
+              </GridContainer>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Grid>
+      </Grid>
+    );
+  }
+  const conditionRender = (quest, item,item1) => {
     const opt = ["f-option", "s-option", "t-option", "r-option"];
+    
     if (quest.hasOwnProperty("images_of_option")) {
+      const exp="p"+item1+item;
       return (
         <Grid container spacing={10} style={{ paddingTop: "4%" }} key={item}>
           <Grid item xs>
+         
             <ExpansionPanel
-              expanded={expanded === cardRef.current[item]}
-              onChange={handleChange(cardRef.current[item])}
+              expanded={expanded ===exp}
+              onChange={handleChange(exp)}
             >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -101,24 +222,11 @@ export default function StudentResult(props) {
                       </h4>
                     </Typography>
                   </Grid>
-                  <Grid item xs>
-                    <Typography component={"div"} className={classes.heading}>
-                      <h5 style={{ fontWeight: "900", color: "red" }}>
-                        Marks: {quest.marks} Score: {quest.Score}
-                      </h5>
-                    </Typography>
-                  </Grid>
+                 
                   <Grid item xs>
                     <Typography component={"div"} className={classes.heading}>
                       <h5 style={{ fontWeight: "900", color: "blue" }}>
                         CS Skills: {quest.question_cs_skills}
-                      </h5>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <Typography component={"div"} className={classes.heading}>
-                      <h5 style={{ fontWeight: "900", color: "blue" }}>
-                        Domain: {quest.question_domain}
                       </h5>
                     </Typography>
                   </Grid>
@@ -127,7 +235,7 @@ export default function StudentResult(props) {
               <ExpansionPanelDetails>
                 <Paper
                   elevation={0}
-                  style={{ padding: "1%", width: "-webkit-fill-available" }}
+                  style={{ paddingTop: "1%", width: "100%" }}
                 >
                   <div>
                     <h5>
@@ -158,7 +266,7 @@ export default function StudentResult(props) {
                                   <div
                                     className={
                                       quest.selectedoption ===
-                                      quest.correctoption
+                                        quest.correctoption
                                         ? "selectedoptionImage"
                                         : "wrngoptionImage"
                                     }
@@ -177,7 +285,7 @@ export default function StudentResult(props) {
                                           htmlFor={opt[index]}
                                           className="element-animation"
                                         >
-                                          <img alt="oops" style={{maxHeight:"100%",maxWidth:"100%"}} src={urlimg}></img>
+                                          <img alt="oops" src={urlimg}></img>
                                           <figcaption>
                                             {quest.options[index]}
                                           </figcaption>
@@ -189,30 +297,30 @@ export default function StudentResult(props) {
                                 </div>
                               </div>
                             ) : (
-                              <div className="studentresult">
-                                <ul>
-                                  <li>
-                                    <input
-                                      type="radio"
-                                      id={opt[index]}
-                                      name={quest.question_caption}
-                                      value={"" + item + index}
-                                      disabled
-                                    />
-                                    <label
-                                      htmlFor={opt[index]}
-                                      className="element-animation"
-                                    >
-                                      <img alt="oops" style={{maxWidth:"100%"}} src={urlimg}></img>
-                                      <figcaption>
-                                        {quest.options[index]}
-                                      </figcaption>
-                                    </label>
-                                    <div className="check"></div>
-                                  </li>
-                                </ul>
-                              </div>
-                            )}
+                                <div className="studentresult">
+                                  <ul>
+                                    <li>
+                                      <input
+                                        type="radio"
+                                        id={opt[index]}
+                                        name={quest.question_caption}
+                                        value={"" + item + index}
+                                        disabled
+                                      />
+                                      <label
+                                        htmlFor={opt[index]}
+                                        className="element-animation"
+                                      >
+                                        <img alt="oops" src={urlimg}></img>
+                                        <figcaption>
+                                          {quest.options[index]}
+                                        </figcaption>
+                                      </label>
+                                      <div className="check"></div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              )}
                           </Grid>
                         </StyleRoot>
                       );
@@ -223,12 +331,12 @@ export default function StudentResult(props) {
                       <h5
                         style={{
                           color: "darkblue",
-                          margin: "1%",
-                          padding: "1%",
-                          width: "-webkit-fill-available",
+                          margin: "1% 0%",
+                          padding: "1% 0%",
+                          width: "100%",
                         }}
                       >
-                        <b>Explanation:</b><div
+                        <b>Explanation:</b> <div
                           dangerouslySetInnerHTML={{
                             __html: quest.question_explanation,
                           }}
@@ -238,9 +346,9 @@ export default function StudentResult(props) {
                         style={{
                           background: "#3D1172",
                           color: "white",
-                          margin: "1%",
-                          padding: "1%",
-                          width: "-webkit-fill-available",
+                          margin: "1% 0%",
+                          padding: "1% 0%",
+                          width: "100%",
                         }}
                       >
                         <b>Correct option: {quest.correctoption}</b>
@@ -257,12 +365,13 @@ export default function StudentResult(props) {
       !quest.hasOwnProperty("images_of_option") &&
       !quest.hasOwnProperty("options")
     ) {
+      const exp="p"+item1+item;
       return (
-        <Grid container spacing={4} style={{ paddingTop: "4%" }} key={item}>
+        <Grid container spacing={10} style={{ paddingTop: "4%" }} key={item}>
           <Grid item xs>
             <ExpansionPanel
-              expanded={expanded === cardRef.current[item]}
-              onChange={handleChange(cardRef.current[item])}
+              expanded={expanded === exp}
+              onChange={handleChange(exp)}
             >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -279,24 +388,11 @@ export default function StudentResult(props) {
                       </h4>
                     </Typography>
                   </Grid>
-                  <Grid item xs>
-                    <Typography component={"div"} className={classes.heading}>
-                      <h5 style={{ fontWeight: "900", color: "red" }}>
-                        Marks: {quest.marks} Score: {quest.Score}
-                      </h5>
-                    </Typography>
-                  </Grid>
+                  
                   <Grid item xs>
                     <Typography component={"div"} className={classes.heading}>
                       <h5 style={{ fontWeight: "900", color: "blue" }}>
                         CS Skills: {quest.question_cs_skills}
-                      </h5>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <Typography component={"div"} className={classes.heading}>
-                      <h5 style={{ fontWeight: "900", color: "blue" }}>
-                        Domain: {quest.question_domain}
                       </h5>
                     </Typography>
                   </Grid>
@@ -305,7 +401,7 @@ export default function StudentResult(props) {
               <ExpansionPanelDetails>
                 <Paper
                   elevation={0}
-                  style={{ padding: "1%", width: "-webkit-fill-available" }}
+                  style={{ paddingTop: "1%", width: "100%" }}
                 >
                   <div>
                     <h5>
@@ -340,24 +436,24 @@ export default function StudentResult(props) {
                     <h5
                       style={{
                         color: "darkblue",
-                        margin: "1%",
-                        padding: "1%",
-                        width: "-webkit-fill-available",
+                        margin: "1% 0%",
+                        padding: "1% 0%",
+                        width: "100%",
                       }}
                     >
                       <b>Explanation:</b> <div
-                          dangerouslySetInnerHTML={{
-                            __html: quest.question_explanation,
-                          }}
-                        />
+                        dangerouslySetInnerHTML={{
+                          __html: quest.question_explanation,
+                        }}
+                      />
                     </h5>
                     <div
                       style={{
                         background: "#3D1172",
                         color: "white",
-                        margin: "1%",
-                        padding: "1%",
-                        width: "-webkit-fill-available",
+                        margin: "1% 0%",
+                        padding: "1% 0%",
+                        width: "100%",
                       }}
                     >
                       <b>Correct option: {quest.correctoption}</b>
@@ -370,12 +466,13 @@ export default function StudentResult(props) {
         </Grid>
       );
     } else {
+     const exp="p"+item1+item;
       return (
-        <Grid container spacing={4} style={{ paddingTop: "4%" }} key={item}>
+        <Grid container spacing={10} style={{ paddingTop: "4%" }} key={item}>
           <Grid item xs>
             <ExpansionPanel
-              expanded={expanded === cardRef.current[item]}
-              onChange={handleChange(cardRef.current[item])}
+              expanded={expanded === exp}
+              onChange={handleChange(exp)}
             >
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -392,24 +489,11 @@ export default function StudentResult(props) {
                       </h4>
                     </Typography>
                   </Grid>
-                  <Grid item xs>
-                    <Typography component={"div"} className={classes.heading}>
-                      <h5 style={{ fontWeight: "900", color: "red" }}>
-                        Marks: {quest.marks} Score: {quest.Score}
-                      </h5>
-                    </Typography>
-                  </Grid>
+                  
                   <Grid item xs>
                     <Typography component={"div"} className={classes.heading}>
                       <h5 style={{ fontWeight: "900", color: "blue" }}>
                         CS Skills: {quest.question_cs_skills}
-                      </h5>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <Typography component={"div"} className={classes.heading}>
-                      <h5 style={{ fontWeight: "900", color: "blue" }}>
-                        Domain: {quest.question_domain}
                       </h5>
                     </Typography>
                   </Grid>
@@ -418,7 +502,7 @@ export default function StudentResult(props) {
               <ExpansionPanelDetails>
                 <Paper
                   elevation={0}
-                  style={{ padding: "1%", width: "-webkit-fill-available" }}
+                  style={{ paddingTop: "1%", width: "100%" }}
                 >
                   <div>
                     <h5>
@@ -503,9 +587,9 @@ export default function StudentResult(props) {
                       <h5
                         style={{
                           color: "darkblue",
-                          margin: "1%",
-                          padding: "1%",
-                          width: "-webkit-fill-available",
+                          margin: "1% 0%",
+                          padding: "1% 0%",
+                          width: "100%",
                         }}
                       >
                         <b>Explanation:</b> <div
@@ -518,9 +602,9 @@ export default function StudentResult(props) {
                         style={{
                           background: "#3D1172",
                           color: "white",
-                          margin: "1%",
-                          padding: "1%",
-                          width: "-webkit-fill-available",
+                          margin: "1% 0%",
+                          padding: "1% 0%",
+                          width: "100%",
                         }}
                       >
                         <b>Correct option: {quest.correctoption}</b>
@@ -540,7 +624,7 @@ export default function StudentResult(props) {
     data != null && (
       <div
         className="element"
-        style={{ backgroundColor: "white", padding: "4% 2%" }}
+        style={{ backgroundColor: "white", padding: "4% 1%" }}
       >
         <link
           href="https://fonts.googleapis.com/css?family=Righteous&display=swap"
@@ -581,10 +665,15 @@ export default function StudentResult(props) {
           </h4>
         </span>
         <Divider dark="true"></Divider>
-        {createarray()}
-        {Object.keys(data.questions).map((item) => {
-          const quest = data.questions[item];
-          return conditionRender(quest, item);
+        <br></br>
+        <br></br>
+        <br></br>
+        {createarraymain()}
+        {Object.keys(data.domain_wise_questions).map((item) => {
+          
+          const domain = data.domain_wise_questions[item];
+         
+          return conditionRenderMain(domain, item);
         })}
         <br />
         <br />

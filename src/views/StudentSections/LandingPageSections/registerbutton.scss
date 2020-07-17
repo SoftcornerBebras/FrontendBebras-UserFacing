@@ -1,0 +1,45 @@
+$color-skin-1:    #EAB08C;
+$pink:#F44336;
+$white: #fff;
+.boxbutton {
+      //display: block;
+      //position: absolute;
+      background: $pink;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      text-align: center;
+      text-decoration: none;
+      color: $white;
+      line-height: 35px;
+      font-size: 16px;
+      white-space: nowrap;
+      font-weight: 500;
+      //margin-top: 25px;
+      transition: background .5s ease;
+      //overflow: hidden;
+      mask-image: -webkit-radial-gradient(white, black);
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+      
+      &:before {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 100px;
+        background: $color-skin-1;
+        bottom: -25px;
+        left: 0;
+        border: 2px solid $white;
+        transform: translateX(-50px) rotate(45deg);
+        transition: transform .5s ease;
+      }
+      
+      &:hover {
+        background: $color-skin-1;
+        border-color: $color-skin-1;
+        color: black;
+        
+        &:before {
+          transform: translateX(300px) rotate(45deg);
+        }
+      }
+    }

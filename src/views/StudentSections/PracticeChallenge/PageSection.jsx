@@ -4,7 +4,7 @@ import AlertDialog from "./EndTestButton";
 import GeneralQuestion from "./GeneralQuestion";
 import "./pch.css";
 import "./Page.css";
-
+var pagenumber=0;
 class Page extends React.Component {
   constructor(props) {
     super(props);
@@ -77,7 +77,18 @@ class Page extends React.Component {
     // update state with new page of items
     this.setState({ pageOfItems: pageOfItems });
   }
+changePageNumber=(item)=>
+{
+  pagenumber=item
+  
+}
+componentDidMount()
+{ 
+  window.addEventListener("popstate", () => {
+  window.history.go(1);
+});  
 
+}
   render() {
     return (
       <div className="whitebg" style={{ marginTop: "-5%" }}>
@@ -100,6 +111,7 @@ class Page extends React.Component {
               {item.name}
               <div>
                 {this.state.componentsarr.map((block) => block.component)}
+                {this.changePageNumber(item.id)}
               </div>
             </div>
           ))}
@@ -108,8 +120,8 @@ class Page extends React.Component {
             items={this.state.exampleItems}
             onChangePage={this.onChangePage}
           />
-          <div>{this.sayHello}</div>
-          <AlertDialog status={this.state.status} />
+         
+          {(pagenumber === this.state.componentsarr.length) && (<AlertDialog status={this.state.status}/>)}
         </div>
       </div>
     );

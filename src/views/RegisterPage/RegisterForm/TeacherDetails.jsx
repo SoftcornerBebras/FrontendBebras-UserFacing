@@ -40,7 +40,7 @@ class TeacherDetails extends React.Component {
         <GridContainer>
           <GridItem xs={12} md={12}>
             <TextField
-              placeholder="User Name"
+              placeholder="Please enter your full name"
               name="username"
               label="User Name"
               variant="outlined"
@@ -60,7 +60,7 @@ class TeacherDetails extends React.Component {
           </GridItem>
           <GridItem xs={12} md={12}>
             <TextField
-              placeholder="Re-type your password here"
+              placeholder="Type your password here"
               label="Password"
               name="password"
               type="password"
@@ -126,24 +126,28 @@ class TeacherDetails extends React.Component {
             />
           </GridItem>
           <GridItem xs={12} md={12}>
-            <TextField
-              type="date"
-              name="birthdate"
-              id="birthdate"
-              label="Birthdate"
-              variant="outlined"
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                min: "1920-01-01",
-                max: dateLimit.toISOString().slice(0, 10),
-              }}
-              defaultValue={this.state.birthdate}
-              onChange={this.handleChange}
-              fullWidth={isWidthDown("sm")}
-            />
+          <TextField
+          type='date'
+          name='birthdate'
+          id='birthdate'
+          label='Birthdate'
+          variant='outlined'
+          margin='normal'
+          InputLabelProps={{
+            shrink: true
+          }}
+          inputProps={{
+            min: "1920-01-01",
+            max: dateLimit.toISOString().slice(0, 10)
+          }}
+          defaultValue={this.state.birthdate}
+        onChange={
+          this.handleChange
+        }
+        required
+          fullWidth={isWidthDown("sm")}
+        />
+
           </GridItem>
           <GridItem xs={12} md={12}>
             <TextField

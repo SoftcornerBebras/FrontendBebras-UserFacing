@@ -57,6 +57,14 @@ export default function TestEndPractice(props) {
     }
     return true;
   });
+    
+React.useEffect(() => {
+  console.log("iiiii")
+  window.addEventListener("popstate", () => {
+    console.log("iiiii")
+    window.history.go(-1);
+  });
+});
   incorrect = solved - correct;
   return (
     <div>

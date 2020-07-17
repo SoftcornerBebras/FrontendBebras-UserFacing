@@ -67,10 +67,13 @@ class Teacher extends React.Component {
 
       return;
     }
-
-    var phonenumber = "+" + phone;
-    this.setState({ phone: phonenumber });
-    sessionStorage.setItem("registerteacher", JSON.stringify(this.state));
+   
+    if(phone.charAt(0)!=="+")
+    { var phonenumber = "+" + phone;
+      
+    } 
+    const registerteacher={"username":this.state.username,"password":this.state.password,"gender":this.state.gender,"phone":phonenumber,"birthdate":this.state.birthdate,"email":this.state.email}
+    sessionStorage.setItem("registerteacher", JSON.stringify(registerteacher));
     userService.registerTeacher().then(
       (user) => {
         Notiflix.Block.Remove("body");
@@ -160,6 +163,7 @@ class Teacher extends React.Component {
                           minLength: 6,
                           maxLength: 20,
                         }}
+                        onChange={this.handleChange}
                         required
                         fullWidth
                       />
@@ -231,7 +235,7 @@ class Teacher extends React.Component {
                         type="date"
                         name="birthdate"
                         id="birthdate"
-                        label="Birthdate"
+                        label="Birthdate*"
                         variant="outlined"
                         margin="normal"
                         InputLabelProps={{

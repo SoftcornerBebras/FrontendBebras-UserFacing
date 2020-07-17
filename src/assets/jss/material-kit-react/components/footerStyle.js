@@ -3,10 +3,11 @@ import { container } from "assets/jss/material-kit-react.js";
 const footerStyle = {
   block: {
     color: "#FFFFFF",
-    paddingBottom: "0.9375rem",
+    padding: "0.9375rem",
     fontWeight: "500",
     fontSize: "12px",
     textTransform: "uppercase",
+    borderRadius: "3px",
     textDecoration: "none",
     position: "relative",
     display: "block"
@@ -19,13 +20,21 @@ const footerStyle = {
   right: {
     backgroundColor: "#040225",
     color: "#FFFFFF",
+    padding: "15px 80px ",
     textAlign: "right",
     display: "flex",
+    // margin: "0px 30px ",
+  //  / float: "right!important"
   },
   footer: {
     color: "#FFFFFF",
-    paddingBottom: "0.9975rem",
+   // backgroundColor: "#303948",
+    //background:{bg},
+    padding: "0.9375rem 0",
+    textAlign: "justify",
     display: "flex",
+    borderRadiusTop: "6px", 
+    // margin: "0px 30px 0px",
     zIndex: "2",
     position: "relative"
   },

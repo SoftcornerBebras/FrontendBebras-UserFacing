@@ -1,9 +1,9 @@
 import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
+import Grid from "@material-ui/core/Grid";
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 import classNames from "classnames";
 import Button from "components/CustomButtons/Button.js";
@@ -56,13 +56,19 @@ export default function StudentResCompList(props) {
   };
   React.useEffect(() => {
     // code to run on component mount
-   
+    Notiflix.Block.Dots("body");
     userService.getCompetitionNameResultList().then(
       (user) => {
+        Notiflix.Block.Remove("body");
         setUserdata(user);
+        console.log(user)
       },
       (error) => {
-        
+        Notiflix.Block.Remove("body");
+        if (error.response.status !== 401) {
+          Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
+        }
+        console.log(error.response.data);
       }
     );
   }, []);
@@ -91,15 +97,19 @@ export default function StudentResCompList(props) {
         <br></br>
         <br></br>
         <div className="whitebg">
+            <div>
+              <div>
+              <Grid container direction="row"
+                justify="space-evenly"
+                alignItems="center"
+                spacing={4}
+                >
           {sessionStorage.getItem("Authenticated") &&
             userdata.length !== 0 &&
             userdata.map((value, index) => {
               return (
-                <div key={index} className="compcard">
-                  <div>
-                    <div>
-                      <GridContainer justify="center">
-                        <GridItem>
+                <div key={index} className="resultcard">
+                        <Grid item >
                           <div className={classes.profile}>
                             <div>
                               <img
@@ -112,9 +122,10 @@ export default function StudentResCompList(props) {
                               <h3 className={classes.title}>{value}</h3>
                               <h6 style={{ color: "#000000" }}>
                                 {" "}
-                                “Competitions will come and go, but you
+                                “Competitions will come and go, <br></br> your
                                 determination will stay with you forever.”{" "}
                               </h6>
+                              
                               <Button
                                 variant="contained"
                                 onClick={handleClickOpen(value)}
@@ -124,13 +135,13 @@ export default function StudentResCompList(props) {
                               </Button>
                             </div>
                           </div>
-                        </GridItem>
-                      </GridContainer>
-                    </div>
-                  </div>
+                        </Grid>
                 </div>
               );
             })}
+                </Grid>
+              </div>
+          </div>
           {!sessionStorage.getItem("Authenticated") && (
             <div className="compcard">
               <div>

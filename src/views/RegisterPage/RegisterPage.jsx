@@ -138,7 +138,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function getSteps() {
-  return ["Address", "School Details", "Teacher Details"];
+  return ["School Address", "School Details", "Teacher Details"];
 }
 
 function getStepContent(
@@ -215,7 +215,7 @@ function RegisterPage() {
         !address.pincode
       ) {
         Notiflix.Notify.Warning(
-          "can't proceed to the next step, please fill all the details".toUpperCase()
+          "Cannot proceed to the next step, please fill all the details".toUpperCase()
         );
         // alert("can't proceed to the next step, please fill all the details")
       } else {
@@ -232,7 +232,7 @@ function RegisterPage() {
         school.classes.length === 0
       ) {
         Notiflix.Notify.Warning(
-          "can't proceed to the next step, please fill all the details".toUpperCase()
+          "Cannot proceed to the next step, please fill all the details".toUpperCase()
         );
         // alert("can't proceed to the next step, please fill all the details")
       } else {
@@ -255,7 +255,7 @@ function RegisterPage() {
         !user.email
       ) {
         Notiflix.Notify.Warning(
-          "can't finish, please fill all the details".toUpperCase()
+          "Cannot finish, please fill all the details".toUpperCase()
         );
         // alert("can't finish, please fill all the details")
       } else {

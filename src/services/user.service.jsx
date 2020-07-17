@@ -14,6 +14,7 @@ import {
   PracticeChallengeList,
   PracticeChallengeQues,
   calcTotalScore,
+  SavedStudentResponse,
   schoolGroupNames,
   getLanguages,
   CompetitionStudentResponse,
@@ -23,6 +24,7 @@ import {
   CompetitionQues,
   UserResult,
   AllUsersResults,
+  AllUsersEnrolled,
   StudentDataExcel,
   ContactUsMail,
   Register,
@@ -38,7 +40,6 @@ import {
   CountryNames,
   StateNames,
   DistrictNames,
-  SchoolNames,
   RegisterStudent,
 } from "./constant.jsx";
 import { Logout } from "./constant.jsx";
@@ -134,13 +135,13 @@ export const userService = {
   getCmp_Names,
   getStateNames,
   getDistrictNames,
-  getSchoolNames,
   getNamesUsers,
   getSchoolClasses,
   ResetPasswordView,
   ConfirmResetPasswordView,
   contactUs,
   getUserResult,
+  getAllUsersEnrolled,
   getAllUsersResults,
   getCompetitionList,
   getCompetitionListforCertificate,
@@ -151,6 +152,7 @@ export const userService = {
   getCompetitionNameAnalysisList,
   getCompetitionResult,
   doCompetitionStudentResponse,
+  getSavedStudentResponse,
   downloadCertificateforStudents,
   downloadCertificatebyStudents,
 };
@@ -624,6 +626,31 @@ function getLanguagesNames(class_id, competitionName) {
     throw error;
   }
 }
+function getSavedStudentResponse(studentresponse) {
+  try {
+    return Axios({
+      url: `${SavedStudentResponse}`,
+      method: "post",
+      data:studentresponse ,
+      headers: {
+        Authorization: "Token " + sessionStorage.getItem("studenttoken"),
+        "content-type": "application/json",
+      },
+    })
+      .then((respons) => {
+        console.log(respons);
+        return respons.data;
+      })
+      .catch((error) => {
+     
+        console.log(error.response.data);
+        Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
+        throw error;
+      });
+  } catch (error) {
+    throw error;
+  }
+}
 function doCompetitionStudentResponse() {
   try {
     return Axios({
@@ -818,6 +845,40 @@ function getAllUsersResults() {
   try {
     return Axios({
       url: `${AllUsersResults}`,
+      method: "get",
+      headers: {
+        Authorization: "Token " + sessionStorage.getItem("teachertoken"),
+        "content-type": "application/json",
+      },
+    })
+      .then((respons) => {
+        console.log(respons.data);
+        return respons.data;
+      })
+      .catch((err) => {
+        console.log(err.response);
+        console.log(err.response.statusText);
+        if (err.response.status===401){
+          Notiflix.Notify.Failure(
+            `${err.response.statusText} Request,Please login`.toUpperCase()
+          );
+          sessionStorage.clear();
+          }
+          else{
+            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
+  
+          }
+
+        throw err;
+      });
+  } catch (error) {
+    throw error;
+  }
+}
+function getAllUsersEnrolled() {
+  try {
+    return Axios({
+      url: `${AllUsersEnrolled}`,
       method: "get",
       headers: {
         Authorization: "Token " + sessionStorage.getItem("teachertoken"),
@@ -1073,11 +1134,15 @@ function doBulkRegister() {
     throw error;
   }
 }
-function getNamesUsers() {
+function getNamesUsers(competitionName) {
   try {
     return Axios({
       url: `${getUsers}`,
-      method: "get",
+      method: "post",
+      data: {
+       
+        competitionName: competitionName,
+      },
       headers: {
         Authorization: "Token " + sessionStorage.getItem("teachertoken"),
         "content-type": "application/json",
@@ -1382,31 +1447,7 @@ function getCountryNames() {
     throw error;
   }
 }
-function getSchoolNames() {
-  try {
-    return Axios({
-      url: `${SchoolNames}`,
-      method: "get",
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((respons) => {
-        console.log(respons);
-        return respons.data.schoolNames;
-      })
-      .catch((err) => {
-        console.log(err);
-        Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
 
-       
-
-        throw err;
-      });
-  } catch (error) {
-    throw error;
-  }
-}
 function registerSchool() {
   try {
     Notiflix.Block.Dots("body");

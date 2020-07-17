@@ -38,7 +38,7 @@ class CompetitionRelated extends Component {
     };
     var token = jwt.sign(payload, METABASE_SECRET_KEY);
 
-    var iframeUrl = METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=true&titled=true";
+    var iframeUrl = METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=false&titled=false";
     return (
       <iframe
         title="Student Analysis"

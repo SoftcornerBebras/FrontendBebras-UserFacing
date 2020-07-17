@@ -15,6 +15,7 @@ class SchoolAddress extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.address;
+    this.state.country = "India";
     this.state.countrynames = [];
     this.state.statenames = [];
     this.state.districtnames = [];
@@ -32,6 +33,8 @@ class SchoolAddress extends React.Component {
   handleCountryChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+    console.log(name)
+    console.log(value+"kya aya")
     userService.getStateNames(value).then(
       (array2) => {
         this.setState({ statenames: array2 });
@@ -155,7 +158,7 @@ class SchoolAddress extends React.Component {
             <TextField
               placeholder="Address line1"
               name="line1"
-              label="Address"
+              label="School Address"
               variant="outlined"
               margin="normal"
               inputlabelprops={{
@@ -171,7 +174,7 @@ class SchoolAddress extends React.Component {
             <TextField
               placeholder="Address line2"
               name="line2"
-              label="Address"
+              label="School Address line 2"
               variant="outlined"
               margin="normal"
               inputlabelprops={{
@@ -231,6 +234,13 @@ class SchoolAddress extends React.Component {
         this.setState({ countrynames: arry });
       },
       (error) => {}
+    );
+    userService.getStateNames("India").then(
+      (array2) => {
+        this.setState({ statenames: array2 });
+        this.setState({ districtnames: [] })
+      },
+      (error) => { }
     );
   }
 }

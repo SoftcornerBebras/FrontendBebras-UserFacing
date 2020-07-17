@@ -84,14 +84,14 @@ export default function StudentResCompList(props) {
         <div className="whitebg">
           {sessionStorage.getItem("Authenticated") &&
             userdata.length !== 0 &&
-            userdata.map((value, index) => {
-              return (
-                <div key={value}>
+           
+               (
+                <div >
                   <UserIdRelated />
                   <CompetitionRelated />
                 </div>
-              );
-            })}
+              )
+            }
           {sessionStorage.getItem("Authenticated") && userdata.length === 0 && (
             <div className="compcard">
               <div>

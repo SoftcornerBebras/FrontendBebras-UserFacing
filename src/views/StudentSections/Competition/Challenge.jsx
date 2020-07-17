@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -10,12 +11,18 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import StepLabel from "@material-ui/core/StepLabel";
 import CircleTimer, { timeRemaining } from "./CircularExamTimer";
 import { useHistory } from "react-router-dom";
-import Radium, { StyleRoot } from "radium";
+import { StyleRoot } from "radium";
 import Grid from "@material-ui/core/Grid";
-import { fadeIn } from "react-animations";
 import { userService } from "services/user.service.jsx";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import "../PracticeChallenge/Page.css";
 import "../PracticeChallenge/pch.css";
+import styles from "assets/jss/material-kit-react/components/stepperHead.js";
+const useStylesHead = makeStyles(styles);
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -40,12 +47,12 @@ const useStyles = makeStyles((theme) => ({
 
   icon: {},
 }));
-const styles = {
-  fadeIn: {
-    animation: "x 3s",
-    animationName: Radium.keyframes(fadeIn, "fadeIn"),
-  },
-};
+// const styles = {
+//   fadeIn: {
+//     animation: "x 3s",
+//     animationName: Radium.keyframes(fadeIn, "fadeIn"),
+//   },
+// };
 const muiTheme = createMuiTheme({
   overrides: {
     MuiStepIcon: {
@@ -74,8 +81,43 @@ function getSteps() {
 export default function Challenge(props) {
   const history = useHistory();
 
+ const classesHead = useStylesHead();
   const classes = useStyles();
+  const color = "#ffffff";
+  const absolute=true;
+  const fixed = true;
+  const appBarClasses = classNames({
+    [classesHead.appBar]: true,
+    [classesHead[color]]: color,
+    [classesHead.absolute]: absolute,
+    [classesHead.fixed]: fixed
+  });
+  const [open, setOpen] = React.useState(false);
+  React.useEffect(() => {
+    window.addEventListener("popstate", () => {
+      window.history.go(1);
+    });
+  });
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleCloseEndTest = () => {
+    setOpen(false);
+    history.push({
+      pathname: "/testend",
+      state: {
+        completedSteps: newCompleted.size,
+        totalSteps: getSteps().length,
+        timeRemaining: timeRemaining,
+        studentEnrollmentID: data.studentEnrollmentID,
+      },
+    });
+  };
   data = JSON.parse(sessionStorage.getItem("data"));
   var hms = data.timeduration;
   var a = hms.split(":"); // split it at the colons
@@ -109,22 +151,12 @@ export default function Challenge(props) {
     userService.doCompetitionStudentResponse().then(
       (status) => {
         //write logic to move to next question
-
         newCompleted.add(activeStep);
         setCompleted(newCompleted);
         var activestep = (activeStep + 1) % getSteps().length;
         setActiveStep(activestep);
         if (isLastStep()) {
-          history.push({
-            pathname: "/testend",
-
-            state: {
-              completedSteps: newCompleted.size,
-              totalSteps: getSteps().length,
-              timeRemaining: timeRemaining,
-              studentEnrollmentID: data.studentEnrollmentID,
-            },
-          });
+          handleClickOpen()
         }
       },
       (error) => {
@@ -153,6 +185,7 @@ export default function Challenge(props) {
               alternativeLabel
               nonLinear
               activeStep={activeStep}
+              className={appBarClasses}
               connector={
                 <StepConnector
                   classes={{
@@ -185,6 +218,9 @@ export default function Challenge(props) {
               })}
             </Stepper>
           </MuiThemeProvider>
+          <br></br>
+          <br></br>
+          <br></br>
           <Grid container spacing={1}>
             <Grid item xs>
               <div className="competitionSkill">
@@ -268,6 +304,32 @@ export default function Challenge(props) {
       <br />
       <br />
       <br />
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"End Test?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Do you really want to end the test?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            NO
+          </Button>
+          <Button
+            onClick={handleCloseEndTest}
+            color="primary"
+            autoFocus
+          >
+            YES
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </div>
   );
 }

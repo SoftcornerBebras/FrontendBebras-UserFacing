@@ -12,10 +12,11 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import { userService } from "../../../services/user.service";
-import moment from "moment-timezone";
+// import moment from "moment";
 import Excel from "exceljs";
 import XLSX from "xlsx";
 import Notiflix from "notiflix";
+import moment from "moment-timezone"
 var data1 = [];
 Notiflix.Notify.Init({
   width: "40%",
@@ -261,7 +262,6 @@ export default function BulkRegister() {
             } else {
               reader.readAsArrayBuffer(file);
             }
-
             reader.onload = (e) => {
               /* Parse data */
               const bstr = e.target.result;
@@ -276,13 +276,11 @@ export default function BulkRegister() {
               const ws = wb.Sheets[wsname];
               /* Convert array of arrays */
               const data = XLSX.utils.sheet_to_json(ws, { defval: "" });
+              console.log("hi" + JSON.stringify(data))
               if (data.length === 0) {
                 Notiflix.Notify.Failure(
                   "You have uploaded an empty excel. Please fill and upload again.".toUpperCase()
                 );
-               
-                Notiflix.Block.Remove("div#elements");
-                return;
               }
               /* Update state */
               function replacer() {
@@ -298,8 +296,9 @@ export default function BulkRegister() {
                       sub_val=chr.tz('Asia/Kathmandu').format("L");
                       sub_val.toString();
                       var sub_val1 = moment(sub_val).format("YYYY-MM-DD");
+                      console.log("ok", sub_val1); 
                       val[j] = sub_val1;
-                      if (sub_val === "Invalid date") {
+                      if (val[j] === "Invalid date") {
                         Notiflix.Notify.Failure(
                           `You have entered wrong date for ${data[i].firstName}  ${data[i].lastName}. Please fill and upload again.`.toUpperCase()
                         );
@@ -309,15 +308,13 @@ export default function BulkRegister() {
                   }
                 }
               }
-
               JSON.stringify(data, replacer, 2);
+              console.log(JSON.stringify(data, null, 2));
               if (error) {
                 Notiflix.Block.Remove("div#elements");
                 return;
               }
-
               sessionStorage.setItem("bulkdata", JSON.stringify(data, null, 2));
-
               userService.doBulkRegister().then(
                 (user) => {
                   Notiflix.Block.Remove("div#elements");
@@ -328,10 +325,6 @@ export default function BulkRegister() {
                 (error) => {
                   Notiflix.Block.Remove("div#elements");
                   console.log(error);
-                  if (error.response.status===401){
-                    window.location.reload(false);
-                  }
-
                 }
               );
             };
@@ -371,12 +364,13 @@ export default function BulkRegister() {
           <div style={{ background: "white" }}>
             .
             <div style={{ padding: "3% 15% 3% 10%" }}>
-              <div>
+              <div style={{"text-align":"left"}}>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6}>
                     <h4 style={{ "font-weight": "bolder" }}>
                       Download the student details sheet:
                     </h4>
+                    <p >Note:This downloads the details of the students registered in previous step</p>
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Button

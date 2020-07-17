@@ -1,10 +1,10 @@
 import React from "react";
-import EnrollStudent from "./Enroll/EnrollStudent.jsx";
+import EnrollNew from "./Enroll/EnrollNew.jsx";
 
 export default function EnrollStudentCompetition(props) {
   return (
     <div>
-      <EnrollStudent />
+      <EnrollNew />
     </div>
   );
 }
