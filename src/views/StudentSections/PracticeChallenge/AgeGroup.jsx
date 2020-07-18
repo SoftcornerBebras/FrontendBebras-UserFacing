@@ -143,6 +143,7 @@ export default function AgeGroup() {
         Notiflix.Notify.Failure(`${error.response.data}  `.toUpperCase());
       }
     );
+    // eslint-disable-next-line
   }, []);
   if (countSlides===1) {
     console.log("less than 2")
