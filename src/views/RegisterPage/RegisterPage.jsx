@@ -176,7 +176,7 @@ function RegisterPage() {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const [address, setAddress] = React.useState({
-    country: "",
+    country: "India",
     state: "",
     district: "",
     line1: "",
@@ -255,7 +255,7 @@ function RegisterPage() {
         !user.email
       ) {
         Notiflix.Notify.Warning(
-          "Cannot finish, please fill all the details".toUpperCase()
+          "Cannot proceed , please fill all the details".toUpperCase()
         );
         // alert("can't finish, please fill all the details")
       } else {

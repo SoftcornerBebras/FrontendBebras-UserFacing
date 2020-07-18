@@ -40,9 +40,9 @@ class TeacherDetails extends React.Component {
         <GridContainer>
           <GridItem xs={12} md={12}>
             <TextField
-              placeholder="Please enter your full name"
+              placeholder="User Name"
               name="username"
-              label="User Name"
+              label="Please enter your full name"
               variant="outlined"
               margin="normal"
               inputlabelprops={{
@@ -126,28 +126,24 @@ class TeacherDetails extends React.Component {
             />
           </GridItem>
           <GridItem xs={12} md={12}>
-          <TextField
-          type='date'
-          name='birthdate'
-          id='birthdate'
-          label='Birthdate'
-          variant='outlined'
-          margin='normal'
-          InputLabelProps={{
-            shrink: true
-          }}
-          inputProps={{
-            min: "1920-01-01",
-            max: dateLimit.toISOString().slice(0, 10)
-          }}
-          defaultValue={this.state.birthdate}
-        onChange={
-          this.handleChange
-        }
-        required
-          fullWidth={isWidthDown("sm")}
-        />
-
+            <TextField
+              type="date"
+              name="birthdate"
+              id="birthdate"
+              label="Birthdate"
+              variant="outlined"
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                min: "1920-01-01",
+                max: dateLimit.toISOString().slice(0, 10),
+              }}
+              defaultValue={this.state.birthdate}
+              onChange={this.handleChange}
+              fullWidth={isWidthDown("sm")}
+            />
           </GridItem>
           <GridItem xs={12} md={12}>
             <TextField
