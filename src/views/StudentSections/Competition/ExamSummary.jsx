@@ -39,7 +39,7 @@ const StyledGrid1 = withStyles({
 export default function TestEnd(props) {
   const classes = useStyles();
   const history = useHistory();
-
+  console.log(props);
   var value = props.location.state.timeRemaining;
   var min = Math.floor(value / 60);
   var sec = Math.floor(value % 60);

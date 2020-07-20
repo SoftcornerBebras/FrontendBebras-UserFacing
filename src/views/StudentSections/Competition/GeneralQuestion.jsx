@@ -28,9 +28,13 @@ class GeneralQuestion extends React.Component {
     super(props);
     this.state = {
       data1: {},
-      selectedOption:""
+      selectedOption:"",
+      selectedValue:"",
     };
     this.conditionRender = this.conditionRender.bind(this);
+    this.onValueChange = this.onValueChange.bind(this);
+    this.onTextChange = this.onTextChange.bind(this);
+    // console.log(this.props.data.questionsren.options);
     this.state.data1 = {
       identifier: this.props.data.questionsren.identifier,
       option: "",
@@ -40,6 +44,45 @@ class GeneralQuestion extends React.Component {
       "datastudentresponse",
       JSON.stringify(this.state.data1)
     );
+  }
+  onValueChange(event)
+  {
+    // console.log(event.target.value);
+    this.setState({selectedOption:event.target.value});
+    var result = this.props.data.questionsren.options.find(
+                                      (obj) => {
+                                        return (
+                                          obj.option === event.target.value
+                                        );
+                                      }
+                                    );
+                                    var data1 = {
+                                identifier: this.props.data.questionsren
+                                  .identifier,
+                                option: (result)['optionTranslationID'],
+                                studentEnrollmentID: this.props.data
+                                  .studentEnrollmentId,
+                              };
+                              this.setState({ data1: data1 });
+                              sessionStorage.setItem(
+                                "datastudentresponse",
+                                JSON.stringify(data1)
+                                );
+  }
+  onTextChange(event)
+  {
+    this.setState({selectedOption:event.target.value});
+var data1 = {
+                          identifier: this.props.data.questionsren.identifier,
+                          option: event.target.value,
+                          studentEnrollmentID: this.props.data
+                            .studentEnrollmentId,
+                        };
+                        this.setState({ data1: data1 });
+                        sessionStorage.setItem(
+                          "datastudentresponse",
+                          JSON.stringify(data1)
+                        );
   }
   conditionRender() {
     const questiontemp = this.props.data.questionsren;
@@ -100,7 +143,8 @@ class GeneralQuestion extends React.Component {
             {" "}
             <div style={styles.slideInLeft}>
               <div >
-                <GridContainer justify="center">
+                <GridContainer justify="center" onChange={this.onValueChange}>
+                
                   {questiontemp.images_of_option.map((item, index) => {
                    
                     i = i + 1;
@@ -110,22 +154,22 @@ class GeneralQuestion extends React.Component {
                         <ul>
                           <li
                           
-                            onClick={() => {
-                              var data1 = {
-                                identifier: this.props.data.questionsren
-                                  .identifier,
-                                option: (questiontemp.options[index])['optionTranslationID'],
-                                studentEnrollmentID: this.props.data
-                                  .studentEnrollmentId,
-                              };
-                              this.setState({ data1: data1 });
-                              sessionStorage.setItem(
-                                "datastudentresponse",
-                                JSON.stringify(data1)
-                              );
-                            }}
+                            // onClick={() => {
+                            //   var data1 = {
+                            //     identifier: this.props.data.questionsren
+                            //       .identifier,
+                            //     option: (questiontemp.options[index])['optionTranslationID'],
+                            //     studentEnrollmentID: this.props.data
+                            //       .studentEnrollmentId,
+                            //   };
+                            //   this.setState({ data1: data1 });
+                            //   sessionStorage.setItem(
+                            //     "datastudentresponse",
+                            //     JSON.stringify(data1)
+                            //   );
+                            // }}
                           >
-                            <input type="radio" id={opt[i]} name="selector" />
+                            <input type="radio" id={opt[i]} value={(questiontemp.options[i])['option']} name="selector" checked={this.state.selectedOption===""?false: (this.state.selectedOption===(questiontemp.options[i])['option'])} onChange={this.onValueChange}/>
                             <label
                               htmlFor={opt[i]}
                               className="element-animation"
@@ -150,6 +194,7 @@ class GeneralQuestion extends React.Component {
       !this.props.data.questionsren.hasOwnProperty("images_of_option") &&
       !this.props.data.questionsren.hasOwnProperty("options")
     ) {
+    
       return (
         <div className="pch">
           <div
@@ -232,26 +277,17 @@ class GeneralQuestion extends React.Component {
                       name="answer"
                       variant="filled"
                       margin="normal"
-                      onChange={(e) => {
-                        console.log(e.target.value);
-                        var data1 = {
-                          identifier: this.props.data.questionsren.identifier,
-                          option: e.target.value,
-                          studentEnrollmentID: this.props.data
-                            .studentEnrollmentId,
-                        };
-                        this.setState({ data1: data1 });
-                        sessionStorage.setItem(
-                          "datastudentresponse",
-                          JSON.stringify(data1)
-                        );
-                      }}
+                      
+                      onChange={this.onTextChange}
                       inputlabelprops={{
                         shrink: true,
                       }}
                       fullWidth
+                      value={this.state.selectedOption}
+                      
                     />
                   </GridItem>
+                 
                 </GridContainer>
               </div>
             </div>
@@ -316,25 +352,26 @@ class GeneralQuestion extends React.Component {
                   {questiontemp.options.map((item,index) => {
                     i = i + 1;
                     return (
-                      <GridItem key={index} xs={12} sm={12} md={3}>
-                        <ul>
+                      <GridItem key={index} xs={12} sm={12} md={3} >
+                        <ul >
                           <li
-                            onClick={() => {
-                              var data1 = {
-                                identifier: this.props.data.questionsren
-                                  .identifier,
-                                option: item['optionTranslationID'],
-                                studentEnrollmentID: this.props.data
-                                  .studentEnrollmentId,
-                              };
-                              this.setState({ data1: data1 });
-                              sessionStorage.setItem(
-                                "datastudentresponse",
-                                JSON.stringify(data1)
-                              );
-                            }}
+
+                            // onClick={() => {
+                            //   var data1 = {
+                            //     identifier: this.props.data.questionsren
+                            //       .identifier,
+                            //     option: item['optionTranslationID'],
+                            //     studentEnrollmentID: this.props.data
+                            //       .studentEnrollmentId,
+                            //   };
+                            //   this.setState({ data1: data1 });
+                            //   sessionStorage.setItem(
+                            //     "datastudentresponse",
+                            //     JSON.stringify(data1)
+                            //   );
+                            // }}
                           >
-                            <input type="radio" id={opt[i]} name="selector" />
+                            <input type="radio" id={opt[i]} name="selector" value={item['option']} checked={this.state.selectedOption===""?false: (this.state.selectedOption===item['option'])} onChange={this.onValueChange}/>
                             <label
                               htmlFor={opt[i]}
                               className="element-animation"
@@ -346,6 +383,7 @@ class GeneralQuestion extends React.Component {
                         </ul>
                       </GridItem>
                     );
+                    
                   })}
                 </GridContainer>
               </div>
@@ -366,8 +404,12 @@ class GeneralQuestion extends React.Component {
     userService.getSavedStudentResponse(data).then(
       (studentresponse) => {
         //write logic to move to next question
-       console.log(studentresponse.Option)
        this.setState({selectedOption:studentresponse.Option})
+       var data1=this.state.data1;
+       data1.option=studentresponse.Option
+       console.log(data1)
+       this.setState({data1:data1})
+       sessionStorage.setItem("datastudentresponse",JSON.stringify(data1));
       },
       (error) => {
         console.log(error);

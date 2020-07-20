@@ -18,6 +18,9 @@ import { userService } from "../../services/user.service.jsx";
 import queryString from "query-string";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { indigo } from "@material-ui/core/colors";
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
 import Notiflix from "notiflix";
 Notiflix.Notify.Init({
   width: "40%",
@@ -123,6 +126,20 @@ const theme = createMuiTheme({
 });
 export default function ForgotPassword(props) {
   const history = useHistory();
+  const [value, setValue] = React.useState({
+    amount: '',
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+  });
+  const handleClickShowPassword = () => {
+    setValue({ ...value, showPassword: !value.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const [password, setPassword] = React.useState("");
   const [confirmpassword, setconfirmpassword] = React.useState("");
@@ -221,7 +238,7 @@ export default function ForgotPassword(props) {
                       onChange={(event) => {
                         setPassword(event.target.value);
                       }}
-                      type="password"
+                      type={value.showPassword ? 'text' : 'password'}
                       inputlabelprops={{
                         style: {
                           color: "#AAAAAA",
@@ -238,18 +255,20 @@ export default function ForgotPassword(props) {
                         className: classes.input,
                         endAdornment: (
                           <InputAdornment position="end">
-                            <span
-                              className="material-icons"
-                              style={{ color: "#757575" }}
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
                             >
-                              lock
-                            </span>
+                              {value.showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
                           </InputAdornment>
                         ),
                       }}
                       required
                       fullWidth
                     />
+                    
                     <TextField
                       style={{ paddingBottom: "10px" }}
                       label="Confirm password"
@@ -259,7 +278,7 @@ export default function ForgotPassword(props) {
                         setconfirmpassword(event.target.value);
                       }}
                       name="confirmpassword"
-                      type="password"
+                      type={value.showPassword ? 'text' : 'password'}
                       inputlabelprops={{
                         style: {
                           color: "#AAAAAA",
@@ -276,12 +295,13 @@ export default function ForgotPassword(props) {
                         className: classes.input,
                         endAdornment: (
                           <InputAdornment position="end">
-                            <span
-                              className="material-icons"
-                              style={{ color: "#757575" }}
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
                             >
-                              lock
-                            </span>
+                              {value.showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
                           </InputAdornment>
                         ),
                       }}

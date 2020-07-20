@@ -19,6 +19,12 @@ import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import { useHistory } from "react-router-dom";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Notiflix from "notiflix";
+import FormControl from '@material-ui/core/FormControl';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 Notiflix.Notify.Init({
   width: "40%",
   position: "left-bottom", // 'right-top' - 'right-bottom' - 'left-top' - 'left-bottom'
@@ -125,6 +131,20 @@ const theme = createMuiTheme({
 
 export default function LoginPage(props) {
   const history = useHistory();
+  const [values, setValues] = React.useState({
+    amount: '',
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+  });
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const [loginID, setLoginID] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -219,47 +239,36 @@ export default function LoginPage(props) {
                         className: classes.input,
                         endAdornment: (
                           <InputAdornment position="end">
-                            <AccountCircle style={{ color: "#757575" }} />
+                            <AccountCircle style={{ color: "#757575", "margin-right": "12px" }} />
                           </InputAdornment>
                         ),
                       }}
                     />
-                    <TextField
-                      style={{ paddingBottom: "10px" }}
-                      label="Password"
-                      name="password"
-                      type="password"
-                      onChange={(event) => {
-                        setPassword(event.target.value);
-                      }}
-                      inputlabelprops={{
-                        style: {
-                          color: "#AAAAAA",
-                          fontWeight: "400",
-                          fontFamily:
-                            '"Roboto", "Helvetica", "Arial", sans-serif',
-                          fontSize: "14px",
-                          letterSpacing: "unset",
-                          opacity: "1",
-                          top: "5px",
-                        },
-                      }}
-                      InputProps={{
-                        className: classes.input,
-                        endAdornment: (
+                    <FormControl style={{ "width": "100%" }}>
+                      <InputLabel htmlFor="standard-adornment-password">Password *</InputLabel>
+                      <Input
+                        required
+                        fullWidth
+                        id="standard-adornment-password"
+                        type={values.showPassword ? 'text' : 'password'}
+                        label="Password"
+                        name="password"
+                        onChange={(event) => {
+                          setPassword(event.target.value);
+                        }}
+                        endAdornment={
                           <InputAdornment position="end">
-                            <span
-                              className="material-icons"
-                              style={{ color: "#757575" }}
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
                             >
-                              lock
-                            </span>
+                              {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
                           </InputAdornment>
-                        ),
-                      }}
-                      required
-                      fullWidth
-                    />
+                        }
+                      />
+                    </FormControl>
                   </ThemeProvider>
                 </CardBody>
                 <CardFooter className={classes.cardFooter}>

@@ -4,7 +4,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { rollIn, slideInDown } from "react-animations";
 import Radium, { StyleRoot } from "radium";
-import Carousel from "react-slick";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Card from '@material-ui/core/Card';
@@ -100,7 +99,6 @@ const useStyles = makeStyles(styles);
 var img = "";
 export default function AgeGroup() {
   const history = useHistory();
-  const [countSlides, setCountSlides] = React.useState([]);
   const classes = useStyles();
   const [cmplist, setCmplist] = React.useState([]);
   const styles = {
@@ -113,14 +111,6 @@ export default function AgeGroup() {
       animationName: Radium.keyframes(slideInDown, "slideInDown"),
     },
   };
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: countSlides,
-    slidesToScroll: 1,
-    autoplay: true,
-  };
   React.useEffect(() => {
     // code to run on component mount
     Notiflix.Block.Dots("body");
@@ -128,14 +118,6 @@ export default function AgeGroup() {
       (user) => {
         Notiflix.Block.Remove("body");
         setCmplist(user);
-        console.log("len"+cmplist.length)
-        if (user.length < 2) {
-          console.log("1")
-          setCountSlides(1);
-        } else {
-          console.log("2")
-          setCountSlides(2);
-        }
       },
       (error) => {
         Notiflix.Block.Remove("body");
@@ -145,73 +127,7 @@ export default function AgeGroup() {
     );
     // eslint-disable-next-line
   }, []);
-  if (countSlides===1) {
-    console.log("less than 2")
-    return (
-      <div className={classes.section}>
-        <StyleRoot>
-          <div style={styles.slideInDown}>
-            <h2 className={classes.title}>Please click on the image of your age group</h2>
-          </div>
-        </StyleRoot>
-        <div style={{ padding: "0px 20px" }}>
-          <Carousel {...settings} style={{ "height": "20px" }}>
-            {cmplist.map((value, index) => {
-              if (value.includes("Aryabhata")) {
-                img = Aryabhata;
-              } else if (value.includes("Brahmagupta")) {
-                img = other;
-              } else if (value.includes("Ramanujan")) {
-                img = Ramanujan;
-              } else if (value.includes("Mahavira")) {
-                img = Mahavira;
-              } else {
-                img = Bhaskara;
-              }
-              return (
-                <GridItem md={6} key={value}>
-                  <StyleRoot>
-                    <div style={styles.rollIn}>
-                      {" "}
-                      {/* <Link color="secondary" to={"/pcpage"}> */}
-                      <Card
-                        onClick={() =>
-                          userService.getPracticeChallengeQues(value).then(
-                            (user) => {
-                              Notiflix.Block.Dots("body");
-                              history.push({
-                                pathname: "/pcpage",
-                                state: { data: user },
-                              });
-                              Notiflix.Block.Remove("body");
-                            },
-                            (error) => {
-                              Notiflix.Block.Remove("body");
-                              console.log(error.response.data);
-                              alert(`${error.response.data}  `);
-                            }
-                          )
-                        }
-                      >
-                        <GridItem className={classes.itemGrid}>
-                          <img src={img} alt="..." style={{ height: "50%", width: "50%", borderRadius: "50%", margin: " 0% 25%", cursor: "pointer" }} />
-                        </GridItem>
-                        <h4 className={classes.cardTitle}>
-                          {value}
-                          <br />
-                        </h4>
-                      </Card>{" "}
-                      {/* </Link> */}
-                    </div>
-                  </StyleRoot>
-                </GridItem>
-              );
-            })}
-          </Carousel>
-        </div>
-      </div>
-    );
-  } else {
+
     console.log("boht imag")
     return (
      <div className={classes.section}> 
@@ -222,8 +138,7 @@ export default function AgeGroup() {
         </StyleRoot>
         <div style={{ padding: "0px 20px" }} className="element">
           <GridContainer>
-            <Card carousel xs={10}>
-              <Carousel {...settings}>
+            
                 {cmplist.map((value, index) => {
                   if (value.includes("Aryabhata")) {
                     img = Aryabhata;
@@ -265,7 +180,7 @@ export default function AgeGroup() {
                             }
                           >
                             <GridItem className={classes.itemGrid}>
-                              <img src={img} alt="..." style={{ height: "100%", width: "100%", borderRadius: "50%", margin: " 0% 0%", cursor: "pointer" }} />
+                              <img src={img} alt="..." style={{ height: "50%", width: "50%", borderRadius: "50%", margin: " 0% 0%", cursor: "pointer" }} />
                             </GridItem>
                             <h4 className={classes.cardTitle}>
                               {value}
@@ -278,12 +193,11 @@ export default function AgeGroup() {
                     </GridItem>
                   );
                 })}
-              </Carousel>
-            </Card>
+             
           </GridContainer>
         </div>
       </div>
 
     );
-  }
+  
 }

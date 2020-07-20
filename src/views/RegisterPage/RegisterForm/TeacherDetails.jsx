@@ -1,12 +1,16 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
 import { isWidthDown } from "@material-ui/core/withWidth";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -18,6 +22,14 @@ class TeacherDetails extends React.Component {
     super(props);
     this.state = this.props.user;
     this.state.gendernames = [];
+    this.state.values={
+      amount: '',
+      password: '',
+      weight: '',
+      weightRange: '',
+      showPassword: false,
+    };
+    
     this.handleChange = this.handleChange.bind(this);
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
   }
@@ -27,7 +39,13 @@ class TeacherDetails extends React.Component {
       this.setState({ phone: value });
     }
   }
+   handleClickShowPassword = () => {
+    this.setState({values:{ ...this.state.values, showPassword: !this.state.values.showPassword }});
+  };
 
+   handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value }, function () {
@@ -60,10 +78,10 @@ class TeacherDetails extends React.Component {
           </GridItem>
           <GridItem xs={12} md={12}>
             <TextField
-              placeholder="Type your password here"
+              placeholder="type your password here"
               label="Password"
               name="password"
-              type="password"
+              type={this.state.values.showPassword ? 'text' : 'password'}
               variant="outlined"
               margin="normal"
               inputlabelprops={{
@@ -76,6 +94,19 @@ class TeacherDetails extends React.Component {
               onChange={this.handleChange}
               required
               fullWidth
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={this.handleClickShowPassword}
+                      onMouseDown={this.handleMouseDownPassword}
+                    >
+                      {this.state.values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
           </GridItem>
           <GridItem xs={12} md={12}>

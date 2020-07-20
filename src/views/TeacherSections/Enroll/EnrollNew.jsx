@@ -180,6 +180,9 @@ const options = {
     user.push(rowData);
   },
 };
+const enrolledoptions = {
+  selectableRows: false,
+};
 function getSteps() {
   return [
     "Select a class",
@@ -300,7 +303,7 @@ export default function EnrollNew(props) {
                 placeholder="Select class"
                 onChange={onChangeSchoolClass}
                 options={optionschoolclass}
-                maxMenuHeight={70}
+                maxMenuHeight={120}
               />
             </GridItem>
 
@@ -374,7 +377,7 @@ export default function EnrollNew(props) {
                 value={competition.label}
                 onChange={onChangeCmp}
                 options={optionschoolcmp}
-                maxMenuHeight={70}
+                maxMenuHeight={120}
               />
             </GridItem>
             <GridItem
@@ -437,7 +440,7 @@ export default function EnrollNew(props) {
                 value={language.label}
                 onChange={onChangeLanguage}
                 options={optionslanguage}
-                maxMenuHeight={70}
+                maxMenuHeight={120}
               />
             </GridItem>
             <GridItem
@@ -663,6 +666,7 @@ export default function EnrollNew(props) {
                       title={"ENROLLED STUDENT LIST"}
                       data={usersEnrolled}
                       columns={columnsUsersEnrolled}
+                      options={enrolledoptions}
                     />
                   </MuiThemeProvider>
                 </div>

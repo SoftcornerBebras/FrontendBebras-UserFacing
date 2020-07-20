@@ -18,6 +18,10 @@ import Card from "components/Card/Card.js";
 import CardContent from "@material-ui/core/CardContent";
 import cardStyle from "assets/jss/material-kit-react/components/cardStyle.js";
 import Notiflix from "notiflix";
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from "@material-ui/core/InputAdornment";
 import "./Teacher.css";
 Notiflix.Block.Init({
   querySelectorLimit: 200,
@@ -50,16 +54,21 @@ class Teacher extends React.Component {
       birthdate: "",
       email: "",
       gendernames: [],
+      hidden: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
+    this.toggleShow = this.toggleShow.bind(this);
   }
 
+  toggleShow() {
+    this.setState({ hidden: !this.state.hidden });
+  }
   handleSubmit(e) {
     Notiflix.Block.Dots("body");
     e.preventDefault();
-
+    console.log("ye password"+e.password)
     const { gender, phone } = this.state;
     if (!gender || !phone) {
       Notiflix.Block.Remove("body");
@@ -153,7 +162,7 @@ class Teacher extends React.Component {
                         placeholder="type your password here"
                         label="Password"
                         name="password"
-                        type="password"
+                        type={this.state.hidden ? "password" : "text"}
                         variant="outlined"
                         margin="normal"
                         inputlabelprops={{
@@ -166,6 +175,18 @@ class Teacher extends React.Component {
                         onChange={this.handleChange}
                         required
                         fullWidth
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={this.toggleShow}
+                              >
+                                {this.state.hidden ? <VisibilityOff /> : <Visibility />}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                     </GridItem>
                     <GridItem xs={12} md={12}>

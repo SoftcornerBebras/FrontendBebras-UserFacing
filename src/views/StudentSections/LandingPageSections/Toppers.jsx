@@ -30,7 +30,7 @@ export default function Toppers() {
   const boys = [boy, boy1, boy2, boy3];
   const [userdata, setUserdata] = React.useState([]);
   const [competitionName, setCompetitionName] = React.useState("");
-  const [countSlides, setCountSlides] = React.useState(0);
+  const [countSlides, setCountSlides] = React.useState(1);
   const cls1 = usesty();
   const imageClasses = classNames(
     classes.imgRaised,
