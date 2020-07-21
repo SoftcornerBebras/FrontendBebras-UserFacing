@@ -159,7 +159,7 @@ export default function AgeGroup() {
                           {" "}
                           {/* <Link color="secondary" to={"/pcpage"}> */}
                           <Card
-                            plain
+                            plain="true"
                             onClick={() =>
                               userService.getPracticeChallengeQues(value).then(
                                 (user) => {

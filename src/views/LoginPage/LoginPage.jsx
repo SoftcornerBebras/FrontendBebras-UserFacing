@@ -148,6 +148,7 @@ export default function LoginPage(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const [loginID, setLoginID] = React.useState("");
   const [password, setPassword] = React.useState("");
+  
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -239,7 +240,7 @@ export default function LoginPage(props) {
                         className: classes.input,
                         endAdornment: (
                           <InputAdornment position="end">
-                            <AccountCircle style={{ color: "#757575", "margin-right": "12px" }} />
+                            <AccountCircle style={{ color: "#757575", marginRight: "12px" }} />
                           </InputAdornment>
                         ),
                       }}

@@ -406,7 +406,14 @@ var data1 = {
         //write logic to move to next question
        this.setState({selectedOption:studentresponse.Option})
        var data1=this.state.data1;
-       data1.option=studentresponse.Option
+       var result = this.props.data.questionsren.options.find(
+        (obj) => {
+          return (
+            obj.option === studentresponse.Option
+          );
+        }
+      );
+       data1.option= (result)['optionTranslationID'];
        console.log(data1)
        this.setState({data1:data1})
        sessionStorage.setItem("datastudentresponse",JSON.stringify(data1));
