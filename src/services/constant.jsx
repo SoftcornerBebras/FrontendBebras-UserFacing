@@ -45,3 +45,5 @@ export const ParticipationCertificates=baseurl+'api/cmp/ParticipationCertificate
 export const FetchCertificate=baseurl+'media/ZipFolder/BebrasCertificate.zip'
 export const schoolTypes=baseurl+'api/com/getschooltypenames'
 export const genderoptions=baseurl+'api/com/getgendernames'
+export const userManual=baseurl+'media/manual/teacher_user_manual.pdf'
+export const StudentManual=baseurl+'media/manual/student_user_manual.pdf'

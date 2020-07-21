@@ -11,6 +11,11 @@ import Typography from "@material-ui/core/Typography";
 import { userService } from "services/user.service.jsx";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import "../PracticeChallenge/Page.css";
 import "../PracticeChallenge/pch.css";
 import { useHistory } from "react-router-dom";
@@ -39,7 +44,28 @@ const StyledGrid1 = withStyles({
 export default function TestEnd(props) {
   const classes = useStyles();
   const history = useHistory();
-  console.log(props);
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleCloseEndTest = () => {
+    setOpen(false);
+    userService.askcalcTotalScore(studentEnrollmentID).then(
+      (user) => {
+        console.log("yahooo", user); 
+        history.push({
+          pathname: "/studenthome/thankyou",
+        });
+      },
+      (error) => {
+        alert(`${error.response.data}  `);
+      }
+    );
+    
+  };
   var value = props.location.state.timeRemaining;
   var min = Math.floor(value / 60);
   var sec = Math.floor(value % 60);
@@ -103,16 +129,9 @@ export default function TestEnd(props) {
         <CardActions>
           <Button
             onClick={() => {
-              userService.askcalcTotalScore(studentEnrollmentID).then(
-                (user) => {
-                  console.log("yahooo", user);
-                },
-                (error) => {
-                  alert(`${error.response.data}  `);
-                }
-              );
+              handleOpen();
+              
             }}
-            href="/studenthome/thankyou"
             variant="outlined"
             color="secondary"
             size="large"
@@ -149,6 +168,28 @@ export default function TestEnd(props) {
           )}
         </CardActions>
       </Card>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"End Test?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Do you really want to end the test?
+            </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            NO
+            </Button>
+          <Button onClick={handleCloseEndTest} color="primary" autoFocus>
+            YES
+            </Button>
+        </DialogActions>
+      </Dialog>
+
     </div>
   );
 }

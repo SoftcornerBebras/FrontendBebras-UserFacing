@@ -14,11 +14,6 @@ import { useHistory } from "react-router-dom";
 import { StyleRoot } from "radium";
 import Grid from "@material-ui/core/Grid";
 import { userService } from "services/user.service.jsx";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import "../PracticeChallenge/Page.css";
 import "../PracticeChallenge/pch.css";
 import styles from "assets/jss/material-kit-react/components/stepperHead.js";
@@ -89,7 +84,6 @@ export default function Challenge(props) {
   // var second = 0;
   const newCompleted = new Set();
   let lastcompletedStep = 0;
-  const [open, setOpen] = React.useState(false);
   const [second, setSecond] = React.useState(0);
   React.useEffect(() => {
     console.log("Came ");
@@ -137,6 +131,7 @@ export default function Challenge(props) {
             }
             Notiflix.Block.Remove("body");
           }
+          setActiveStep(lastcompletedStep)
         },
         (error) => {
           Notiflix.Block.Remove("body");
@@ -152,29 +147,7 @@ export default function Challenge(props) {
     }
     return st;
   };
-  const handleClickOpen = () => {
-    setOpen(true);
-    
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleCloseEndTest = () => {
-    setOpen(false);
-    console.log(newCompleted.size)
-    sessionStorage.removeItem("seconds");
-    history.push({
-      pathname: "/testend",
-      state: {
-        completedSteps: completed.size,
-        totalSteps: getSteps().length,
-        timeRemaining: timeRemaining,
-        studentEnrollmentID: data.studentEnrollmentID,
-      },
-    });
-  };
+;
 
   quesdata = JSON.parse(sessionStorage.getItem("data"));
   const [activeStep, setActiveStep] = React.useState(lastcompletedStep);
@@ -193,15 +166,25 @@ export default function Challenge(props) {
     userService.doCompetitionStudentResponse().then(
       (status) => {
         //write logic to move to next question
-        var response=JSON.parse(sessionStorage.getItem("datastudentresponse"))
-        if(response.option!==""){
-        newCompleted.add(activeStep);
-        setCompleted(newCompleted);
+        var response = JSON.parse(sessionStorage.getItem("datastudentresponse"))
+        if (response.option !== "") {
+          newCompleted.add(activeStep);
+          setCompleted(newCompleted);
         }
         var activestep = (activeStep + 1) % getSteps().length;
         setActiveStep(activestep);
         if (isLastStep()) {
-          handleClickOpen();
+          console.log(newCompleted.size)
+          sessionStorage.removeItem("seconds");
+          history.push({
+            pathname: "/testend",
+            state: {
+              completedSteps: newCompleted.size,
+              totalSteps: getSteps().length,
+              timeRemaining: timeRemaining,
+              studentEnrollmentID: data.studentEnrollmentID,
+            },
+          });
         }
       },
       (error) => {
@@ -350,27 +333,7 @@ export default function Challenge(props) {
         <br />
         <br />
         <br />
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">{"End Test?"}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Do you really want to end the test?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              NO
-            </Button>
-            <Button onClick={handleCloseEndTest} color="primary" autoFocus>
-              YES
-            </Button>
-          </DialogActions>
-        </Dialog>
+        
       </div>
     )
   );

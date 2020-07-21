@@ -16,7 +16,7 @@ import Quote from "components/Typography/Quote.js";
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 import { Tab } from "@material-ui/core";
 import classNames from "classnames";
-
+import TeacherManual from "./Teacher/TeacherManual.jsx";
 const useStyles = makeStyles(styles);
 const usesty1 = makeStyles((theme) => ({
   root: {
@@ -125,7 +125,6 @@ export default function Teacher(props) {
   const clss1 = usesty1();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
-
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -198,6 +197,12 @@ export default function Teacher(props) {
                 </Stepper>
               </div>
             </GridItem>
+            <TeacherManual/>
+               
+            <br></br>
+            <br></br>
+            <br></br>
+ 
           </GridContainer>
         </div>
       </div>

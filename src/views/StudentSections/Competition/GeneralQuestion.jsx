@@ -398,10 +398,10 @@ var data1 = {
   }
   componentDidMount()
   {
-    var data={ identifier: this.props.data.questionsren.identifier,
+      var data={ identifier: this.props.data.questionsren.identifier,
       option: "",
       studentEnrollmentID: this.props.data.studentEnrollmentId,}
-    userService.getSavedStudentResponse(data).then(
+      userService.getSavedStudentResponse(data).then(
       (studentresponse) => {
         //write logic to move to next question
        this.setState({selectedOption:studentresponse.Option})
@@ -419,6 +419,13 @@ var data1 = {
        this.setState({data1:data1})
        sessionStorage.setItem("datastudentresponse",JSON.stringify(data1));
       }
+      else if(studentresponse.Option!=="" && !this.props.data.questionsren.hasOwnProperty("options")){
+        data1=this.state.data1
+        data1.option= studentresponse.Option;
+        console.log(data1)
+        this.setState({data1:data1})
+        sessionStorage.setItem("datastudentresponse",JSON.stringify(data1));
+       }
       },
       (error) => {
         console.log(error);
