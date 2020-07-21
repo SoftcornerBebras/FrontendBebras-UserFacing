@@ -405,6 +405,7 @@ var data1 = {
       (studentresponse) => {
         //write logic to move to next question
        this.setState({selectedOption:studentresponse.Option})
+       if(studentresponse.Option!=="" && this.props.data.questionsren.hasOwnProperty("options")){
        var data1=this.state.data1;
        var result = this.props.data.questionsren.options.find(
         (obj) => {
@@ -417,6 +418,7 @@ var data1 = {
        console.log(data1)
        this.setState({data1:data1})
        sessionStorage.setItem("datastudentresponse",JSON.stringify(data1));
+      }
       },
       (error) => {
         console.log(error);
