@@ -8,7 +8,7 @@ var pagenumber=0;
 class Page extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props.data.location.state.data);
+    
     // an example array of items to be paged
     var exampleItems = [];
     this.state = {
@@ -86,6 +86,7 @@ componentDidMount()
 { 
   window.addEventListener("popstate", () => {
   window.history.go(1);
+  
 });  
 
 }
@@ -104,7 +105,7 @@ componentDidMount()
           rel="stylesheet"
           href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
         />
-
+        <div></div>
         <div className="text-center">
           {this.state.pageOfItems.map((item, index) => (
             <div key={item.id}>
@@ -118,6 +119,7 @@ componentDidMount()
 
           <Pagination
             items={this.state.exampleItems}
+             state= {this.myRef}
             onChangePage={this.onChangePage}
           />
          

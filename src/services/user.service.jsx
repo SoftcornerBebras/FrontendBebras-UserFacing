@@ -316,8 +316,17 @@ function downloadCertificatebyStudents(data) {
                 })
                 .catch((error) => {
                   Notiflix.Block.Remove("body");
-                  Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
-                  console.log(error);
+                  if (error.response.status===401){
+                    Notiflix.Notify.Failure(
+                      `${error.response.statusText} Request,Please login`.toUpperCase()
+                    );
+                    sessionStorage.clear();
+                    }
+                    else{
+                      Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
+            
+                    }     
+                  
                 });
             });
             //window.location.href = response.url;
@@ -582,9 +591,17 @@ function askcalcTotalScore(studentEnrollmentID) {
       })
       .catch((err) => {
         console.log(err.response);
-        Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
-        // alert(`${err.response.data}`);
-        throw err;
+        if (err.response.status===401){
+          Notiflix.Notify.Failure(
+            `${err.response.statusText} Request,Please login`.toUpperCase()
+          );
+          sessionStorage.clear();
+          }
+          else{
+            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
+  
+          }     throw err;
+     
       });
   } catch (error) {
     throw error;
@@ -641,11 +658,18 @@ function getSavedStudentResponse(studentresponse) {
         console.log(respons);
         return respons.data;
       })
-      .catch((error) => {
+      .catch((err) => {
      
-        console.log(error.response.data);
-        Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
-        throw error;
+        if (err.response.status===401){
+          Notiflix.Notify.Failure(
+            `${err.response.statusText} Request,Please login`.toUpperCase()
+          );
+          sessionStorage.clear();
+          }
+          else{
+            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
+  
+          }     throw err;
       });
   } catch (error) {
     throw error;
@@ -665,11 +689,18 @@ function doCompetitionStudentResponse() {
       .then((respons) => {
         console.log(respons);
       })
-      .catch((error) => {
+      .catch((err) => {
      
-        console.log(error.response.data);
-        Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
-        throw error;
+        if (err.response.status===401){
+          Notiflix.Notify.Failure(
+            `${err.response.statusText} Request,Please login`.toUpperCase()
+          );
+          sessionStorage.clear();
+          }
+          else{
+            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
+  
+          }     throw err;
       });
   } catch (error) {
     throw error;
@@ -694,9 +725,16 @@ function getCompetitionResult(competitionname) {
         return respons.data;
       })
       .catch((err) => {
-        console.log(err.response);
-        Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
-        throw err;
+        if (err.response.status===401){
+          Notiflix.Notify.Failure(
+            `${err.response.statusText} Request,Please login`.toUpperCase()
+          );
+          sessionStorage.clear();
+          }
+          else{
+            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
+  
+          }     throw err;
       });
   } catch (error) {
     throw error;
@@ -717,8 +755,14 @@ function getCompetitionNameResultList() {
         return respons.data.competitionnames;
       })
       .catch((err) => {
-        console.log(err.response.data);
-        throw err;
+        if (err.response.status===401){
+         
+          sessionStorage.clear();
+          }
+          else{
+            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
+  
+          }     throw err;        
       });
   } catch (error) {
     throw error;
@@ -778,8 +822,14 @@ function getCompetitionQues(competitionname) {
       })
       .catch((err) => {
         console.log(err.response);
-        Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-        throw err;
+        if (err.response.status===401){
+        
+          sessionStorage.clear();
+          }
+          else{
+            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
+  
+          }     throw err;
       });
   } catch (error) {
     throw error;
@@ -801,8 +851,14 @@ function getCompetitionList() {
       })
       .catch((err) => {
         console.log(err.response);
-        console.log(err.response.data);
-        throw err;
+        if (err.response.status===401){
+        
+          sessionStorage.clear();
+          }
+          else{
+            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
+  
+          }     throw err;
       });
   } catch (error) {
     throw error;

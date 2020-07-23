@@ -45,7 +45,7 @@ export default class competitionRelated extends React.Component {
         src={iframeUrl}
         frameBorder={0}
         width="100%"
-        height={2000}
+        height={2250}
         allowtransparency="true"
       />
     );
@@ -57,8 +57,10 @@ export default class competitionRelated extends React.Component {
           href="https://fonts.googleapis.com/css?family=Righteous&display=swap"
           rel="stylesheet"
         ></link>
+       
         <GridContainer style={{ background: "white" }}>
           <GridItem style={{ margin: "1% 20%" }}>
+          <h3><center>{this.state.selectedcompetition}</center></h3>
             <Select
               required
               isSearchable

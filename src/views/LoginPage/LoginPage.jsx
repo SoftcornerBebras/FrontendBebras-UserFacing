@@ -170,8 +170,8 @@ export default function LoginPage(props) {
             state: { detail: "detail" },
           });
         } else {
-          history.push("/studenthome");
           sessionStorage.setItem("Authenticated", true);
+          history.push("/studenthome");
         }
       },
       (error) => {

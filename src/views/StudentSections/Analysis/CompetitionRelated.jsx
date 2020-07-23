@@ -45,7 +45,7 @@ class CompetitionRelated extends Component {
         src={iframeUrl}
         frameBorder={0}
         width="95%"
-        height={1000}
+        height={1250}
         allowtransparency="true"
       />
     );
@@ -59,6 +59,7 @@ class CompetitionRelated extends Component {
         ></link>
         <GridContainer style={{ background: "white" }}>
           <GridItem style={{ margin: "1% 20%" }}>
+
             <Select
               required
               isSearchable
@@ -76,6 +77,8 @@ class CompetitionRelated extends Component {
               options={this.state.competitionlist}
               maxMenuHeight={70}
             />
+          <h3><center>{this.state.selectedcompetition}</center></h3>
+
           </GridItem>
         </GridContainer>
         <GridContainer justify="center">{this.getchart()}</GridContainer>

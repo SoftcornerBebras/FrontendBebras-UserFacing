@@ -70,7 +70,7 @@ class TeacherDetails extends React.Component {
                 minLength: 3,
                 maxLength: 50,
               }}
-              defaultValue={this.state.userName}
+              value={this.state.username}
               onChange={this.handleChange}
               required
               fullWidth
@@ -80,6 +80,7 @@ class TeacherDetails extends React.Component {
             <TextField
               placeholder="type your password here"
               label="Password"
+              value={this.state.password}
               name="password"
               type={this.state.values.showPassword ? 'text' : 'password'}
               variant="outlined"
@@ -150,7 +151,12 @@ class TeacherDetails extends React.Component {
               }}
               country={"in"}
               value={this.state.phone}
-              onChange={(phone) => this.setState({ phone })}
+              onChange={(phone) => {
+                console.log(phone);
+                this.setState({ phone: phone }, function () {
+                  this.props.onChangeUser(this.state);
+                });  
+              }}
               containerStyle={{ marginTop: "13px", height: "60px" }}
               inputStyle={{ height: "60px", width: "100%" }}
               disableDropdown="true"
@@ -171,7 +177,7 @@ class TeacherDetails extends React.Component {
                 min: "1920-01-01",
                 max: dateLimit.toISOString().slice(0, 10),
               }}
-              defaultValue={this.state.birthdate}
+              value={this.state.birthdate}
               onChange={this.handleChange}
               fullWidth={isWidthDown("sm")}
             />
@@ -188,7 +194,7 @@ class TeacherDetails extends React.Component {
               inputlabelprops={{
                 shrink: true,
               }}
-              defaultValue={this.state.phone}
+              value={this.state.email}
               onChange={this.handleChange}
               fullWidth
             />

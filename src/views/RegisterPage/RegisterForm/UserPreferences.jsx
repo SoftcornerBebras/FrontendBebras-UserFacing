@@ -56,7 +56,16 @@ export default function UserPreferences(props) {
     setclassNumber(event.target.value);
   };
   React.useEffect(() => {
-    props.onChangeClasses(classNumber);
+    if(classNumber.length!==0){
+      props.onChangeClasses(classNumber);
+    }
+    if(classNumber.length===0 & props.classes.length!==0 )
+    {
+      setclassNumber(props.classes)
+    }
+      
+    
+   
     //eslint-disable-next-line
   }, [classNumber]);
 
@@ -96,7 +105,7 @@ export default function UserPreferences(props) {
         </Select>
         {classNumber.length === 0 && (
           <FormHelperText>
-            <p style={{ color: "red" }}>This is Required</p>
+            <span style={{ color: "red" }}>This is Required</span>
           </FormHelperText>
         )}
       </FormControl>

@@ -9,7 +9,6 @@ import Button from "components/CustomButtons/Button.js";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import { Redirect } from "react-router-dom";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import PhoneInput from "react-phone-input-2";
@@ -86,7 +85,8 @@ class Teacher extends React.Component {
     userService.registerTeacher().then(
       (user) => {
         Notiflix.Block.Remove("body");
-        return <Redirect to="/teachernew" />;
+        window.location.reload();
+
       },
       (error) => {
         Notiflix.Block.Remove("body");
@@ -150,7 +150,7 @@ class Teacher extends React.Component {
                         }}
                         inputProps={{
                           minLength: 3,
-                          maxLength: 20,
+                          maxLength: 50,
                         }}
                         onChange={this.handleChange}
                         required

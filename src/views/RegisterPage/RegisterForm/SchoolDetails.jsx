@@ -168,7 +168,7 @@ class SchoolDetails extends React.Component {
           </GridItem>
 
           <GridItem xs={12} md={12}>
-            <UserPreferences onChangeClasses={this.onChangeClasses} />
+            <UserPreferences classes={this.props.school.classes} onChangeClasses={this.onChangeClasses} />
           </GridItem>
         </GridContainer>
       </div>

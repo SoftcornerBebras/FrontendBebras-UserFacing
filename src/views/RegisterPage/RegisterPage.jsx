@@ -215,7 +215,7 @@ function RegisterPage() {
         !address.pincode
       ) {
         Notiflix.Notify.Warning(
-          "Cannot proceed to the next step, please fill all the details".toUpperCase()
+          "Cannot proceed to the next step, please fill all the address details".toUpperCase()
         );
         // alert("can't proceed to the next step, please fill all the details")
       } else {
@@ -232,7 +232,7 @@ function RegisterPage() {
         school.classes.length === 0
       ) {
         Notiflix.Notify.Warning(
-          "Cannot proceed to the next step, please fill all the details".toUpperCase()
+          "Cannot proceed to the next step, please fill all the school details".toUpperCase()
         );
         // alert("can't proceed to the next step, please fill all the details")
       } else {
@@ -255,7 +255,7 @@ function RegisterPage() {
         !user.email
       ) {
         Notiflix.Notify.Warning(
-          "Cannot proceed , please fill all the details".toUpperCase()
+          "Cannot proceed , please fill all the teacher details".toUpperCase()
         );
         // alert("can't finish, please fill all the details")
       } else {
@@ -264,9 +264,19 @@ function RegisterPage() {
         delete address.districtnames;
         delete school.schoolGroupNames;
         //schoolgroup
-        school.contact = "+" + school.contact;
+         
+    if(school.contact.charAt(0)!=="+")
+    { var phonenumber = "+" + school.contact;
+    school.contact = phonenumber;
+    } 
+    if(user.phone.charAt(0)!=="+")
+    {  phonenumber = "+" +  user.phone;;
+    user.phone = phonenumber;
+      
+    } 
+        
         user.school = school.schoolName;
-        user.phone = "+" + user.phone;
+        
         const sttate = { school: school, address: address };
 
         sessionStorage.setItem("registerschool", JSON.stringify(sttate));

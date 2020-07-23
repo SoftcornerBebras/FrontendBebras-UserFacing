@@ -1,8 +1,8 @@
 import React from "react";
 // nodejs library that concatenates classes
-import { Redirect } from "react-router-dom";
 // @material-ui/core components
 import { TextField } from "@material-ui/core";
+import startsWith from "lodash.startswith";
 import { isWidthDown } from "@material-ui/core/withWidth";
 import Alert from "@material-ui/lab/Alert";
 import { userService } from "../../../services/user.service";
@@ -40,7 +40,7 @@ Notiflix.Block.Init({
 });
 
 const dateLimit = new Date();
-dateLimit.setFullYear(dateLimit.getFullYear() - 0);
+dateLimit.setFullYear(dateLimit.getFullYear() - 5);
 class Student extends React.Component {
   constructor(props) {
     super(props);
@@ -55,7 +55,6 @@ class Student extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePhoneChange = this.handlePhoneChange.bind(this);
   }
 
   handleSubmit(e) {
@@ -67,31 +66,51 @@ class Student extends React.Component {
       Notiflix.Notify.Warning("Please fill the required fields".toUpperCase());
       return;
     }
+   
     if (phone !== "") {
-      var phonenumber = "+" + phone;
-      this.setState({ phone: phonenumber });
-    }
-
-    sessionStorage.setItem("registerstudent", JSON.stringify(this.state));
-    userService.registerStudent().then(
-      (user) => {
-        Notiflix.Block.Remove("body");
-        return <Redirect to="/teachernew" />;
-      },
-      (error) => {
-        Notiflix.Block.Remove("body");
-        if (error.response.status===401){
-          window.location.reload(false);
+      console.log("phone",phone)
+      if(phone.charAt(0)!=="+")
+      { 
+        var phonenumber = "+" + phone;
+      }      
+      const registerstudent={"firstName":this.state.firstName,"lastName":this.state.lastName,"gender":this.state.gender,"phone":phonenumber,"birthdate":this.state.birthdate,"email":this.state.email}
+    
+      sessionStorage.setItem("registerstudent", JSON.stringify(registerstudent));
+      userService.registerStudent().then(
+        (user) => {
+          Notiflix.Block.Remove("body");
+          window.location.reload();
+        },
+        (error) => {
+          Notiflix.Block.Remove("body");
+          if (error.response.status===401){
+            window.location.reload(false);
+          }
         }
-      }
-    );
+      );
+    }
+    else
+    {
+      const registerstudent={"firstName":this.state.firstName,"lastName":this.state.lastName,"gender":this.state.gender,"phone":this.state.phone,"birthdate":this.state.birthdate,"email":this.state.email}
+      sessionStorage.setItem("registerstudent", JSON.stringify(registerstudent));
+      userService.registerStudent().then(
+        (user) => {
+          Notiflix.Block.Remove("body");
+          window.location.reload(false);
+        },
+        (error) => {
+          Notiflix.Block.Remove("body");
+          if (error.response.status===401){
+            window.location.reload(false);
+          }
+        }
+      );
+    }
+
+  
   }
 
-  handlePhoneChange(value) {
-    if (value) {
-      this.setState({ phone: value });
-    }
-  }
+  
 
   handleChange(e) {
     const { name, value } = e.target;
@@ -209,9 +228,18 @@ class Student extends React.Component {
                       </FormControl>
                     </GridItem>
                     <GridItem xs={12} md={6}>
-                      <PhoneInput
+                    <PhoneInput
+                        isValid={(inputNumber, country, countries) => {
+                          return countries.some((country) => {
+                            return (
+                              startsWith(inputNumber, country.dialCode) ||
+                              startsWith(country.dialCode, inputNumber)
+                            );
+                          });
+                        }}
                         inputProps={{
                           name: "phone",
+                          required: true,
                         }}
                         country={"in"}
                         value={this.state.phone}

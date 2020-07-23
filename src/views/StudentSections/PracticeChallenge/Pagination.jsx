@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext } from 'react';
 import PropTypes from "prop-types";
+import ReactDOM from "react-dom";
 import "./pch.css";
 import "./Page.css";
 import Popover from '@material-ui/core/Popover';
@@ -33,7 +34,7 @@ function Content() {
 
   return (
     <div>
-    {console.log(tour)}
+    {/* {console.log(tour)} */}
     <Button
                 style={{ backgroundColor: "#008FB3",color:"#ffffff" }}
                 onClick={tour.start}
@@ -47,9 +48,11 @@ class Pagination extends React.Component {
   constructor(props) {
     super(props);
     this.state = { pager: {},
-    openpop:true,
+    openpop:false,
+    ref1:null,
+    ref2:null,
+    anchrEl:null
     };
-    // var anchorEl=null;
     this.handleClose=this.handleClose.bind(this);
   }
   handleTouchTap = (event) => {
@@ -58,7 +61,7 @@ class Pagination extends React.Component {
 
     this.setState({
       openpop: false,
-      anchorEl: event.currentTarget,
+      anchorEl: this.state.ref2,
      });
     };
     
@@ -173,6 +176,7 @@ handleClose(){
     return (
       <div>
         <center>
+        <div />
           <ul className="pagination">
             <li className={pager.currentPage === 1 ? "disabled" : ""}>
               <a
@@ -248,11 +252,10 @@ handleClose(){
               </a>
             </li>
           </ul>
-
           <Popover
           open={this.state.openpop}
-            onRequestClose={this.handleRequestClose}
-        anchorEl={this.anchorEl}
+        //     onRequestClose={this.handleRequestClose}
+        anchorEl={this.state.ref2}
         onClose={this.handleClose}
         anchorOrigin={{
           vertical: 'top',
@@ -281,6 +284,16 @@ handleClose(){
       </div>
     );
   }
+  componentDidMount()
+{ 
+  this.setState({openpop:true});
+  //eslint-disable-next-line
+  this.state.ref1=ReactDOM.findDOMNode(this).parentNode.getAttribute("class");
+  //eslint-disable-next-line
+this.state.ref2=document.getElementsByClassName(this.state.ref1)[0].parentNode;
+
+}
+ 
 }
 
 Pagination.propTypes = propTypes;
