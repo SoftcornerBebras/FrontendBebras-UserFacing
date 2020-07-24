@@ -53,9 +53,8 @@ export default function TeacherHeader(props) {
   const history = useHistory();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
-    if(!sessionStorage.getItem("Authenticated"))
-    {
-      history.push('/login-page');
+    if (!sessionStorage.getItem("Authenticated")) {
+      history.push("/login-page");
     }
     if (props.changeColorOnScroll) {
       window.addEventListener("scroll", headerColorChange);

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import {METABASE_URL} from '../../../services/constant'
+import { METABASE_URL } from "../../../services/constant";
 
 import Select from "react-select";
 import { userService } from "services/user.service";
@@ -27,7 +27,7 @@ class CompetitionRelated extends Component {
     var compname = this.state.selectedcompetition + "";
     var METABASE_SITE_URL = METABASE_URL;
     var METABASE_SECRET_KEY =
-    "c49006ae9225bec49ad20990ea5852689c710b4f61550bfb06fa2170ff4e1476";
+      "c49006ae9225bec49ad20990ea5852689c710b4f61550bfb06fa2170ff4e1476";
 
     var payload = {
       resource: { dashboard: 130 },
@@ -38,7 +38,11 @@ class CompetitionRelated extends Component {
     };
     var token = jwt.sign(payload, METABASE_SECRET_KEY);
 
-    var iframeUrl = METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=false&titled=false";
+    var iframeUrl =
+      METABASE_SITE_URL +
+      "/embed/dashboard/" +
+      token +
+      "#bordered=false&titled=false";
     return (
       <iframe
         title="Student Analysis"
@@ -59,7 +63,6 @@ class CompetitionRelated extends Component {
         ></link>
         <GridContainer style={{ background: "white" }}>
           <GridItem style={{ margin: "1% 20%" }}>
-
             <Select
               required
               isSearchable
@@ -77,8 +80,9 @@ class CompetitionRelated extends Component {
               options={this.state.competitionlist}
               maxMenuHeight={70}
             />
-          <h3><center>{this.state.selectedcompetition}</center></h3>
-
+            <h3>
+              <center>{this.state.selectedcompetition}</center>
+            </h3>
           </GridItem>
         </GridContainer>
         <GridContainer justify="center">{this.getchart()}</GridContainer>

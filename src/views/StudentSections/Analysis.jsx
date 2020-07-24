@@ -52,9 +52,7 @@ export default function StudentResCompList(props) {
       (user) => {
         setUserdata(user);
       },
-      (error) => {
-        
-      }
+      (error) => {}
     );
   }, []);
   return (
@@ -82,16 +80,12 @@ export default function StudentResCompList(props) {
         <br></br>
         <br></br>
         <div className="whitebg">
-          {sessionStorage.getItem("Authenticated") &&
-            userdata.length !== 0 &&
-           
-               (
-                <div >
-                  <UserIdRelated />
-                  <CompetitionRelated />
-                </div>
-              )
-            }
+          {sessionStorage.getItem("Authenticated") && userdata.length !== 0 && (
+            <div>
+              <UserIdRelated />
+              <CompetitionRelated />
+            </div>
+          )}
           {sessionStorage.getItem("Authenticated") && userdata.length === 0 && (
             <div className="compcard">
               <div>

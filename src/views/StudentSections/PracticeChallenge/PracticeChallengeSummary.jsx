@@ -18,15 +18,11 @@ const StyledGrid = withStyles({
   root: {
     background: "linear-gradient(45deg, #FE6B8B 30%, #BAAAFF 90%)",
   },
- 
 })(ListItem);
 const StyledGrid1 = withStyles({
   root: {
     background: "linear-gradient(45deg, #CDFFFE  30%, #B9C0FF  90%)",
   },
-  // label: {
-  //   textTransform: 'capitalize',
-  // },
 })(ListItem);
 
 export default function TestEndPractice(props) {
@@ -57,14 +53,12 @@ export default function TestEndPractice(props) {
     }
     return true;
   });
-    
-React.useEffect(() => {
-  console.log("iiiii")
-  window.addEventListener("popstate", () => {
-    console.log("iiiii")
-    window.history.go(-1);
+
+  React.useEffect(() => {
+    window.addEventListener("popstate", () => {
+      window.history.go(-1);
+    });
   });
-});
   incorrect = solved - correct;
   return (
     <div>

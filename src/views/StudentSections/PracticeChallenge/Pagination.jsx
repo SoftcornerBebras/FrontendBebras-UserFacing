@@ -1,20 +1,20 @@
 import React from "react";
-import { useContext } from 'react';
+import { useContext } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import "./pch.css";
 import "./Page.css";
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import {ShepherdTour, ShepherdTourContext} from 'react-shepherd';
-import 'shepherd.js/dist/css/shepherd.css';
-import newSteps from './steps';
+import Popover from "@material-ui/core/Popover";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import { ShepherdTour, ShepherdTourContext } from "react-shepherd";
+import "shepherd.js/dist/css/shepherd.css";
+import newSteps from "./steps";
 const tourOptions = {
   defaultStepOptions: {
     cancelIcon: {
-      enabled: true
-    }
+      enabled: true,
+    },
   },
   useModalOverlay: true,
 };
@@ -34,50 +34,51 @@ function Content() {
 
   return (
     <div>
-    {/* {console.log(tour)} */}
-    <Button
-                style={{ backgroundColor: "#008FB3",color:"#ffffff" }}
-                onClick={tour.start}
-              >
-                Start Tour
-              </Button>
+      {/* {console.log(tour)} */}
+      <Button
+        style={{ backgroundColor: "#008FB3", color: "#ffffff" }}
+        onClick={tour.start}
+      >
+        Start Tour
+      </Button>
     </div>
   );
 }
 class Pagination extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { pager: {},
-    openpop:false,
-    ref1:null,
-    ref2:null,
-    anchrEl:null
+    this.state = {
+      pager: {},
+      openpop: false,
+      ref1: null,
+      ref2: null,
+      anchrEl: null,
     };
-    this.handleClose=this.handleClose.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
   handleTouchTap = (event) => {
-// This prevents ghost click.
+    // This prevents ghost click.
     event.preventDefault();
 
     this.setState({
       openpop: false,
       anchorEl: this.state.ref2,
-     });
-    };
-    
-    clickHandle = () => {
-    	this.handleRequestClose();
-    };
-    
-    handleRequestClose = () => {
-      this.setState({
-        openpop: false,
-      });
-    };
-handleClose(){
-  this.setState({anchorEl:null});
-  this.setState({openpop:false});
+    });
   };
+
+  clickHandle = () => {
+    this.handleRequestClose();
+  };
+
+  handleRequestClose = () => {
+    this.setState({
+      openpop: false,
+    });
+  };
+  handleClose() {
+    this.setState({ anchorEl: null });
+    this.setState({ openpop: false });
+  }
   UNSAFE_componentWillMount() {
     // set page if items array isn't empty
     if (this.props.items && this.props.items.length) {
@@ -176,7 +177,7 @@ handleClose(){
     return (
       <div>
         <center>
-        <div />
+          <div />
           <ul className="pagination">
             <li className={pager.currentPage === 1 ? "disabled" : ""}>
               <a
@@ -253,47 +254,48 @@ handleClose(){
             </li>
           </ul>
           <Popover
-          open={this.state.openpop}
-        //     onRequestClose={this.handleRequestClose}
-        anchorEl={this.state.ref2}
-        onClose={this.handleClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        PaperProps={{
+            open={this.state.openpop}
+            anchorEl={this.state.ref2}
+            onClose={this.handleClose}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+            PaperProps={{
               style: {
                 marginTop: "50px",
-                padding:"20px",
-
-              }
+                padding: "20px",
+              },
             }}
-      >
-        <Typography >Let's take a tour of the page!</Typography>
-        <Typography >Click anywhere on the page if you don't want to!</Typography>
-        <br></br>
-                  <ShepherdTour steps={newSteps} tourOptions={tourOptions}>
-          <Content />
-        </ShepherdTour>
-      </Popover>
+          >
+            <Typography>Let's take a tour of the page!</Typography>
+            <Typography>
+              Click anywhere on the page if you don't want to!
+            </Typography>
+            <br></br>
+            <ShepherdTour steps={newSteps} tourOptions={tourOptions}>
+              <Content />
+            </ShepherdTour>
+          </Popover>
         </center>
       </div>
     );
   }
-  componentDidMount()
-{ 
-  this.setState({openpop:true});
-  //eslint-disable-next-line
-  this.state.ref1=ReactDOM.findDOMNode(this).parentNode.getAttribute("class");
-  //eslint-disable-next-line
-this.state.ref2=document.getElementsByClassName(this.state.ref1)[0].parentNode;
-
-}
- 
+  componentDidMount() {
+    this.setState({ openpop: true });
+    //eslint-disable-next-line
+    this.state.ref1 = ReactDOM.findDOMNode(this).parentNode.getAttribute(
+      "class"
+    );
+    //eslint-disable-next-line
+    this.state.ref2 = document.getElementsByClassName(
+      this.state.ref1
+    )[0].parentNode;
+  }
 }
 
 Pagination.propTypes = propTypes;

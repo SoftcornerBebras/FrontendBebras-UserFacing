@@ -123,12 +123,14 @@ export default function DetailsDownload(props) {
               onClick={() => {
                 userService.getStudentDataExcel().then(
                   (user) => {
-                    var fileName = 'LoginID_password.xlsx';
+                    var fileName = "LoginID_password.xlsx";
                     var ws = XLSX.utils.json_to_sheet(user);
                     var wb = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(wb, ws, 'LoginID_password');
-                    ws['!protect'] = false;
-                    XLSX.writeFile(wb, fileName, {password:"Bebras_Challenge2020"} );
+                    XLSX.utils.book_append_sheet(wb, ws, "LoginID_password");
+                    ws["!protect"] = false;
+                    XLSX.writeFile(wb, fileName, {
+                      password: "Bebras_Challenge2020",
+                    });
                   },
                   (error) => {
                     console.log(error);
@@ -168,12 +170,12 @@ export default function DetailsDownload(props) {
             </ButtonBase>
           </div>
         </GridItem>
-         <GridItem xs={12} sm={12} md={12}>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+        <GridItem xs={12} sm={12} md={12}>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
         </GridItem>
       </GridContainer>
       <br />

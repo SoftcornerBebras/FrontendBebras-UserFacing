@@ -83,7 +83,7 @@ class SchoolDetails extends React.Component {
                   shrink: true,
                 }}
               >
-                   <MenuItem value=""></MenuItem>
+                <MenuItem value=""></MenuItem>
                 {this.state.schooltypenames.map((cntry) => {
                   return (
                     <MenuItem key={cntry} value={cntry}>
@@ -168,7 +168,10 @@ class SchoolDetails extends React.Component {
           </GridItem>
 
           <GridItem xs={12} md={12}>
-            <UserPreferences classes={this.props.school.classes} onChangeClasses={this.onChangeClasses} />
+            <UserPreferences
+              classes={this.props.school.classes}
+              onChangeClasses={this.onChangeClasses}
+            />
           </GridItem>
         </GridContainer>
       </div>

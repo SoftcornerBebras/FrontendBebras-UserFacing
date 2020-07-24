@@ -66,51 +66,61 @@ class Student extends React.Component {
       Notiflix.Notify.Warning("Please fill the required fields".toUpperCase());
       return;
     }
-   
+
     if (phone !== "") {
-      console.log("phone",phone)
-      if(phone.charAt(0)!=="+")
-      { 
+      if (phone.charAt(0) !== "+") {
         var phonenumber = "+" + phone;
-      }      
-      const registerstudent={"firstName":this.state.firstName,"lastName":this.state.lastName,"gender":this.state.gender,"phone":phonenumber,"birthdate":this.state.birthdate,"email":this.state.email}
-    
-      sessionStorage.setItem("registerstudent", JSON.stringify(registerstudent));
-      userService.registerStudent().then(
-        (user) => {
-          Notiflix.Block.Remove("body");
-          window.location.reload();
-        },
-        (error) => {
-          Notiflix.Block.Remove("body");
-          if (error.response.status===401){
-            window.location.reload(false);
-          }
-        }
-      );
-    }
-    else
-    {
-      const registerstudent={"firstName":this.state.firstName,"lastName":this.state.lastName,"gender":this.state.gender,"phone":this.state.phone,"birthdate":this.state.birthdate,"email":this.state.email}
-      sessionStorage.setItem("registerstudent", JSON.stringify(registerstudent));
-      userService.registerStudent().then(
-        (user) => {
-          Notiflix.Block.Remove("body");
-          window.location.reload(false);
-        },
-        (error) => {
-          Notiflix.Block.Remove("body");
-          if (error.response.status===401){
-            window.location.reload(false);
-          }
-        }
-      );
-    }
+      }
+      const registerstudent = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        gender: this.state.gender,
+        phone: phonenumber,
+        birthdate: this.state.birthdate,
+        email: this.state.email,
+      };
 
-  
+      sessionStorage.setItem(
+        "registerstudent",
+        JSON.stringify(registerstudent)
+      );
+      userService.registerStudent().then(
+        (user) => {
+          Notiflix.Block.Remove("body");
+        },
+        (error) => {
+          Notiflix.Block.Remove("body");
+          if (error.response.status === 401) {
+            window.location.reload(false);
+          }
+        }
+      );
+    } else {
+      const registerstudent = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        gender: this.state.gender,
+        phone: this.state.phone,
+        birthdate: this.state.birthdate,
+        email: this.state.email,
+      };
+      sessionStorage.setItem(
+        "registerstudent",
+        JSON.stringify(registerstudent)
+      );
+      userService.registerStudent().then(
+        (user) => {
+          Notiflix.Block.Remove("body");
+        },
+        (error) => {
+          Notiflix.Block.Remove("body");
+          if (error.response.status === 401) {
+            window.location.reload(false);
+          }
+        }
+      );
+    }
   }
-
-  
 
   handleChange(e) {
     const { name, value } = e.target;
@@ -228,7 +238,7 @@ class Student extends React.Component {
                       </FormControl>
                     </GridItem>
                     <GridItem xs={12} md={6}>
-                    <PhoneInput
+                      <PhoneInput
                         isValid={(inputNumber, country, countries) => {
                           return countries.some((country) => {
                             return (

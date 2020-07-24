@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import {userManual} from "services/constant";
-import {StudentManual} from "services/constant";
+import { userManual } from "services/constant";
+import { StudentManual } from "services/constant";
 import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";

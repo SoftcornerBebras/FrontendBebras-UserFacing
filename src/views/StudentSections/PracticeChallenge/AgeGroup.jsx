@@ -6,7 +6,7 @@ import { rollIn, slideInDown } from "react-animations";
 import Radium, { StyleRoot } from "radium";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import Card from '@material-ui/core/Card';
+import Card from "@material-ui/core/Card";
 import styles from "assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
 //import styles from "assets/jss/material-kit-react/views/componentsSections/carouselStyle.js";
 import Aryabhata from "assets/img/faces/aryabht.PNG";
@@ -128,76 +128,83 @@ export default function AgeGroup() {
     // eslint-disable-next-line
   }, []);
 
-    console.log("boht imag")
-    return (
-     <div className={classes.section}> 
-        <StyleRoot>
-          <div style={styles.slideInDown}>
-            <h2 className={classes.title}>Please click on the image of your age group</h2>
-          </div>
-        </StyleRoot>
-        <div style={{ padding: "0px 20px" }} className="element">
-          <GridContainer>
-            
-                {cmplist.map((value, index) => {
-                  if (value.includes("Aryabhata")) {
-                    img = Aryabhata;
-                  } else if (value.includes("Brahmagupta")) {
-                    img = other;
-                  } else if (value.includes("Ramanujan")) {
-                    img = Ramanujan;
-                  } else if (value.includes("Mahavira")) {
-                    img = Mahavira;
-                  } else {
-                    img = Bhaskara;
-                  }
-
-                  return (
-                    <GridItem md={6} key={value}>
-                      <StyleRoot>
-                        <div style={styles.rollIn}>
-                          {" "}
-                          {/* <Link color="secondary" to={"/pcpage"}> */}
-                          <Card
-                            plain="true"
-                            onClick={() =>
-                              userService.getPracticeChallengeQues(value).then(
-                                (user) => {
-                                  Notiflix.Block.Dots(".element");
-                                  history.push({
-                                    pathname: "/pcpage",
-
-                                    state: { data: user },
-                                  });
-                                  Notiflix.Block.Remove("body");
-                                },
-                                (error) => {
-                                  Notiflix.Block.Remove(".element");
-                                  console.log(error.response.data);
-                                  alert(`${error.response.data}  `);
-                                }
-                              )
-                            }
-                          >
-                            <GridItem className={classes.itemGrid}>
-                              <img src={img} alt="..." style={{ height: "50%", width: "50%", borderRadius: "50%", margin: " 0% 0%", cursor: "pointer" }} />
-                            </GridItem>
-                            <h4 className={classes.cardTitle}>
-                              {value}
-                              <br />
-                            </h4>
-                          </Card>{" "}
-                          {/* </Link> */}
-                        </div>
-                      </StyleRoot>
-                    </GridItem>
-                  );
-                })}
-             
-          </GridContainer>
+  return (
+    <div className={classes.section}>
+      <StyleRoot>
+        <div style={styles.slideInDown}>
+          <h2 className={classes.title}>
+            Please click on the image of your age group
+          </h2>
         </div>
-      </div>
+      </StyleRoot>
+      <div style={{ padding: "0px 20px" }} className="element">
+        <GridContainer>
+          {cmplist.map((value, index) => {
+            if (value.includes("Aryabhata")) {
+              img = Aryabhata;
+            } else if (value.includes("Brahmagupta")) {
+              img = other;
+            } else if (value.includes("Ramanujan")) {
+              img = Ramanujan;
+            } else if (value.includes("Mahavira")) {
+              img = Mahavira;
+            } else {
+              img = Bhaskara;
+            }
 
-    );
-  
+            return (
+              <GridItem md={6} key={value}>
+                <StyleRoot>
+                  <div style={styles.rollIn}>
+                    {" "}
+                    {/* <Link color="secondary" to={"/pcpage"}> */}
+                    <Card
+                      plain="true"
+                      onClick={() =>
+                        userService.getPracticeChallengeQues(value).then(
+                          (user) => {
+                            Notiflix.Block.Dots(".element");
+                            history.push({
+                              pathname: "/pcpage",
+
+                              state: { data: user },
+                            });
+                            Notiflix.Block.Remove("body");
+                          },
+                          (error) => {
+                            Notiflix.Block.Remove(".element");
+                            console.log(error.response.data);
+                            alert(`${error.response.data}  `);
+                          }
+                        )
+                      }
+                    >
+                      <GridItem className={classes.itemGrid}>
+                        <img
+                          src={img}
+                          alt="..."
+                          style={{
+                            height: "50%",
+                            width: "50%",
+                            borderRadius: "50%",
+                            margin: " 0% 0%",
+                            cursor: "pointer",
+                          }}
+                        />
+                      </GridItem>
+                      <h4 className={classes.cardTitle}>
+                        {value}
+                        <br />
+                      </h4>
+                    </Card>{" "}
+                    {/* </Link> */}
+                  </div>
+                </StyleRoot>
+              </GridItem>
+            );
+          })}
+        </GridContainer>
+      </div>
+    </div>
+  );
 }

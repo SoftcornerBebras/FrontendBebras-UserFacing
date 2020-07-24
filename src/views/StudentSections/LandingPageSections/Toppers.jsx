@@ -10,7 +10,7 @@ import Carousel from "react-slick";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 // import Card from "components/Card/Card.js";
-import Card from '@material-ui/core/Card';
+import Card from "@material-ui/core/Card";
 import styles from "assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.js";
 import girl from "assets/img/faces/f4.PNG";
@@ -118,15 +118,15 @@ export default function Toppers() {
                                       src={
                                         item.gender === "Female"
                                           ? girls[
-                                          Math.floor(
-                                            Math.random() * girls.length
-                                          )
-                                          ]
+                                              Math.floor(
+                                                Math.random() * girls.length
+                                              )
+                                            ]
                                           : boys[
-                                          Math.floor(
-                                            Math.random() * boys.length
-                                          )
-                                          ]
+                                              Math.floor(
+                                                Math.random() * boys.length
+                                              )
+                                            ]
                                       }
                                       alt="..."
                                       className={imageClasses}
@@ -182,12 +182,11 @@ export default function Toppers() {
                                         style={{
                                           color: "black",
                                           fontWeight: "500",
-                                          marginBottom: "20%"
+                                          marginBottom: "20%",
                                         }}
                                       >
                                         School:{item.schoolName}
                                       </h4>
-                                     
                                     </Card>
                                   </div>
                                 </div>
@@ -249,15 +248,15 @@ export default function Toppers() {
                                       src={
                                         item.gender === "Female"
                                           ? girls[
-                                          Math.floor(
-                                            Math.random() * girls.length
-                                          )
-                                          ]
+                                              Math.floor(
+                                                Math.random() * girls.length
+                                              )
+                                            ]
                                           : boys[
-                                          Math.floor(
-                                            Math.random() * boys.length
-                                          )
-                                          ]
+                                              Math.floor(
+                                                Math.random() * boys.length
+                                              )
+                                            ]
                                       }
                                       alt="..."
                                       className={imageClasses}
@@ -313,12 +312,11 @@ export default function Toppers() {
                                         style={{
                                           color: "black",
                                           fontWeight: "500",
-                                          marginBottom: "20%"
+                                          marginBottom: "20%",
                                         }}
                                       >
                                         School:{item.schoolName}
                                       </h4>
-
                                     </Card>
                                   </div>
                                 </div>
@@ -335,7 +333,6 @@ export default function Toppers() {
           </div>
         </div>
       </div>
-
-    )
+    );
   }
 }

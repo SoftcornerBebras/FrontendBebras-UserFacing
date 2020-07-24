@@ -27,7 +27,6 @@ class SchoolAddress extends React.Component {
     const { name, value } = e.target;
     this.setState({ [name]: value }, function () {
       this.props.onChangeAddress(this.state);
-      console.log(this.state)
     });
   }
   handleCountryChange(e) {
@@ -36,13 +35,12 @@ class SchoolAddress extends React.Component {
     userService.getStateNames(value).then(
       (array2) => {
         this.setState({ statenames: array2 });
-        this.setState({districtnames:[]})
+        this.setState({ districtnames: [] });
       },
       (error) => {}
     );
   }
   handleStateChange(e) {
-    console.log("this is called")
     const { name, value } = e.target;
     this.setState({ [name]: value });
     userService.getDistrictNames(value).then(
@@ -237,11 +235,9 @@ class SchoolAddress extends React.Component {
     userService.getStateNames("India").then(
       (array2) => {
         this.setState({ statenames: array2 });
-        if(this.state.state===""){
-          this.setState({districtnames:[]})
-        }
-        else
-        {
+        if (this.state.state === "") {
+          this.setState({ districtnames: [] });
+        } else {
           userService.getDistrictNames(this.state.state).then(
             (array2) => {
               this.setState({ districtnames: array2 });
@@ -249,7 +245,6 @@ class SchoolAddress extends React.Component {
             (error) => {}
           );
         }
-       
       },
       (error) => {}
     );

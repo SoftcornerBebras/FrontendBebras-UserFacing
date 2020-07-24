@@ -55,7 +55,6 @@ export default function TestEnd(props) {
     setOpen(false);
     userService.askcalcTotalScore(studentEnrollmentID).then(
       (user) => {
-        console.log("yahooo", user); 
         history.push({
           pathname: "/studenthome/thankyou",
         });
@@ -64,7 +63,6 @@ export default function TestEnd(props) {
         alert(`${error.response.data}  `);
       }
     );
-    
   };
   var value = props.location.state.timeRemaining;
   var min = Math.floor(value / 60);
@@ -74,7 +72,7 @@ export default function TestEnd(props) {
     <div className="testendcontainer" style={{ align: "center" }}>
       <Card className={classes.root}>
         <CardContent>
-          <Typography align="center" component={'div'} variant="h3">
+          <Typography align="center" component={"div"} variant="h3">
             <h2 style={{ fontFamily: "cursive" }}>Test Summary</h2>
           </Typography>
           <List component="nav" aria-label="mailbox folders">
@@ -130,7 +128,6 @@ export default function TestEnd(props) {
           <Button
             onClick={() => {
               handleOpen();
-              
             }}
             variant="outlined"
             color="secondary"
@@ -149,7 +146,6 @@ export default function TestEnd(props) {
                   .then(
                     (user) => {
                       let userd = user;
-                      console.log(userd);
                       sessionStorage.setItem("data", JSON.stringify(userd));
                       history.push("/challenge");
                     },
@@ -178,18 +174,17 @@ export default function TestEnd(props) {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Do you really want to end the test?
-            </DialogContentText>
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             NO
-            </Button>
+          </Button>
           <Button onClick={handleCloseEndTest} color="primary" autoFocus>
             YES
-            </Button>
+          </Button>
         </DialogActions>
       </Dialog>
-
     </div>
   );
 }

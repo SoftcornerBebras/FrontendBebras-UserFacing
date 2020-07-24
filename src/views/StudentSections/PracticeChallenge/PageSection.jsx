@@ -4,11 +4,11 @@ import AlertDialog from "./EndTestButton";
 import GeneralQuestion from "./GeneralQuestion";
 import "./pch.css";
 import "./Page.css";
-var pagenumber=0;
+var pagenumber = 0;
 class Page extends React.Component {
   constructor(props) {
     super(props);
-    
+
     // an example array of items to be paged
     var exampleItems = [];
     this.state = {
@@ -77,19 +77,14 @@ class Page extends React.Component {
     // update state with new page of items
     this.setState({ pageOfItems: pageOfItems });
   }
-changePageNumber=(item)=>
-{
-  pagenumber=item
-  
-}
-componentDidMount()
-{ 
-  window.addEventListener("popstate", () => {
-  window.history.go(1);
-  
-});  
-
-}
+  changePageNumber = (item) => {
+    pagenumber = item;
+  };
+  componentDidMount() {
+    window.addEventListener("popstate", () => {
+      window.history.go(1);
+    });
+  }
   render() {
     return (
       <div className="whitebg" style={{ marginTop: "-5%" }}>
@@ -119,11 +114,13 @@ componentDidMount()
 
           <Pagination
             items={this.state.exampleItems}
-             state= {this.myRef}
+            state={this.myRef}
             onChangePage={this.onChangePage}
           />
-         
-          {(pagenumber === this.state.componentsarr.length) && (<AlertDialog status={this.state.status}/>)}
+
+          {pagenumber === this.state.componentsarr.length && (
+            <AlertDialog status={this.state.status} />
+          )}
         </div>
       </div>
     );

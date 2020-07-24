@@ -44,7 +44,7 @@ export default function CompetitionTab(props) {
   };
   const handleclosepopup = () => {
     setOpen(false);
-  }
+  };
   const handleClose = () => {
     setOpen(false);
     userService.getCompetitionQues(competitionName).then(
@@ -72,9 +72,7 @@ export default function CompetitionTab(props) {
       (user) => {
         setUserdata(user);
       },
-      (error) => {
-        // console.log(error.response.data);
-      }
+      (error) => {}
     );
   }, []);
   React.useEffect(() => {
@@ -249,8 +247,8 @@ export default function CompetitionTab(props) {
                 <li>
                   {" "}
                   Ask ypur Coordinator to Supervise the challenge. The system
-                  will give each student exactly 45 minutes to answer the
-                  questions. The timer will start as soon as you click start
+                  will give each student exactly some fixed minutes to answer
+                  the questions. The timer will start as soon as you click start
                   Test
                 </li>
                 <Divider light />

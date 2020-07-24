@@ -17,9 +17,9 @@ import Card from "components/Card/Card.js";
 import CardContent from "@material-ui/core/CardContent";
 import cardStyle from "assets/jss/material-kit-react/components/cardStyle.js";
 import Notiflix from "notiflix";
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import IconButton from '@material-ui/core/IconButton';
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import "./Teacher.css";
 Notiflix.Block.Init({
@@ -67,7 +67,6 @@ class Teacher extends React.Component {
   handleSubmit(e) {
     Notiflix.Block.Dots("body");
     e.preventDefault();
-    console.log("ye password"+e.password)
     const { gender, phone } = this.state;
     if (!gender || !phone) {
       Notiflix.Block.Remove("body");
@@ -75,22 +74,27 @@ class Teacher extends React.Component {
 
       return;
     }
-   
-    if(phone.charAt(0)!=="+")
-    { var phonenumber = "+" + phone;
-      
-    } 
-    const registerteacher={"username":this.state.username,"password":this.state.password,"gender":this.state.gender,"phone":phonenumber,"birthdate":this.state.birthdate,"email":this.state.email}
+
+    if (phone.charAt(0) !== "+") {
+      var phonenumber = "+" + phone;
+    }
+    const registerteacher = {
+      username: this.state.username,
+      password: this.state.password,
+      gender: this.state.gender,
+      phone: phonenumber,
+      birthdate: this.state.birthdate,
+      email: this.state.email,
+    };
     sessionStorage.setItem("registerteacher", JSON.stringify(registerteacher));
     userService.registerTeacher().then(
       (user) => {
         Notiflix.Block.Remove("body");
         window.location.reload();
-
       },
       (error) => {
         Notiflix.Block.Remove("body");
-        if (error.response.status===401){
+        if (error.response.status === 401) {
           window.location.reload(false);
         }
       }
@@ -182,7 +186,11 @@ class Teacher extends React.Component {
                                 aria-label="toggle password visibility"
                                 onClick={this.toggleShow}
                               >
-                                {this.state.hidden ? <VisibilityOff /> : <Visibility />}
+                                {this.state.hidden ? (
+                                  <VisibilityOff />
+                                ) : (
+                                  <Visibility />
+                                )}
                               </IconButton>
                             </InputAdornment>
                           ),

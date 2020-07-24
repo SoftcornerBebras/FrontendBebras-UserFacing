@@ -29,9 +29,7 @@ const renderTime = (value) => {
 };
 
 export default function CircleTimer(props) {
-  console.log(props.timer)
   return (
-  
     <CountdownCircleTimer
       isPlaying
       durationSeconds={props.timer}
@@ -39,6 +37,5 @@ export default function CircleTimer(props) {
       renderTime={renderTime}
       onComplete={() => [false, 1000]}
     />
-
   );
 }

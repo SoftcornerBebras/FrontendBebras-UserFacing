@@ -15,7 +15,7 @@ import { Typography } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { StyleRoot } from "radium";
 import "./studentresult.css";
-import {baseurl} from 'services/constant'
+import { baseurl } from "services/constant";
 import Notiflix from "notiflix";
 Notiflix.Block.Init({
   querySelectorLimit: 200,
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 export default function StudentResult(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-    const [expanded1, setExpanded1] = React.useState(false);
+  const [expanded1, setExpanded1] = React.useState(false);
   const [data, setData] = React.useState(null);
   let cardRef = useRef([]);
   let cardRef1 = useRef([]);
@@ -65,12 +65,9 @@ export default function StudentResult(props) {
       .getCompetitionResult(JSON.parse(sessionStorage.getItem("competition")))
       .then(
         (user) => {
-          // console.log("1")
           setData(user);
-          // console.log("11")
         },
         (error) => {
-          // console.log("haggdiya")
           console.log(error);
         }
       );
@@ -78,7 +75,6 @@ export default function StudentResult(props) {
   const createarraymain = () => {
     data.domain_wise_questions.map((item, index) => {
       cardRef1.current[index] = "" + index;
-      // console.log("ye createarraymain hai" + index)
       return true;
     });
   };
@@ -86,7 +82,6 @@ export default function StudentResult(props) {
     data.domain_wise_questions.map((item, index) => {
       item.questions.map((item1, index1) => {
         cardRef.current[index1] = "" + index1;
-        // console.log("ye createarray hai" + index1)
         return true;
       });
       return true;
@@ -95,52 +90,13 @@ export default function StudentResult(props) {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-   const handleChange1 = (panel) => (event, isExpanded) => {
+  const handleChange1 = (panel) => (event, isExpanded) => {
     setExpanded1(isExpanded ? panel : false);
   };
   const conditionRenderMain = (domain, item1) => {
-    const exp1="p"+item1;
+    const exp1 = "p" + item1;
     return (
-      // <GridContainer justify="center">
-                    
-      //                   <GridItem xs={12} sm={12} md={12} key={item1}>
-      //                   <br></br>
-      //   <br></br>
-      //                     <Grid container spacing={2}>
-      //           <Grid item xs>
-      //             <Typography component={"div"} className={classes.heading}>
-      //               <h4
-      //                 style={{ fontWeight: "900", fontFamily: "Righteous" }}
-      //               >
-      //                 DOMAIN NAME: {domain.domain}
-      //               </h4>
-      //             </Typography>
-      //           </Grid>
-      //           <Grid item xs>
-      //             <Typography component={"div"} className={classes.heading} style={{alignText:"right"}}>
-      //               <h5 style={{ fontWeight: "900", color: "red",alignText:"right" }}>
-      //                 Marks obtained:{domain.score}      Total marks: {domain.marks}
-      //               </h5>
-      //             </Typography>
-      //           </Grid>
-      //         </Grid>
-      //                   </GridItem>
-      //                   <GridItem xs={12} sm={12} md={12} key={item1}>
-      //                     {createarray()}
-      //         {
-               
-      //             Object.keys(domain.questions).map((i, item) => {
-      //               const quest = domain.questions[item];
-      //               return conditionRender(quest, item,item1);
-      //             })
-               
-      //         }
-      //                   </GridItem>
-      //                <Divider light />
-      //             </GridContainer>
-                  //===========================================
       <Grid container spacing={10} style={{ paddingTop: "4%" }} key={item1}>
-      
         <Grid item xs>
           <ExpansionPanel
             expanded={expanded1 === exp1}
@@ -154,9 +110,7 @@ export default function StudentResult(props) {
               <Grid container spacing={3}>
                 <Grid item xs>
                   <Typography component={"div"} className={classes.heading}>
-                    <h4
-                      style={{ fontWeight: "900", fontFamily: "Righteous" }}
-                    >
+                    <h4 style={{ fontWeight: "900", fontFamily: "Righteous" }}>
                       DOMAIN NAME: {domain.domain}
                     </h4>
                   </Typography>
@@ -164,47 +118,40 @@ export default function StudentResult(props) {
                 <Grid item xs>
                   <Typography component={"div"} className={classes.heading}>
                     <h5 style={{ fontWeight: "900", color: "red" }}>
-                      Marks obtained:{domain.score}      Total marks: {domain.marks}
+                      Marks obtained:{domain.score} Total marks: {domain.marks}
                     </h5>
                   </Typography>
                 </Grid>
               </Grid>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-          
               {createarray()}
-               <GridContainer justify="center">
-              {
-           
-                  Object.keys(domain.questions).map((i, item) => {
-                    
-                    const quest = domain.questions[item];
-                    return (
-                      <GridItem xs={12} sm={12} md={12} key={item}>
-                      {conditionRender(quest, item,item1)}
-                      </GridItem>
-                      );
-                  })
-               
-              }
+              <GridContainer justify="center">
+                {Object.keys(domain.questions).map((i, item) => {
+                  const quest = domain.questions[item];
+                  return (
+                    <GridItem xs={12} sm={12} md={12} key={item}>
+                      {conditionRender(quest, item, item1)}
+                    </GridItem>
+                  );
+                })}
               </GridContainer>
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Grid>
       </Grid>
     );
-  }
-  const conditionRender = (quest, item,item1) => {
+  };
+  const conditionRender = (quest, item, item1) => {
     const opt = ["f-option", "s-option", "t-option", "r-option"];
-    
+
     if (quest.hasOwnProperty("images_of_option")) {
-      const exp="p"+item1+item;
+      const exp = "p" + item1 + item;
       return (
         <Grid container spacing={10} style={{ paddingTop: "4%" }} key={item}>
           <Grid item xs>
-         
             <ExpansionPanel
-              expanded={expanded ===exp}
+              expanded={expanded === exp}
               onChange={handleChange(exp)}
             >
               <ExpansionPanelSummary
@@ -222,7 +169,7 @@ export default function StudentResult(props) {
                       </h4>
                     </Typography>
                   </Grid>
-                 
+
                   <Grid item xs>
                     <Typography component={"div"} className={classes.heading}>
                       <h5 style={{ fontWeight: "900", color: "blue" }}>
@@ -266,7 +213,7 @@ export default function StudentResult(props) {
                                   <div
                                     className={
                                       quest.selectedoption ===
-                                        quest.correctoption
+                                      quest.correctoption
                                         ? "selectedoptionImage"
                                         : "wrngoptionImage"
                                     }
@@ -297,30 +244,30 @@ export default function StudentResult(props) {
                                 </div>
                               </div>
                             ) : (
-                                <div className="studentresult">
-                                  <ul>
-                                    <li>
-                                      <input
-                                        type="radio"
-                                        id={opt[index]}
-                                        name={quest.question_caption}
-                                        value={"" + item + index}
-                                        disabled
-                                      />
-                                      <label
-                                        htmlFor={opt[index]}
-                                        className="element-animation"
-                                      >
-                                        <img alt="oops" src={urlimg}></img>
-                                        <figcaption>
-                                          {quest.options[index]}
-                                        </figcaption>
-                                      </label>
-                                      <div className="check"></div>
-                                    </li>
-                                  </ul>
-                                </div>
-                              )}
+                              <div className="studentresult">
+                                <ul>
+                                  <li>
+                                    <input
+                                      type="radio"
+                                      id={opt[index]}
+                                      name={quest.question_caption}
+                                      value={"" + item + index}
+                                      disabled
+                                    />
+                                    <label
+                                      htmlFor={opt[index]}
+                                      className="element-animation"
+                                    >
+                                      <img alt="oops" src={urlimg}></img>
+                                      <figcaption>
+                                        {quest.options[index]}
+                                      </figcaption>
+                                    </label>
+                                    <div className="check"></div>
+                                  </li>
+                                </ul>
+                              </div>
+                            )}
                           </Grid>
                         </StyleRoot>
                       );
@@ -336,7 +283,8 @@ export default function StudentResult(props) {
                           width: "100%",
                         }}
                       >
-                        <b>Explanation:</b> <div
+                        <b>Explanation:</b>{" "}
+                        <div
                           dangerouslySetInnerHTML={{
                             __html: quest.question_explanation,
                           }}
@@ -365,7 +313,7 @@ export default function StudentResult(props) {
       !quest.hasOwnProperty("images_of_option") &&
       !quest.hasOwnProperty("options")
     ) {
-      const exp="p"+item1+item;
+      const exp = "p" + item1 + item;
       return (
         <Grid container spacing={10} style={{ paddingTop: "4%" }} key={item}>
           <Grid item xs>
@@ -388,7 +336,7 @@ export default function StudentResult(props) {
                       </h4>
                     </Typography>
                   </Grid>
-                  
+
                   <Grid item xs>
                     <Typography component={"div"} className={classes.heading}>
                       <h5 style={{ fontWeight: "900", color: "blue" }}>
@@ -441,7 +389,8 @@ export default function StudentResult(props) {
                         width: "100%",
                       }}
                     >
-                      <b>Explanation:</b> <div
+                      <b>Explanation:</b>{" "}
+                      <div
                         dangerouslySetInnerHTML={{
                           __html: quest.question_explanation,
                         }}
@@ -466,7 +415,7 @@ export default function StudentResult(props) {
         </Grid>
       );
     } else {
-     const exp="p"+item1+item;
+      const exp = "p" + item1 + item;
       return (
         <Grid container spacing={10} style={{ paddingTop: "4%" }} key={item}>
           <Grid item xs>
@@ -489,7 +438,7 @@ export default function StudentResult(props) {
                       </h4>
                     </Typography>
                   </Grid>
-                  
+
                   <Grid item xs>
                     <Typography component={"div"} className={classes.heading}>
                       <h5 style={{ fontWeight: "900", color: "blue" }}>
@@ -592,7 +541,8 @@ export default function StudentResult(props) {
                           width: "100%",
                         }}
                       >
-                        <b>Explanation:</b> <div
+                        <b>Explanation:</b>{" "}
+                        <div
                           dangerouslySetInnerHTML={{
                             __html: quest.question_explanation,
                           }}
@@ -670,9 +620,8 @@ export default function StudentResult(props) {
         <br></br>
         {createarraymain()}
         {Object.keys(data.domain_wise_questions).map((item) => {
-          
           const domain = data.domain_wise_questions[item];
-         
+
           return conditionRenderMain(domain, item);
         })}
         <br />

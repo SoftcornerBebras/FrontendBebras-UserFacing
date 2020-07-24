@@ -54,10 +54,6 @@ export default function StudentHeader(props) {
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
-    // if(!sessionStorage.getItem("Authenticated"))
-    // {
-    //   history.push('/login-page');
-    // }
     if (props.changeColorOnScroll) {
       window.addEventListener("scroll", headerColorChange);
     }
@@ -219,7 +215,6 @@ export default function StudentHeader(props) {
                         className={cls1.dropdownLink}
                         to="/studenthome/HomeMain"
                         onClick={() => {
-                          console.log("will go");
                           userService.logoutStudent().then(
                             (user) => {
                               sessionStorage.clear();

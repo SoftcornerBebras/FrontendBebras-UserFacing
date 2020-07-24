@@ -171,8 +171,7 @@ function getgenderoptions() {
       })
       .catch((err) => {
         console.log(err);
-        Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-
+        Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
 
         throw err;
       });
@@ -195,8 +194,7 @@ function getschoolTypes() {
       })
       .catch((err) => {
         console.log(err);
-        Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-
+        Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
 
         throw err;
       });
@@ -244,32 +242,30 @@ function downloadCertificateforStudents(data) {
                 })
                 .catch((error) => {
                   Notiflix.Block.Remove("body");
-                  Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
+                  Notiflix.Notify.Failure(
+                    `${error.response.data}`.toUpperCase()
+                  );
                   console.log(error);
                 });
             });
-            //window.location.href = response.url;
           })
           .catch((error) => {
             Notiflix.Block.Remove("body");
-            Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
-
+            Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
           });
       });
     })
     .catch((error) => {
       //handle error
       Notiflix.Block.Remove("body");
-      if (error.response.status===401){
+      if (error.response.status === 401) {
         Notiflix.Notify.Failure(
           `${error.response.statusText} Request,Please login`.toUpperCase()
         );
         sessionStorage.clear();
-        }
-        else{
-          Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
-
-        }
+      } else {
+        Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
+      }
       console.log(error);
     });
 }
@@ -288,7 +284,6 @@ function downloadCertificatebyStudents(data) {
     },
   })
     .then((response) => {
-     
       path = response.data.path;
       sleep(5000).then(() => {
         fetch(`${FetchCertificate}`, {})
@@ -316,31 +311,28 @@ function downloadCertificatebyStudents(data) {
                 })
                 .catch((error) => {
                   Notiflix.Block.Remove("body");
-                  if (error.response.status===401){
+                  if (error.response.status === 401) {
                     Notiflix.Notify.Failure(
                       `${error.response.statusText} Request,Please login`.toUpperCase()
                     );
                     sessionStorage.clear();
-                    }
-                    else{
-                      Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
-            
-                    }     
-                  
+                  } else {
+                    Notiflix.Notify.Failure(
+                      `${error.response.data}`.toUpperCase()
+                    );
+                  }
                 });
             });
-            //window.location.href = response.url;
           })
           .catch((error) => {
             Notiflix.Block.Remove("body");
-            Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
-
+            Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
           });
       });
     })
     .catch((error) => {
       Notiflix.Block.Remove("body");
-      Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
+      Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
 
       console.log(error);
     });
@@ -388,17 +380,17 @@ function downloadCertificate(class_id, competitionName) {
                 })
                 .catch((error) => {
                   Notiflix.Block.Remove("body");
-                        Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
+                  Notiflix.Notify.Failure(
+                    `${error.response.data}`.toUpperCase()
+                  );
 
                   console.log(error);
                 });
             });
-            //window.location.href = response.url;
           })
           .catch((error) => {
             Notiflix.Block.Remove("body");
-                  Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
-
+            Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
           });
       });
     })
@@ -406,16 +398,14 @@ function downloadCertificate(class_id, competitionName) {
       //handle error
       Notiflix.Block.Remove("body");
       console.log(error.response.data);
-      if (error.response.status===401){
+      if (error.response.status === 401) {
         Notiflix.Notify.Failure(
           `${error.response.statusText} Request,Please login`.toUpperCase()
         );
         sessionStorage.clear();
-        }
-        else{
-          Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
-
-        }
+      } else {
+        Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
+      }
     });
 }
 function downloadSchoolTopperCertificate(class_id, competitionName) {
@@ -434,7 +424,6 @@ function downloadSchoolTopperCertificate(class_id, competitionName) {
     },
   })
     .then((response) => {
-     
       path = response.data.path;
       sleep(5000).then(() => {
         fetch(`${FetchCertificate}`)
@@ -468,7 +457,6 @@ function downloadSchoolTopperCertificate(class_id, competitionName) {
                   console.log(error);
                 });
             });
-            //window.location.href = response.url;
           })
           .catch((error) => {
             console.log(error);
@@ -481,16 +469,14 @@ function downloadSchoolTopperCertificate(class_id, competitionName) {
     .catch((error) => {
       //handle error
       Notiflix.Block.Remove("body");
-      if (error.response.status===401){
+      if (error.response.status === 401) {
         Notiflix.Notify.Failure(
           `${error.response.statusText} Request,Please login`.toUpperCase()
         );
         sessionStorage.clear();
-        }
-        else{
-          Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
-
-        }
+      } else {
+        Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
+      }
 
       console.log(error);
     });
@@ -510,11 +496,11 @@ function getAgeGroupToppers() {
       })
       .catch((err) => {
         console.log(err.response);
-        Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
+        Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
         throw err;
       });
   } catch (error) {
-    Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
+    Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
     throw error;
   }
 }
@@ -536,11 +522,11 @@ function getPracticeChallengeList() {
       })
       .catch((err) => {
         console.log(err.response);
-        Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
+        Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
         throw err;
       });
   } catch (error) {
-    Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
+    Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
     throw error;
   }
 }
@@ -563,7 +549,6 @@ function getPracticeChallengeQues(AgeGroupName) {
       .catch((err) => {
         console.log(err.response);
         Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
-        // alert(`${err.response.data}`);
         throw err;
       });
   } catch (error) {
@@ -591,17 +576,15 @@ function askcalcTotalScore(studentEnrollmentID) {
       })
       .catch((err) => {
         console.log(err.response);
-        if (err.response.status===401){
+        if (err.response.status === 401) {
           Notiflix.Notify.Failure(
             `${err.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }     throw err;
-     
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
+        throw err;
       });
   } catch (error) {
     throw error;
@@ -628,16 +611,15 @@ function getLanguagesNames(class_id, competitionName) {
       })
       .catch((err) => {
         console.log(err.response.data);
-        if (err.response.status===401){
+        if (err.response.status === 401) {
           Notiflix.Notify.Failure(
             `${err.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }     throw err;
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
+        throw err;
       });
   } catch (error) {
     throw error;
@@ -648,7 +630,7 @@ function getSavedStudentResponse(studentresponse) {
     return Axios({
       url: `${SavedStudentResponse}`,
       method: "post",
-      data:studentresponse ,
+      data: studentresponse,
       headers: {
         Authorization: "Token " + sessionStorage.getItem("studenttoken"),
         "content-type": "application/json",
@@ -659,17 +641,15 @@ function getSavedStudentResponse(studentresponse) {
         return respons.data;
       })
       .catch((err) => {
-     
-        if (err.response.status===401){
+        if (err.response.status === 401) {
           Notiflix.Notify.Failure(
             `${err.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }     throw err;
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
+        throw err;
       });
   } catch (error) {
     throw error;
@@ -690,17 +670,15 @@ function doCompetitionStudentResponse() {
         console.log(respons);
       })
       .catch((err) => {
-     
-        if (err.response.status===401){
+        if (err.response.status === 401) {
           Notiflix.Notify.Failure(
             `${err.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }     throw err;
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
+        throw err;
       });
   } catch (error) {
     throw error;
@@ -725,16 +703,15 @@ function getCompetitionResult(competitionname) {
         return respons.data;
       })
       .catch((err) => {
-        if (err.response.status===401){
+        if (err.response.status === 401) {
           Notiflix.Notify.Failure(
             `${err.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }     throw err;
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
+        throw err;
       });
   } catch (error) {
     throw error;
@@ -755,14 +732,12 @@ function getCompetitionNameResultList() {
         return respons.data.competitionnames;
       })
       .catch((err) => {
-        if (err.response.status===401){
-         
+        if (err.response.status === 401) {
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }     throw err;        
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
+        throw err;
       });
   } catch (error) {
     throw error;
@@ -784,16 +759,14 @@ function getCompetitionNameAnalysisList() {
       })
       .catch((err) => {
         console.log(err.response);
-        if (err.response.status===401){
+        if (err.response.status === 401) {
           Notiflix.Notify.Failure(
             `${err.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
 
         throw err;
       });
@@ -822,14 +795,12 @@ function getCompetitionQues(competitionname) {
       })
       .catch((err) => {
         console.log(err.response);
-        if (err.response.status===401){
-        
+        if (err.response.status === 401) {
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }     throw err;
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
+        throw err;
       });
   } catch (error) {
     throw error;
@@ -851,14 +822,12 @@ function getCompetitionList() {
       })
       .catch((err) => {
         console.log(err.response);
-        if (err.response.status===401){
-        
+        if (err.response.status === 401) {
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }     throw err;
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
+        throw err;
       });
   } catch (error) {
     throw error;
@@ -882,14 +851,12 @@ function getUserResult() {
       .catch((err) => {
         console.log(err.response);
         console.log(err.response.statusText);
-        if (err.response.status===401)
-        {Notiflix.Notify.Failure(
-          `${err.response.statusText} Request,Please login`.toUpperCase()
-        );
-        }
-        else
-        {
-          Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
+        if (err.response.status === 401) {
+          Notiflix.Notify.Failure(
+            `${err.response.statusText} Request,Please login`.toUpperCase()
+          );
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
         }
         throw err;
       });
@@ -914,16 +881,14 @@ function getAllUsersResults() {
       .catch((err) => {
         console.log(err.response);
         console.log(err.response.statusText);
-        if (err.response.status===401){
+        if (err.response.status === 401) {
           Notiflix.Notify.Failure(
             `${err.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
 
         throw err;
       });
@@ -948,16 +913,14 @@ function getAllUsersEnrolled() {
       .catch((err) => {
         console.log(err.response);
         console.log(err.response.statusText);
-        if (err.response.status===401){
+        if (err.response.status === 401) {
           Notiflix.Notify.Failure(
             `${err.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
 
         throw err;
       });
@@ -1029,20 +992,17 @@ function ResetPasswordView(data) {
 }
 
 function ConfirmResetPasswordView(password, uidb64, token) {
-  // if(sessionStorage.getItem('uid')==uidb64 && sessionStorage.getItem('token')==token){
   try {
     return Axios({
       url: `${ConfirmResetPasswordViewurl}`,
       method: "post",
       data: {
-        // loginID: loginID,
         password: password,
         uidb64: uidb64,
         token: token,
       },
     })
       .then((respons) => {
-        // alert(respons.data)
         console.log(
           sessionStorage.getItem("uid") +
             "anandnd" +
@@ -1051,17 +1011,14 @@ function ConfirmResetPasswordView(password, uidb64, token) {
         console.log(respons.data);
 
         Notiflix.Notify.Success(`Password Change Succesful`.toUpperCase());
-        // alert(`Password Change Succesful`);
 
         sessionStorage.clear();
         return respons.data;
       })
       .catch((error) => {
-      
         console.log(error.response.data);
-      
+
         Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
-        // alert(`${error.response.data}`);
 
         throw error;
       });
@@ -1087,17 +1044,13 @@ function getStudentDataExcel() {
       .catch((err) => {
         console.log(err.response);
         console.log(err.response.statusText);
-        if (err.response.status===401)
-        {
-        Notiflix.Notify.Failure(
-          `${err.response.statusText} Request,Please login`.toUpperCase()
-        );
-        sessionStorage.clear();
-        }
-        else
-        {
-          Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-
+        if (err.response.status === 401) {
+          Notiflix.Notify.Failure(
+            `${err.response.statusText} Request,Please login`.toUpperCase()
+          );
+          sessionStorage.clear();
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
         }
 
         throw err;
@@ -1129,15 +1082,12 @@ function doBulkRegisterStudents(bulkdata) {
       .catch((error) => {
         Notiflix.Block.Remove("body");
         console.log(error.response.data);
-        
-        if (error.response.statusText===401){
-        Notiflix.Notify.Failure(`${error.response.statusText}`.toUpperCase());
-        sessionStorage.clear();
-        }
-        else
-        {
-          Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
 
+        if (error.response.statusText === 401) {
+          Notiflix.Notify.Failure(`${error.response.statusText}`.toUpperCase());
+          sessionStorage.clear();
+        } else {
+          Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
         }
 
         throw error;
@@ -1172,16 +1122,14 @@ function doBulkRegister() {
         Notiflix.Block.Remove("body");
         console.log(error.response.data);
         console.log(error.response.status);
-        if (error.response.status===401){
+        if (error.response.status === 401) {
           Notiflix.Notify.Failure(
             `${error.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
-  
-          }
+        } else {
+          Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
+        }
         throw error;
       });
   } catch (error) {
@@ -1196,7 +1144,6 @@ function getNamesUsers(competitionName) {
       url: `${getUsers}`,
       method: "post",
       data: {
-       
         competitionName: competitionName,
       },
       headers: {
@@ -1211,15 +1158,13 @@ function getNamesUsers(competitionName) {
       .catch((err) => {
         console.log(err.response);
         console.log(err.response.statusText);
-        if (err.response.status===401){
-        Notiflix.Notify.Failure(
-          `${err.response.statusText} Request,Please login`.toUpperCase()
-        );
-        sessionStorage.clear();
-        }
-        else{
-          Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-
+        if (err.response.status === 401) {
+          Notiflix.Notify.Failure(
+            `${err.response.statusText} Request,Please login`.toUpperCase()
+          );
+          sessionStorage.clear();
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
         }
 
         throw err;
@@ -1275,16 +1220,14 @@ function getCompetitionListforCertificate(class_id) {
       })
       .catch((err) => {
         console.log(err.response.data);
-        if (err.response.status===401){
+        if (err.response.status === 401) {
           Notiflix.Notify.Failure(
             `${err.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
 
         throw err;
       });
@@ -1314,18 +1257,16 @@ function registerStudent() {
       })
       .catch((error) => {
         console.log(error);
-     
+
         console.log(error.response.data);
-        if (error.response.status===401){
+        if (error.response.status === 401) {
           Notiflix.Notify.Failure(
             `${error.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
-  
-          }
+        } else {
+          Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
+        }
 
         throw error;
       });
@@ -1352,11 +1293,9 @@ function register() {
       })
       .catch((error) => {
         Notiflix.Block.Remove("body");
-    
+
         console.log(error.response.data);
-        Notiflix.Notify.Failure(
-          `${error.response.data}`.toUpperCase()
-        );
+        Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
 
         throw error;
       });
@@ -1384,18 +1323,15 @@ function registerTeacher() {
         sessionStorage.removeItem("registerteacher");
       })
       .catch((error) => {
-     
         console.log(error.response.data);
-        if (error.response.status===401){
+        if (error.response.status === 401) {
           Notiflix.Notify.Failure(
             `${error.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${error.response.data}`).toUpperCase())
-  
-          }
+        } else {
+          Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
+        }
         throw error;
       });
   } catch (error) {
@@ -1420,8 +1356,7 @@ function getDistrictNames(states) {
       })
       .catch((err) => {
         console.log(err);
-        Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-
+        Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
 
         throw err;
       });
@@ -1447,8 +1382,7 @@ function getStateNames(country) {
       })
       .catch((err) => {
         console.log(err);
-        Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-
+        Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
 
         throw err;
       });
@@ -1471,7 +1405,7 @@ function getschoolGroupNames() {
       })
       .catch((err) => {
         console.log(err);
-        Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
+        Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
 
         throw err;
       });
@@ -1494,8 +1428,7 @@ function getCountryNames() {
       })
       .catch((err) => {
         console.log(err);
-        Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-
+        Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
 
         throw err;
       });
@@ -1527,9 +1460,7 @@ function registerSchool() {
       .catch((err) => {
         console.log(err);
         Notiflix.Block.Remove("body");
-        Notiflix.Notify.Failure(
-          `${err.response.data}`.toUpperCase()
-        );
+        Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
         throw err;
       });
   } catch (error) {
@@ -1589,7 +1520,6 @@ function logout() {
     return Axios({
       url: `${Logout}`,
       method: "post",
-      //  data:sessionStorage.getItem('registeruser'),
       headers: {
         Authorization: "Token " + sessionStorage.getItem("teachertoken"),
 
@@ -1667,16 +1597,14 @@ function getSchoolClasses() {
       })
       .catch((err) => {
         console.log(err);
-        if (err.response.status===401){
+        if (err.response.status === 401) {
           Notiflix.Notify.Failure(
             `${err.response.statusText} Request,Please login`.toUpperCase()
           );
           sessionStorage.clear();
-          }
-          else{
-            Notiflix.Notify.Failure((`${err.response.data}`).toUpperCase())
-  
-          }
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
         throw err;
       });
   } catch (error) {

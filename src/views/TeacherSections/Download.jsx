@@ -120,8 +120,6 @@ export default function Download(props) {
                 style={{
                   backgroundImage:
                     "radial-gradient(circle, #2C3531, #373F3B, #414945, #4D5350, #585E5B)",
-                  //               border: "5px ridge #2C3531",
-                  // borderRadius: "28px",
                 }}
               />
               <span className={cls1.imageBackdrop} />
@@ -160,8 +158,6 @@ export default function Download(props) {
                 style={{
                   backgroundImage:
                     "radial-gradient(circle, #2C3531, #373F3B, #414945, #4D5350, #585E5B)",
-                  //               border: "5px ridge #2C3531",
-                  // borderRadius: "28px",
                 }}
               />
               <span className={cls1.imageBackdrop} />
@@ -180,11 +176,11 @@ export default function Download(props) {
           </div>
         </GridItem>
         <GridItem xs={12} sm={12} md={12}>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
         </GridItem>
       </GridContainer>
       <Tab></Tab>

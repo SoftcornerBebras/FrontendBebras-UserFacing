@@ -25,7 +25,6 @@ import { userService } from "services/user.service";
 import Modal from "@material-ui/core/Modal";
 import Notiflix from "notiflix";
 
-
 function getModalStyle() {
   return {
     margin: "auto",
@@ -38,8 +37,6 @@ const useStylesModal1 = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
 }));
-
-
 
 const useStyles = makeStyles(styles);
 const usesty1 = makeStyles((theme) => ({
@@ -109,62 +106,61 @@ const columns = [
   },
 ];
 const columnsUsersEnrolled = [
-    {
-      field: "username",
-      name: "username",
-      label: "UserName",
-      options: {
-        filter: true,
-        sort: false,
-      },
+  {
+    field: "username",
+    name: "username",
+    label: "UserName",
+    options: {
+      filter: true,
+      sort: false,
     },
-    {
-      field: "loginID",
-      name: "loginID",
-      label: "loginID",
-      options: {
-        filter: true,
-        sort: false,
-      },
+  },
+  {
+    field: "loginID",
+    name: "loginID",
+    label: "loginID",
+    options: {
+      filter: true,
+      sort: false,
     },
-    {
-      field: "ageGroup",
-      name: "ageGroup",
-      label: "ageGroup",
-      options: {
-        filter: true,
-        sort: false,
-      },
+  },
+  {
+    field: "ageGroup",
+    name: "ageGroup",
+    label: "ageGroup",
+    options: {
+      filter: true,
+      sort: false,
     },
-    {
-      field: "class",
-      name: "class",
-      label: "class",
-      options: {
-        filter: true,
-        sort: false,
-      },
+  },
+  {
+    field: "class",
+    name: "class",
+    label: "class",
+    options: {
+      filter: true,
+      sort: false,
     },
-    {
-      field: "competitionName",
-      name: "competitionName",
-      label: "competitionName",
-      options: {
-        filter: true,
-        sort: false,
-      },
+  },
+  {
+    field: "competitionName",
+    name: "competitionName",
+    label: "competitionName",
+    options: {
+      filter: true,
+      sort: false,
     },
-    {
-        field: "Year",
-        name: "year",
-        label: "year",
-        options: {
-          filter: true,
-          sort: false,
-        },
-      },
-    
-  ];
+  },
+  {
+    field: "Year",
+    name: "year",
+    label: "year",
+    options: {
+      filter: true,
+      sort: false,
+    },
+  },
+];
 const dataschoolclass = [];
 const user = [];
 const options = {
@@ -251,7 +247,7 @@ export default function EnrollNew(props) {
       case 0:
         function onChangeSchoolClass(optionSelected) {
           if (optionSelected) {
-            setSchoolclass(optionSelected.value );
+            setSchoolclass(optionSelected.value);
             var arry;
             setCompetition({ label: "", value: "" });
             setlanguage({ label: "", value: "" });
@@ -267,10 +263,8 @@ export default function EnrollNew(props) {
               },
               (error) => {
                 console.log(error);
-                setOptionschoolcmp(
-                  []
-                );
-                setOptionslanguage( [] );
+                setOptionschoolcmp([]);
+                setOptionslanguage([]);
               }
             );
           }
@@ -325,30 +319,28 @@ export default function EnrollNew(props) {
           </GridContainer>
         );
       case 1:
-          function onChangeCmp(optionSelected) {
-            if (optionSelected) {
-              setCompetition(optionSelected.value);
-            }
-            setlanguage( { label: "", value: "" } );
-            var arry;
-            userService
-              .getLanguagesNames(schoolclass, optionSelected.value)
-              .then(
-                (array2) => {
-                  arry = array2;
-                  const datacmp = [];
-                  arry.forEach(function (element) {
-                    datacmp.push({ label: element, value: element });
-                  });
-                  setOptionslanguage( datacmp );
-                  setEnable(false);
-                },
-                (error) => {
-                  console.log(error);
-                 setOptionslanguage([] );
-                }
-              );
+        function onChangeCmp(optionSelected) {
+          if (optionSelected) {
+            setCompetition(optionSelected.value);
           }
+          setlanguage({ label: "", value: "" });
+          var arry;
+          userService.getLanguagesNames(schoolclass, optionSelected.value).then(
+            (array2) => {
+              arry = array2;
+              const datacmp = [];
+              arry.forEach(function (element) {
+                datacmp.push({ label: element, value: element });
+              });
+              setOptionslanguage(datacmp);
+              setEnable(false);
+            },
+            (error) => {
+              console.log(error);
+              setOptionslanguage([]);
+            }
+          );
+        }
         return (
           <GridContainer
             justify="center"
@@ -396,22 +388,21 @@ export default function EnrollNew(props) {
           </GridContainer>
         );
       case 2:
-          function onChangeLanguage(optionSelected) {
-            setlanguage( optionSelected.value );
-            Notiflix.Block.Dots("body");
-            userService.getNamesUsers(competition).then(
-              (user) => {
-                Notiflix.Block.Remove("body");
-                setUserdata(user );
-                setEnable(false);
-              },
-              (error) => {
-                Notiflix.Block.Remove("body");
-                window.location.reload(false);
-        
-              }
-            );
-          }
+        function onChangeLanguage(optionSelected) {
+          setlanguage(optionSelected.value);
+          Notiflix.Block.Dots("body");
+          userService.getNamesUsers(competition).then(
+            (user) => {
+              Notiflix.Block.Remove("body");
+              setUserdata(user);
+              setEnable(false);
+            },
+            (error) => {
+              Notiflix.Block.Remove("body");
+              window.location.reload(false);
+            }
+          );
+        }
         return (
           <GridContainer
             justify="center"
@@ -459,32 +450,30 @@ export default function EnrollNew(props) {
           </GridContainer>
         );
       case 3:
-          function registerstudent() {
-            if (
-              rowssselected.length === 0 
-            ) {
-              Notiflix.Notify.Warning(
-                "Select one student from the table".toUpperCase()
-              );
-              return;
-            }
-            const datauser = [];
-            for (var i in rowssselected) {
-              datauser.push(userdata[rowssselected[i].index]);
-            }
-            const bulkuserdata = {
-              classNumber: schoolclass,
-              competitionName: competition,
-              language: language,
-              user: datauser,
-            };
-            userService.doBulkRegisterStudents(bulkuserdata).then(
-              (user) => {
-                window.location.reload();
-              },
-              (error) => {}
+        function registerstudent() {
+          if (rowssselected.length === 0) {
+            Notiflix.Notify.Warning(
+              "Select one student from the table".toUpperCase()
             );
+            return;
           }
+          const datauser = [];
+          for (var i in rowssselected) {
+            datauser.push(userdata[rowssselected[i].index]);
+          }
+          const bulkuserdata = {
+            classNumber: schoolclass,
+            competitionName: competition,
+            language: language,
+            user: datauser,
+          };
+          userService.doBulkRegisterStudents(bulkuserdata).then(
+            (user) => {
+              window.location.reload();
+            },
+            (error) => {}
+          );
+        }
         return (
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={12}>
@@ -496,31 +485,31 @@ export default function EnrollNew(props) {
                   options={options}
                 />
               </MuiThemeProvider>
-              
             </GridItem>
             <GridItem
               xs={12}
               sm={12}
               md={6}
               style={{ marginRight: "0px", paddingRight: "0px" }}
-              
             >
-            <br></br>
-          <Button
-          round
-                style={{ backgroundColor: "#3F51B5",float:"right",width:"70%" }}
-             
+              <br></br>
+              <Button
+                round
+                style={{
+                  backgroundColor: "#3F51B5",
+                  float: "right",
+                  width: "70%",
+                }}
                 onClick={registerstudent}
               >
                 Enroll Students
               </Button>
-              
             </GridItem>
             <GridItem
               xs={12}
               sm={12}
               md={6}
-              style={{ marginLeft: "0px", paddingLeft: "0px"}}
+              style={{ marginLeft: "0px", paddingLeft: "0px" }}
             >
               <InfoArea
                 title=""
@@ -554,7 +543,7 @@ export default function EnrollNew(props) {
       (error) => {
         Notiflix.Block.Remove("body");
         console.log(error);
-        if (error.response.status===401){
+        if (error.response.status === 401) {
           window.location.reload(false);
         }
       }
@@ -616,14 +605,16 @@ export default function EnrollNew(props) {
                               Back
                             </Button>
                             <Button
-                        variant="contained"
-                        onClick={handleNext}
-                        className={clss1.button}
-                        style={{ backgroundColor: "#3F51B5" }}
-                        disabled={enable}
-                      >
-                        {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                      </Button>
+                              variant="contained"
+                              onClick={handleNext}
+                              className={clss1.button}
+                              style={{ backgroundColor: "#3F51B5" }}
+                              disabled={enable}
+                            >
+                              {activeStep === steps.length - 1
+                                ? "Finish"
+                                : "Next"}
+                            </Button>
                           </div>
                         </div>
                       </StepContent>

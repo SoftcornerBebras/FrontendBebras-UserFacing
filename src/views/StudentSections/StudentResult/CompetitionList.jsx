@@ -61,7 +61,6 @@ export default function StudentResCompList(props) {
       (user) => {
         Notiflix.Block.Remove("body");
         setUserdata(user);
-        console.log(user)
       },
       (error) => {
         Notiflix.Block.Remove("body");
@@ -97,19 +96,21 @@ export default function StudentResCompList(props) {
         <br></br>
         <br></br>
         <div className="whitebg">
+          <div>
             <div>
-              <div>
-              <Grid container direction="row"
+              <Grid
+                container
+                direction="row"
                 justify="space-evenly"
                 alignItems="center"
                 spacing={4}
-                >
-          {sessionStorage.getItem("Authenticated") &&
-            userdata.length !== 0 &&
-            userdata.map((value, index) => {
-              return (
-                <div key={index} className="resultcard">
-                        <Grid item >
+              >
+                {sessionStorage.getItem("Authenticated") &&
+                  userdata.length !== 0 &&
+                  userdata.map((value, index) => {
+                    return (
+                      <div key={index} className="resultcard">
+                        <Grid item>
                           <div className={classes.profile}>
                             <div>
                               <img
@@ -125,7 +126,7 @@ export default function StudentResCompList(props) {
                                 “Competitions will come and go, <br></br> your
                                 determination will stay with you forever.”{" "}
                               </h6>
-                              
+
                               <Button
                                 variant="contained"
                                 onClick={handleClickOpen(value)}
@@ -136,11 +137,11 @@ export default function StudentResCompList(props) {
                             </div>
                           </div>
                         </Grid>
-                </div>
-              );
-            })}
-                </Grid>
-              </div>
+                      </div>
+                    );
+                  })}
+              </Grid>
+            </div>
           </div>
           {!sessionStorage.getItem("Authenticated") && (
             <div className="compcard">

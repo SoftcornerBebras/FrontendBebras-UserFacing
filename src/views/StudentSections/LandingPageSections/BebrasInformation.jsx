@@ -14,8 +14,7 @@ import InfoArea from "components/InfoArea/InfoArea.js";
 import AccessAlarmsIcon from "@material-ui/icons/AccessAlarms";
 import Carousel from "react-slick";
 import styles from "assets/jss/material-kit-react/views/landingPageSections/productStyle.js";
-// import { Button } from "@material-ui/core";
-import './registerbutton.scss';
+import "./registerbutton.scss";
 const useStyles = makeStyles(styles);
 
 export default function BebrasInformation() {
@@ -31,14 +30,14 @@ export default function BebrasInformation() {
   return (
     <div className={classes.section}>
       <div>
-        <GridContainer justify="center" style={{paddingTop:"10px"}}>
+        <GridContainer justify="center" style={{ paddingTop: "10px" }}>
           <GridItem xs={12} sm={12} md={4}>
             {/* <Button variant="contained" href="/Register-Page" color="secondary" fullwidth>Register your school now</Button> */}
-            {!sessionStorage.getItem("Authenticated") && (   <a href="/Register-Page">
-              <div className="boxbutton">
-                Register your school now
-          </div>
-            </a> )}
+            {!sessionStorage.getItem("Authenticated") && (
+              <a href="/Register-Page">
+                <div className="boxbutton">Register your school now</div>
+              </a>
+            )}
           </GridItem>
         </GridContainer>
         <GridContainer justify="center">

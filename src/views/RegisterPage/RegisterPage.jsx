@@ -217,7 +217,6 @@ function RegisterPage() {
         Notiflix.Notify.Warning(
           "Cannot proceed to the next step, please fill all the address details".toUpperCase()
         );
-        // alert("can't proceed to the next step, please fill all the details")
       } else {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
       }
@@ -234,7 +233,6 @@ function RegisterPage() {
         Notiflix.Notify.Warning(
           "Cannot proceed to the next step, please fill all the school details".toUpperCase()
         );
-        // alert("can't proceed to the next step, please fill all the details")
       } else {
         if (school.UDISEcode.length !== 11) {
           Notiflix.Notify.Warning(
@@ -257,26 +255,23 @@ function RegisterPage() {
         Notiflix.Notify.Warning(
           "Cannot proceed , please fill all the teacher details".toUpperCase()
         );
-        // alert("can't finish, please fill all the details")
       } else {
         delete address.countrynames;
         delete address.statenames;
         delete address.districtnames;
         delete school.schoolGroupNames;
-        //schoolgroup
-         
-    if(school.contact.charAt(0)!=="+")
-    { var phonenumber = "+" + school.contact;
-    school.contact = phonenumber;
-    } 
-    if(user.phone.charAt(0)!=="+")
-    {  phonenumber = "+" +  user.phone;;
-    user.phone = phonenumber;
-      
-    } 
-        
+
+        if (school.contact.charAt(0) !== "+") {
+          var phonenumber = "+" + school.contact;
+          school.contact = phonenumber;
+        }
+        if (user.phone.charAt(0) !== "+") {
+          phonenumber = "+" + user.phone;
+          user.phone = phonenumber;
+        }
+
         user.school = school.schoolName;
-        
+
         const sttate = { school: school, address: address };
 
         sessionStorage.setItem("registerschool", JSON.stringify(sttate));

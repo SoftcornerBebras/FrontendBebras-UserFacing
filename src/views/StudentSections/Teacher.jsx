@@ -197,12 +197,11 @@ export default function Teacher(props) {
                 </Stepper>
               </div>
             </GridItem>
-            <TeacherManual/>
-               
+            <TeacherManual />
+
             <br></br>
             <br></br>
             <br></br>
- 
           </GridContainer>
         </div>
       </div>

@@ -8,9 +8,9 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import IconButton from '@material-ui/core/IconButton';
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import IconButton from "@material-ui/core/IconButton";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -22,14 +22,14 @@ class TeacherDetails extends React.Component {
     super(props);
     this.state = this.props.user;
     this.state.gendernames = [];
-    this.state.values={
-      amount: '',
-      password: '',
-      weight: '',
-      weightRange: '',
+    this.state.values = {
+      amount: "",
+      password: "",
+      weight: "",
+      weightRange: "",
       showPassword: false,
     };
-    
+
     this.handleChange = this.handleChange.bind(this);
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
   }
@@ -39,11 +39,16 @@ class TeacherDetails extends React.Component {
       this.setState({ phone: value });
     }
   }
-   handleClickShowPassword = () => {
-    this.setState({values:{ ...this.state.values, showPassword: !this.state.values.showPassword }});
+  handleClickShowPassword = () => {
+    this.setState({
+      values: {
+        ...this.state.values,
+        showPassword: !this.state.values.showPassword,
+      },
+    });
   };
 
-   handleMouseDownPassword = (event) => {
+  handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
   handleChange(e) {
@@ -82,7 +87,7 @@ class TeacherDetails extends React.Component {
               label="Password"
               value={this.state.password}
               name="password"
-              type={this.state.values.showPassword ? 'text' : 'password'}
+              type={this.state.values.showPassword ? "text" : "password"}
               variant="outlined"
               margin="normal"
               inputlabelprops={{
@@ -103,7 +108,11 @@ class TeacherDetails extends React.Component {
                       onClick={this.handleClickShowPassword}
                       onMouseDown={this.handleMouseDownPassword}
                     >
-                      {this.state.values.showPassword ? <Visibility /> : <VisibilityOff />}
+                      {this.state.values.showPassword ? (
+                        <Visibility />
+                      ) : (
+                        <VisibilityOff />
+                      )}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -152,10 +161,9 @@ class TeacherDetails extends React.Component {
               country={"in"}
               value={this.state.phone}
               onChange={(phone) => {
-                console.log(phone);
                 this.setState({ phone: phone }, function () {
                   this.props.onChangeUser(this.state);
-                });  
+                });
               }}
               containerStyle={{ marginTop: "13px", height: "60px" }}
               inputStyle={{ height: "60px", width: "100%" }}
@@ -198,6 +206,21 @@ class TeacherDetails extends React.Component {
               onChange={this.handleChange}
               fullWidth
             />
+            <TextField
+              placeholder="Type your email here"
+              name="email"
+              label="loginID"
+              required
+              disabled
+              type="email"
+              variant="outlined"
+              margin="normal"
+              inputlabelprops={{
+                shrink: true,
+              }}
+              value={this.state.email}
+              fullWidth
+            />
           </GridItem>
         </GridContainer>
       </div>
@@ -208,7 +231,6 @@ class TeacherDetails extends React.Component {
     userService.getgenderoptions().then(
       (array2) => {
         arry = array2;
-        console.log(arry);
         this.setState({ gendernames: arry });
       },
       (error) => {}

@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext } from 'react';
+import { useContext } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -9,38 +9,18 @@ import styles from "assets/jss/material-kit-react/views/landingPage.js";
 import classNames from "classnames";
 
 import { Tab } from "@material-ui/core";
-import { ShepherdTourContext} from 'react-shepherd';
-import 'shepherd.js/dist/css/shepherd.css';
-// import newSteps from './steps';
-// const tourOptions = {
-//   defaultStepOptions: {
-//     cancelIcon: {
-//       enabled: true
-//     }
-//   },
-//   useModalOverlay: true,
-// };
-// function Content() {
-//   const tour = useContext(ShepherdTourContext);
+import { ShepherdTourContext } from "react-shepherd";
+import "shepherd.js/dist/css/shepherd.css";
 
-//   return (
-//     <div>
-//     {console.log(tour)}
-//         <button className="button dark" onClick={tour.start}>
-//           Start Tour
-//         </button>
-//     </div>
-//   );
-// }
 const useStyles = makeStyles(styles);
 export default function Practicechlng(props) {
   const classes = useStyles();
   const tour = useContext(ShepherdTourContext);
   return (
     <div>
-    {console.log(tour)}
-     <link rel="stylesheet" href="shepherd.js/dist/css/shepherd.css"/>
-<script src="shepherd.js/dist/js/shepherd.min.js"></script>
+      {console.log(tour)}
+      <link rel="stylesheet" href="shepherd.js/dist/css/shepherd.css" />
+      <script src="shepherd.js/dist/js/shepherd.min.js"></script>
       <GridContainer>
         <GridItem
           xs={12}
@@ -64,7 +44,7 @@ export default function Practicechlng(props) {
         style={{ margin: "-5% 9% 0% 10%" }}
       >
         <div className={classes.container}>
-        {/* <ShepherdTour steps={newSteps} tourOptions={tourOptions}>
+          {/* <ShepherdTour steps={newSteps} tourOptions={tourOptions}>
           <Content />
         </ShepherdTour> */}
           <img
@@ -74,10 +54,14 @@ export default function Practicechlng(props) {
           ></img>
           <br></br>
           <center>
-          <Button  href="/studenthome/pc" color="primary" style={{width:"55%",fontSize:"100%"}}>
-            {" "}
-            Get started
-          </Button>
+            <Button
+              href="/studenthome/pc"
+              color="primary"
+              style={{ width: "55%", fontSize: "100%" }}
+            >
+              {" "}
+              Get started
+            </Button>
           </center>
         </div>
       </div>

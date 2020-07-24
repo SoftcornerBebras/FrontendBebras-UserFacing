@@ -32,7 +32,6 @@ export default function Timerendalert() {
       userService.askcalcTotalScore(data.studentEnrollmentID).then(
         (user) => {
           history.push("/thankyou");
-          console.log("yahooo", user);
         },
         (error) => {
           console.log(error.response.data);

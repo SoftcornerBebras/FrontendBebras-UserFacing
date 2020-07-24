@@ -222,9 +222,9 @@ export default class EnrollStudent extends React.Component {
   registerstudent() {
     if (
       rowssselected.length === 0 ||
-      this.state.competition.value=== ""  ||
+      this.state.competition.value === "" ||
       !this.state.schoolclass ||
-      this.state.language.value=== "" 
+      this.state.language.value === ""
     ) {
       Notiflix.Notify.Warning(
         "Please fill required fields and atleast select one student from the table".toUpperCase()
@@ -272,7 +272,6 @@ export default class EnrollStudent extends React.Component {
     });
 
   render() {
- 
     return (
       <div className="whitebg element" style={{ marginTop: "0%" }}>
         <div
@@ -421,7 +420,6 @@ export default class EnrollStudent extends React.Component {
       (error) => {
         Notiflix.Block.Remove("body");
         window.location.reload(false);
-
       }
     );
     this.setState({ showHideSidenav: "hidden" });

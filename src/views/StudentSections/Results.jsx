@@ -32,7 +32,7 @@ export default function Results(props) {
         className={classNames(classes.main, classes.mainRaised)}
         style={{ margin: "-5% 9% 0% 10%" }}
       >
-        <div >
+        <div>
           <br></br>
           <br></br>
           <StudentResult />

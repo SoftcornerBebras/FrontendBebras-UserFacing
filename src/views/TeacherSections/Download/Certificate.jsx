@@ -106,7 +106,6 @@ export default function Certificate(props) {
       userService.getCompetitionListforCertificate(optionSelected.value).then(
         (array2) => {
           arry = array2;
-          console.log(arry);
           const datacmp = [];
           arry.forEach(function (element) {
             datacmp.push({ label: element, value: element });
@@ -116,8 +115,7 @@ export default function Certificate(props) {
         (error) => {
           console.log(error);
           setOptionschoolcmp([]);
-          if(error.response.status===401)
-          {
+          if (error.response.status === 401) {
             window.location.reload(false);
           }
         }
@@ -136,7 +134,6 @@ export default function Certificate(props) {
     userService.getSchoolClasses().then(
       (array2) => {
         arry = array2;
-        console.log(arry);
 
         const dataschoolclass = [];
         arry.forEach(function (element) {
@@ -147,8 +144,7 @@ export default function Certificate(props) {
       (error) => {
         console.log(error);
         setOptionschoolclass([]);
-        if(error.response.status===401)
-        {
+        if (error.response.status === 401) {
           window.location.reload(false);
         }
       }
@@ -194,7 +190,6 @@ export default function Certificate(props) {
                   value={competition.label}
                   options={optionschoolcmp}
                   onChange={onChangeCmp}
-                  // options={options}
                 />
               </Grid>
             </Grid>
@@ -267,8 +262,6 @@ export default function Certificate(props) {
                 style={{
                   backgroundImage:
                     "radial-gradient(circle, #2c3531, #373f3b, #414945, #4d5350, #585e5b)",
-                  //               border: "5px ridge #2c3531",
-                  // borderRadius: "28px",
                 }}
               />
               <span className={cls1.imageBackdrop} />

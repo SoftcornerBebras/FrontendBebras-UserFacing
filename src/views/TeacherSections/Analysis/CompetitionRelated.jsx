@@ -4,7 +4,7 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Select from "react-select";
 import { userService } from "services/user.service";
-import {METABASE_URL} from '../../../services/constant'
+import { METABASE_URL } from "../../../services/constant";
 var jwt = require("jsonwebtoken");
 export default class competitionRelated extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ export default class competitionRelated extends React.Component {
     var compname = this.state.selectedcompetition + "";
     var METABASE_SITE_URL = METABASE_URL;
     var METABASE_SECRET_KEY =
-    "c49006ae9225bec49ad20990ea5852689c710b4f61550bfb06fa2170ff4e1476";
+      "c49006ae9225bec49ad20990ea5852689c710b4f61550bfb06fa2170ff4e1476";
 
     var payload = {
       resource: { dashboard: 131 },
@@ -38,14 +38,18 @@ export default class competitionRelated extends React.Component {
     };
     var token = jwt.sign(payload, METABASE_SECRET_KEY);
 
-    var iframeUrl = METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=false&titled=false";
+    var iframeUrl =
+      METABASE_SITE_URL +
+      "/embed/dashboard/" +
+      token +
+      "#bordered=false&titled=false";
     return (
       <iframe
         title="Analysis"
         src={iframeUrl}
         frameBorder={0}
         width="100%"
-        height={2250}
+        height={2650}
         allowtransparency="true"
       />
     );
@@ -57,10 +61,12 @@ export default class competitionRelated extends React.Component {
           href="https://fonts.googleapis.com/css?family=Righteous&display=swap"
           rel="stylesheet"
         ></link>
-       
+
         <GridContainer style={{ background: "white" }}>
           <GridItem style={{ margin: "1% 20%" }}>
-          <h3><center>{this.state.selectedcompetition}</center></h3>
+            <h3>
+              <center>{this.state.selectedcompetition}</center>
+            </h3>
             <Select
               required
               isSearchable
@@ -98,7 +104,6 @@ export default class competitionRelated extends React.Component {
       (error) => {
         console.log(error.response.data);
         window.location.reload(false);
-
       }
     );
   }

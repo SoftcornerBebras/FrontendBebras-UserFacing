@@ -19,12 +19,12 @@ import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import { useHistory } from "react-router-dom";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Notiflix from "notiflix";
-import FormControl from '@material-ui/core/FormControl';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from "@material-ui/core/FormControl";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import IconButton from "@material-ui/core/IconButton";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
 Notiflix.Notify.Init({
   width: "40%",
   position: "left-bottom", // 'right-top' - 'right-bottom' - 'left-top' - 'left-bottom'
@@ -132,10 +132,10 @@ const theme = createMuiTheme({
 export default function LoginPage(props) {
   const history = useHistory();
   const [values, setValues] = React.useState({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
+    amount: "",
+    password: "",
+    weight: "",
+    weightRange: "",
     showPassword: false,
   });
   const handleClickShowPassword = () => {
@@ -148,7 +148,7 @@ export default function LoginPage(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const [loginID, setLoginID] = React.useState("");
   const [password, setPassword] = React.useState("");
-  
+
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -240,18 +240,22 @@ export default function LoginPage(props) {
                         className: classes.input,
                         endAdornment: (
                           <InputAdornment position="end">
-                            <AccountCircle style={{ color: "#757575", marginRight: "12px" }} />
+                            <AccountCircle
+                              style={{ color: "#757575", marginRight: "12px" }}
+                            />
                           </InputAdornment>
                         ),
                       }}
                     />
-                    <FormControl style={{ "width": "100%" }}>
-                      <InputLabel htmlFor="standard-adornment-password">Password *</InputLabel>
+                    <FormControl style={{ width: "100%" }}>
+                      <InputLabel htmlFor="standard-adornment-password">
+                        Password *
+                      </InputLabel>
                       <Input
                         required
                         fullWidth
                         id="standard-adornment-password"
-                        type={values.showPassword ? 'text' : 'password'}
+                        type={values.showPassword ? "text" : "password"}
                         label="Password"
                         name="password"
                         onChange={(event) => {
@@ -264,7 +268,11 @@ export default function LoginPage(props) {
                               onClick={handleClickShowPassword}
                               onMouseDown={handleMouseDownPassword}
                             >
-                              {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                              {values.showPassword ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
                             </IconButton>
                           </InputAdornment>
                         }
@@ -294,11 +302,8 @@ export default function LoginPage(props) {
                         );
                         return;
                       } else {
-                        // handleClick1()
                         userService.ResetPasswordView(loginID).then(
-                          (user) => {
-                            //history.push('/forgot-password')
-                          },
+                          (user) => {},
                           (error) => {}
                         );
                       }

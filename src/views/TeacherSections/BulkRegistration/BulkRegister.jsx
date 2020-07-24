@@ -213,10 +213,7 @@ export default function BulkRegister() {
           }
 
           var FileSaver = require("file-saver");
-          //  workbook.creator = "test";
           workbook.xlsx.writeBuffer().then(function (buffer) {
-            // done
-            console.log(buffer);
             const blob = new Blob([buffer], { type: "applicationi/xlsx" });
             FileSaver.saveAs(blob, "BebrasChallenge.xlsx");
           });
@@ -280,7 +277,7 @@ export default function BulkRegister() {
                 Notiflix.Notify.Failure(
                   "You have uploaded an empty excel. Please fill and upload again.".toUpperCase()
                 );
-               
+
                 Notiflix.Block.Remove("div#elements");
                 return;
               }
@@ -295,7 +292,7 @@ export default function BulkRegister() {
                       var dateformat1 = val[j];
                       dateformat1.toString();
                       var chr = moment(dateformat1);
-                      sub_val=chr.tz('Asia/Kathmandu').format("L");
+                      sub_val = chr.tz("Asia/Kathmandu").format("L");
                       sub_val.toString();
                       var sub_val1 = moment(sub_val).format("YYYY-MM-DD");
                       val[j] = sub_val1;
@@ -328,10 +325,9 @@ export default function BulkRegister() {
                 (error) => {
                   Notiflix.Block.Remove("div#elements");
                   console.log(error);
-                  if (error.response.status===401){
+                  if (error.response.status === 401) {
                     window.location.reload(false);
                   }
-
                 }
               );
             };
@@ -371,13 +367,16 @@ export default function BulkRegister() {
           <div style={{ background: "white" }}>
             .
             <div style={{ padding: "3% 15% 3% 10%" }}>
-              <div style={{"text-align":"left"}}>
+              <div style={{ "text-align": "left" }}>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6}>
                     <h4 style={{ "font-weight": "bolder" }}>
                       Download the student details sheet:
                     </h4>
-                    <p >Note:This downloads the details of the students registered in previous step</p>
+                    <p>
+                      Note:This downloads the details of the students registered
+                      in previous step
+                    </p>
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Button

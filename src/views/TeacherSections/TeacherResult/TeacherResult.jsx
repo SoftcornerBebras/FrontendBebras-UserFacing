@@ -159,7 +159,6 @@ const columns = [
       sort: false,
     },
   },
-  
 ];
 
 const options = {
@@ -216,7 +215,7 @@ export default class TeacherResult extends React.Component {
       (error) => {
         Notiflix.Block.Remove("body");
         console.log(error);
-        if (error.response.status===401){
+        if (error.response.status === 401) {
           window.location.reload(false);
         }
       }

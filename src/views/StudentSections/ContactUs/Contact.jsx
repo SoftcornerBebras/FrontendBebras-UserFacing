@@ -65,9 +65,6 @@ export default function Enroll(props) {
   const [email, setEmail] = React.useState("");
   const [subject, setSubject] = React.useState("");
   const [query, setQuery] = React.useState("");
- 
-
-  
 
   const classes = useStyles();
   const handleSubmit = (e) => {
@@ -380,8 +377,6 @@ export default function Enroll(props) {
             </Grid>
           </Grid>
         </div>
-
-       
       </div>
     </div>
   );

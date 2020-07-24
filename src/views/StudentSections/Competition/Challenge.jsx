@@ -44,12 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
   icon: {},
 }));
-// const styles = {
-//   fadeIn: {
-//     animation: "x 3s",
-//     animationName: Radium.keyframes(fadeIn, "fadeIn"),
-//   },
-// };
+
 const muiTheme = createMuiTheme({
   overrides: {
     MuiStepIcon: {
@@ -81,13 +76,10 @@ export default function Challenge(props) {
     [classesHead.absolute]: absolute,
     [classesHead.fixed]: fixed,
   });
-  // var second = 0;
   const newCompleted = new Set();
   let lastcompletedStep = 0;
   const [second, setSecond] = React.useState(0);
   React.useEffect(() => {
-    console.log("Came ");
-
     window.onbeforeunload = function () {
       if (sessionStorage.getItem("seconds")) {
         sessionStorage.removeItem("seconds");
@@ -131,7 +123,7 @@ export default function Challenge(props) {
             }
             Notiflix.Block.Remove("body");
           }
-          setActiveStep(lastcompletedStep)
+          setActiveStep(lastcompletedStep);
         },
         (error) => {
           Notiflix.Block.Remove("body");
@@ -147,8 +139,6 @@ export default function Challenge(props) {
     }
     return st;
   };
-;
-
   quesdata = JSON.parse(sessionStorage.getItem("data"));
   const [activeStep, setActiveStep] = React.useState(lastcompletedStep);
   const [completed, setCompleted] = React.useState(newCompleted);
@@ -166,7 +156,9 @@ export default function Challenge(props) {
     userService.doCompetitionStudentResponse().then(
       (status) => {
         //write logic to move to next question
-        var response = JSON.parse(sessionStorage.getItem("datastudentresponse"))
+        var response = JSON.parse(
+          sessionStorage.getItem("datastudentresponse")
+        );
         if (response.option !== "") {
           newCompleted.add(activeStep);
           setCompleted(newCompleted);
@@ -174,7 +166,6 @@ export default function Challenge(props) {
         var activestep = (activeStep + 1) % getSteps().length;
         setActiveStep(activestep);
         if (isLastStep()) {
-          console.log(newCompleted.size)
           sessionStorage.removeItem("seconds");
           history.push({
             pathname: "/testend",
@@ -333,7 +324,6 @@ export default function Challenge(props) {
         <br />
         <br />
         <br />
-        
       </div>
     )
   );

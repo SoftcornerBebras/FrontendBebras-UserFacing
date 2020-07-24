@@ -7,7 +7,7 @@ import { TextField } from "@material-ui/core";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Grid from "@material-ui/core/Grid";
-import {baseurl} from 'services/constant'
+import { baseurl } from "services/constant";
 import "./pch.css";
 import "./Page.css";
 const urll = baseurl;
@@ -172,7 +172,6 @@ class GeneralQuestion extends React.Component {
                                     );
                                     result.name = true;
                                     this.props.onChangeStat(this.state.status);
-                                    // alert("correct1")
                                     this.handleClick();
                                   } else {
                                     result = this.state.status.solved.find(
@@ -196,13 +195,19 @@ class GeneralQuestion extends React.Component {
                                     );
                                     result.name = false;
                                     this.props.onChangeStat(this.state.status);
-                                    // alert("incorrect1")
                                     this.handleClick1();
                                   }
                                 }}
                               />
-                              <label htmlFor={opt[i]} className="element-animation" >
-                                <img alt="oops" src={urlimg} style={{maxWidth:"100%"}}></img>
+                              <label
+                                htmlFor={opt[i]}
+                                className="element-animation"
+                              >
+                                <img
+                                  alt="oops"
+                                  src={urlimg}
+                                  style={{ maxWidth: "100%" }}
+                                ></img>
                                 <figcaption>
                                   {questiontemp.options[i]}
                                 </figcaption>
@@ -227,7 +232,7 @@ class GeneralQuestion extends React.Component {
       return (
         <div>
           <StyleRoot>
-            <div className="comp" style={styles.fadeIn}>
+            <div style={styles.fadeIn}>
               <Grid container spacing={2}>
                 <Grid item xs={7}>
                   <div
@@ -252,7 +257,7 @@ class GeneralQuestion extends React.Component {
                 <Grid item>
                   <div className="competitionNumber">
                     <br></br>
-                    <h1 style={{ "margin-left": "90%" }}>
+                    <h1 style={{ marginLeft: "90%" }}>
                       {this.props.state.questionsren[1] + 1}
                     </h1>
                   </div>
@@ -260,7 +265,7 @@ class GeneralQuestion extends React.Component {
               </Grid>
             </div>
           </StyleRoot>
-          <div className="pch">
+          <div className="pch" style={{ width: "100%" }}>
             <div
               style={{
                 backgroundColor: "rgb(0,143,179)",
@@ -278,28 +283,29 @@ class GeneralQuestion extends React.Component {
                   marginBottom: "0px",
                 }}
               >
+                {" "}
                 {questiontemp.question_caption}
               </h4>
             </div>
-            <div className="practicequestion" style={styles.zoomIn}>
-              <h4
-                style={{
-                  fontWeight: "bolder",
-                  fontFamily: "cursive",
-                  marginTop: "0px",
-                }}
-              >
-                {/* <span className="label label-warning" id="qid">1</span> */}
-                <div
-                  id="question"
-                  dangerouslySetInnerHTML={{
-                    __html: questiontemp.question_background,
+            <StyleRoot>
+              {" "}
+              <div className="practicequestion" style={styles.zoomIn}>
+                <h4
+                  style={{
+                    fontWeight: "bolder",
+                    fontFamily: "cursive",
+                    marginTop: "0px",
                   }}
-                />
-                {/* {questiontemp.question_background.includes("div") ? <div id="addHere" style={{marginLeft:'1%'}}>{}</div>
-            : <Typography style={{marginLeft:'1%'}}>{questiontemp.question_background}</Typography> } */}
-              </h4>
-            </div>
+                >
+                  <div
+                    style={{ display: "flex", flexWrap: "wrap" }}
+                    dangerouslySetInnerHTML={{
+                      __html: questiontemp.question_background,
+                    }}
+                  />
+                </h4>
+              </div>
+            </StyleRoot>
             <StyleRoot>
               {" "}
               <div style={styles.slideInLeft}>
@@ -314,9 +320,9 @@ class GeneralQuestion extends React.Component {
                       <br />
                       <br />
                       <br />
+                      {/* <br />
                       <br />
-                      <br />
-                      <br />
+                      <br /> */}
                       <h4
                         style={{
                           fontWeight: "bolder",
@@ -329,12 +335,55 @@ class GeneralQuestion extends React.Component {
                       </h4>
                     </GridItem>
                     <GridItem xs={12} sm={12} md={4}>
+                      <br />
+                      <br />
                       <TextField
                         placeholder="Type your answer here"
                         name="answer"
                         variant="filled"
                         margin="normal"
-                        onChange={(e) => {}}
+                        onChange={(e) => {
+                          if (
+                            e.target.value ===
+                            this.props.state.questionsren[0].correctoption
+                          ) {
+                            var result = this.state.status.solved.find(
+                              (obj) => {
+                                return (
+                                  obj.id ===
+                                  this.props.state.questionsren[0].identifier
+                                );
+                              }
+                            );
+                            result.name = true;
+                            result = this.state.status.correct.find((obj) => {
+                              return (
+                                obj.id ===
+                                this.props.state.questionsren[0].identifier
+                              );
+                            });
+                            result.name = true;
+                            this.props.onChangeStat(this.state.status);
+                            this.handleClick();
+                          } else {
+                            result = this.state.status.solved.find((obj) => {
+                              return (
+                                obj.id ===
+                                this.props.state.questionsren[0].identifier
+                              );
+                            });
+                            result.name = true;
+                            result = this.state.status.correct.find((obj) => {
+                              return (
+                                obj.id ===
+                                this.props.state.questionsren[0].identifier
+                              );
+                            });
+                            result.name = false;
+                            this.props.onChangeStat(this.state.status);
+                            this.handleClick1();
+                          }
+                        }}
                         inputlabelprops={{
                           shrink: true,
                         }}
@@ -465,7 +514,6 @@ class GeneralQuestion extends React.Component {
                                     );
                                     result.name = true;
                                     this.props.onChangeStat(this.state.status);
-                                    // alert("correct2")
                                     this.handleClick();
                                   } else {
                                     result = this.state.status.solved.find(
@@ -489,7 +537,6 @@ class GeneralQuestion extends React.Component {
                                     );
                                     result.name = false;
                                     this.props.onChangeStat(this.state.status);
-                                    // alert("incorrect2")
                                     this.handleClick1();
                                   }
                                 }}

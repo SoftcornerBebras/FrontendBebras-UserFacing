@@ -234,7 +234,6 @@ export default function ForgotPassword(props) {
                       label="Enter new password"
                       name="password"
                       value={password}
-                      //onChange={handleChange}
                       onChange={(event) => {
                         setPassword(event.target.value);
                       }}
@@ -273,7 +272,6 @@ export default function ForgotPassword(props) {
                       style={{ paddingBottom: "10px" }}
                       label="Confirm password"
                       value={confirmpassword}
-                      //onChange={handleChange}
                       onChange={(event) => {
                         setconfirmpassword(event.target.value);
                       }}
