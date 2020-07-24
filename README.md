@@ -1,4 +1,6 @@
-This project is the User Facing Portal of Bebras
+This project is the User Facing Portal of Bebras.
+
+
 Build of this project is located here-https://github.com/SoftcornerBebras/build_frontend
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
