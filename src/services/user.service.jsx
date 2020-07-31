@@ -1,6 +1,7 @@
 import { Login } from "./constant.jsx";
 import {
   schoolTypes,
+  SaveStudentExcelResponse,
   genderoptions,
   SchoolTopperCertificates,
   CompetitionListforCertificate,
@@ -21,6 +22,7 @@ import {
   CompetitionResultList,
   CompetitionNameResultList,
   CompetitionList,
+  ActiveCompetitionList,
   CompetitionQues,
   UserResult,
   AllUsersResults,
@@ -116,12 +118,14 @@ export const userService = {
   login,
   getschoolTypes,
   getgenderoptions,
+  saveBulkStudentResponse,
   askcalcTotalScore,
   getAgeGroupToppers,
   getPracticeChallengeList,
   getPracticeChallengeQues,
   getLanguagesNames,
   getschoolGroupNames,
+  getActiveCompetitionList,
   logout,
   logoutStudent,
   getStudentDataExcel,
@@ -833,6 +837,32 @@ function getCompetitionList() {
     throw error;
   }
 }
+function getActiveCompetitionList() {
+  try {
+    return Axios({
+      url: `${ActiveCompetitionList}`,
+      method: "get",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((respons) => {
+        console.log(respons.data.competitionnames);
+        return respons.data.competitionnames;
+      })
+      .catch((err) => {
+        console.log(err.response);
+        if (err.response.status === 401) {
+          sessionStorage.clear();
+        } else {
+          Notiflix.Notify.Failure(`${err.response.data}`.toUpperCase());
+        }
+        throw err;
+      });
+  } catch (error) {
+    throw error;
+  }
+}
 
 function getUserResult() {
   try {
@@ -1114,6 +1144,47 @@ function doBulkRegister() {
         console.log(respons.data);
         Notiflix.Notify.Success(
           `Student registration Succesful! `.toUpperCase()
+        );
+
+        return respons.data;
+      })
+      .catch((error) => {
+        Notiflix.Block.Remove("body");
+        console.log(error.response.data);
+        console.log(error.response.status);
+        if (error.response.status === 401) {
+          Notiflix.Notify.Failure(
+            `${error.response.statusText} Request,Please login`.toUpperCase()
+          );
+          sessionStorage.clear();
+        } else {
+          Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
+        }
+        throw error;
+      });
+  } catch (error) {
+    Notiflix.Block.Remove("body");
+
+    throw error;
+  }
+}
+function saveBulkStudentResponse() {
+  try {
+    Notiflix.Block.Dots("body");
+
+    return Axios({
+      url: `${SaveStudentExcelResponse}`,
+      method: "post",
+      data: {"responses":JSON.parse(sessionStorage.getItem("bulkresponses")),"competitionName":JSON.parse(sessionStorage.getItem("competitionName"))},
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((respons) => {
+        Notiflix.Block.Remove("body");
+        console.log(respons.data);
+        Notiflix.Notify.Success(
+          `Student Responses Added Succesfully! `.toUpperCase()
         );
 
         return respons.data;

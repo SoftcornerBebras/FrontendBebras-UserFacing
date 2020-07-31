@@ -100,7 +100,7 @@ export default function DetailsDownload(props) {
             <br />
             <br />
             <InfoArea
-              title=" Click on Download button to download Student Details containing the student LoginID and Passwords which will be used by them to login to bebras challenge"
+              title=" Click on Download button to download Student Details containing the student LoginID and Passwords which will be used by them to login to Bebras India Challenge"
               icon={NotificationImportantIcon}
               description=" "
               iconColor="rose"
@@ -129,7 +129,7 @@ export default function DetailsDownload(props) {
                     XLSX.utils.book_append_sheet(wb, ws, "LoginID_password");
                     ws["!protect"] = false;
                     XLSX.writeFile(wb, fileName, {
-                      password: "Bebras_Challenge2020",
+                      password: "BebrasIndiaChallenge",
                     });
                   },
                   (error) => {

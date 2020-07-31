@@ -88,7 +88,7 @@ export default function TeacherHeader(props) {
     }
   };
   const color = "info";
-  const brand = "Bebras Challenge";
+  const brand = "Bebras India Challenge";
   const fixed = true;
   const absolute = true;
   const { leftLinks } = props;

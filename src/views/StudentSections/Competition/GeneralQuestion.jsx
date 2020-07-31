@@ -24,6 +24,7 @@ const styles = {
   },
 };
 class GeneralQuestion extends React.Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -256,6 +257,7 @@ class GeneralQuestion extends React.Component {
                     <TextField
                       placeholder="Type your answer here"
                       name="answer"
+                      type={questiontemp.answertext_type}
                       variant="filled"
                       margin="normal"
                       onChange={this.onTextChange}
@@ -368,7 +370,11 @@ class GeneralQuestion extends React.Component {
   render() {
     return <div>{this.conditionRender()}</div>;
   }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
   componentDidMount() {
+    this._isMounted = true;
     var data = {
       identifier: this.props.data.questionsren.identifier,
       option: "",

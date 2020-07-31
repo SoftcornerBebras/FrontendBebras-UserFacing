@@ -3,17 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import GetAppIcon from "@material-ui/icons/GetApp";
+import Select from "react-select";
 import DropZoneCode from "./BulkDropZoneCode";
-import Grid from "@material-ui/core/Grid";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import { userService } from "../../../services/user.service";
+import { userService } from "services/user.service";
 import moment from "moment-timezone";
-import Excel from "exceljs";
 import XLSX from "xlsx";
 import Notiflix from "notiflix";
 var data1 = [];
@@ -119,136 +115,34 @@ const useStyles = makeStyles((theme) => ({
 
 function getSteps() {
   return [
-    "Download the template",
-    "Update and upload ",
-    "LoginID and passwords",
+  
+    "Upload excel with student responses after selecting competition ",
+    
   ];
 }
+const competitionlist = [];
 
-export default function BulkRegister() {
+export default function BulkResponses() {
   const classes = useStyles();
+  // eslint-disable-next-line
   const [activeStep, setActiveStep] = React.useState(0);
-  const [enable, setEnable] = React.useState(true);
+  const [competitionNameList,setcompetitionNameList]=React.useState([]);
+  const [competitionName,setCompetitionName]=React.useState("");
   const steps = getSteps();
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
-      case 0:
-        function download() {
-          Notiflix.Block.Dots("div#elements");
-          var workbook = new Excel.Workbook();
-          var sheet = workbook.addWorksheet("Student_Bulk_Registration");
-          sheet.columns = [
-            { header: "firstName", key: "firstname", width: 32 },
-            { header: "lastName", key: "lastname", width: 32 },
-            { header: "gender", key: "gender", width: 15 },
-            { header: "birthdate", key: "DOB", width: 15 },
-            { header: "phone", key: "phonenum", width: 15 },
-            { header: "email", key: "email", width: 32 },
-          ];
-
-          for (var i = 2; i <= 100; i++) {
-            sheet.getCell(`C${i}`).dataValidation = {
-              type: "list",
-              allowBlank: false,
-              formulae: ['"male, female, other"'],
-              operator: "notEqual",
-              showErrorMessage: true,
-              errorStyle: "error",
-              errorTitle: "choose a gender ",
-              error: "must be male, female or other",
-            };
-          }
-          for (var j = 2; j <= 100; j++) {
-            sheet.getCell(`D${j}`).dataValidation = {
-              type: "text",
-              showInputMessage: true,
-              showErrorMessage: true,
-              allowBlank: true,
-              promptTitle: "Date Format",
-              prompt: "Enter dd/mm/yyyy",
-            };
-          }
-
-          for (var k = 2; k <= 100; k++) {
-            sheet.getCell(`A${k}`).dataValidation = {
-              type: "text",
-              showInputMessage: true,
-              showErrorMessage: true,
-              allowBlank: false,
-              promptTitle: "No Blank spaces allowed",
-              prompt: "FirstName is Required",
-            };
-          }
-
-          for (var l = 2; l <= 100; l++) {
-            sheet.getCell(`B${l}`).dataValidation = {
-              type: "text",
-              showInputMessage: true,
-              showErrorMessage: true,
-              allowBlank: false,
-              promptTitle: "No Blank spaces allowed",
-              prompt: "LastName is Required",
-            };
-          }
-          for (var m = 2; m <= 100; m++) {
-            sheet.getCell(`E${m}`).dataValidation = {
-              type: "text",
-              showInputMessage: true,
-              showErrorMessage: true,
-              allowBlank: true,
-              promptTitle: "Valid Phone Number",
-              prompt:
-                "Enter phone number with country code e.g +91, Note this field is optional",
-            };
-          }
-          for (var n = 2; n <= 100; n++) {
-            sheet.getCell(`F${n}`).dataValidation = {
-              type: "text",
-              showInputMessage: true,
-              showErrorMessage: true,
-              allowBlank: true,
-              promptTitle: "Valid Email ID",
-              prompt: "Enter Valid Email ID,Note this field is optional.",
-            };
-          }
-
-          var FileSaver = require("file-saver");
-          workbook.xlsx.writeBuffer().then(function (buffer) {
-            const blob = new Blob([buffer], { type: "applicationi/xlsx" });
-            FileSaver.saveAs(blob, "BebrasIndiaChallenge.xlsx");
-          });
-          setEnable(false);
-          Notiflix.Block.Remove("div#elements");
-        }
-        return (
-          <div style={{ background: "white" }}>
-            .
-            <center>
-              <div style={{ padding: "3%" }}>
-                <h3 style={{ fontWeight: "bolder" }}>
-                  Download the excel template
-                </h3>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  id="download"
-                  onClick={download}
-                  startIcon={<GetAppIcon />}
-                >
-                  Download
-                </Button>
-                <p style={{ fontWeight: "bolder", margin: "7% 20% 0% 20%" }}>
-                  NOTE: Please update and upload the same excel file in the next
-                  step
-                </p>
-              </div>
-            </center>
-          </div>
-        );
-      case 1:
+     case 0:
         var error = false;
         function handleFileNameChange(fileName, file) {
           Notiflix.Block.Dots("div#elements");
+          if(competitionName==="")
+          {
+            Notiflix.Notify.Failure(
+              "You have to select one competition to proceed.".toUpperCase()
+            );
+            Notiflix.Block.Remove("div#elements");
+            return;
+          }
           if (fileName) {
             /* Boilerplate to set up FileReader */
             const reader = new FileReader();
@@ -312,15 +206,14 @@ export default function BulkRegister() {
                 Notiflix.Block.Remove("div#elements");
                 return;
               }
+              sessionStorage.setItem("competitionName", JSON.stringify(competitionName));
+              sessionStorage.setItem("bulkresponses", JSON.stringify(data, null, 2));
 
-              sessionStorage.setItem("bulkdata", JSON.stringify(data, null, 2));
-
-              userService.doBulkRegister().then(
+              userService.saveBulkStudentResponse().then(
                 (user) => {
                   Notiflix.Block.Remove("div#elements");
                   data1 = user;
                   console.log(data1);
-                  setEnable(false);
                 },
                 (error) => {
                   Notiflix.Block.Remove("div#elements");
@@ -337,93 +230,61 @@ export default function BulkRegister() {
           <div style={{ background: "white" }}>
             .
             <div style={{ padding: "2% 15%" }}>
+            <Select
+              required
+              isSearchable
+              styles={{
+                control: (base, state) => ({
+                  ...base,
+                  "&:hover": {
+                    border: "2px solid #0091B4",
+                  }, // border style on hover
+                  border: "2px solid #0091B4", // default border color
+                }),
+              }}
+              placeholder="Please select competition to view further visualizations"
+              onChange={onChangeCmp}
+              options={competitionNameList}
+              isClearable
+              // maxMenuHeight={70}
+            />
+            <br></br>
+            <br></br>
               <DropZoneCode onChangeFileName={handleFileNameChange} />
             </div>
           </div>
         );
-      case 2:
-        function generate_loginid_password() {
-          Notiflix.Block.Dots("div#elements");
-          var ws = XLSX.utils.json_to_sheet(data1);
-          console.log(data1);
-          var wb = XLSX.utils.book_new();
-          XLSX.utils.book_append_sheet(wb, ws, "People");
-          var str = XLSX.write(wb, { bookType: "xlsx", type: "binary" }); // generate a binary string in web browser
-          function s2ab(s) {
-            var buf = new ArrayBuffer(s.length);
-            var view = new Uint8Array(buf);
-            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
-            return buf;
-          }
-          var FileSaver = require("file-saver");
-          FileSaver.saveAs(
-            new Blob([s2ab(str)], { type: "application/octet-stream" }),
-            "login_password.xlsx"
-          );
-          setEnable(false);
-          Notiflix.Block.Remove("div#elements");
-        }
-        return (
-          <div style={{ background: "white" }}>
-            .
-            <div style={{ padding: "3% 15% 3% 10%" }}>
-              <div style={{ "text-align": "left" }}>
-                <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
-                    <h4 style={{ "font-weight": "bolder" }}>
-                      Download the student details sheet:
-                    </h4>
-                    <p>
-                      Note:This downloads the details of the students registered
-                      in previous step
-                    </p>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      onClick={generate_loginid_password}
-                      startIcon={<GetAppIcon />}
-                    >
-                      Download
-                    </Button>
-                  </Grid>
-                </Grid>
-                <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
-                    <h4 style={{ "font-weight": "bolder" }}>
-                      Click to enroll students for competition:
-                    </h4>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      href="/teachernew/EnrollStudent"
-                      startIcon={<AddCircleOutlineIcon />}
-                      color="primary"
-                    >
-                      Enroll
-                    </Button>
-                  </Grid>
-                </Grid>
-              </div>
-            </div>
-          </div>
-        );
-      default:
+     default:
         return "Unknown stepIndex";
     }
   };
+  React.useEffect(() => {
+    // code to run on component mount
+    Notiflix.Block.Dots("body");
+    var arry;
+    userService.getActiveCompetitionList().then(
+      (array2) => {
+        Notiflix.Block.Remove("body");
+        arry = array2;
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setEnable(true);
-  };
+        arry.forEach(function (element) {
+          competitionlist.push({ label: element, value: element });
+        });
+        setcompetitionNameList(competitionlist);
+      },
+      (error) => {}
+    );
+  }, []);
+  
+  const onChangeCmp=(optionSelected)=> {
+    if (optionSelected) {
+      setCompetitionName(optionSelected.value);
+    }
+  }
 
   return (
     <div id="elements">
+      <br></br>
       <GridContainer justify="center">
         <GridItem xs={12} md={8}>
           <div
@@ -446,7 +307,7 @@ export default function BulkRegister() {
                 marginTop: "0%",
               }}
             >
-              Bulk Register Students
+              Bulk Upload Student Responses
             </h2>
           </div>
           <div style={{ backgroundColor: "#ffffff" }}>
@@ -473,16 +334,7 @@ export default function BulkRegister() {
                     >
                       {getStepContent(activeStep)}
                     </Typography>
-                    <div>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleNext}
-                        disabled={enable}
-                      >
-                        {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                      </Button>
-                    </div>
+                 
                   </div>
                 )}
               </div>

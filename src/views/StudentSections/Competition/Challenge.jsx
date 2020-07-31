@@ -124,6 +124,7 @@ export default function Challenge(props) {
             Notiflix.Block.Remove("body");
           }
           setActiveStep(lastcompletedStep);
+          setCompleted(newCompleted);
         },
         (error) => {
           Notiflix.Block.Remove("body");

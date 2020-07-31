@@ -228,7 +228,7 @@ export default function CompetitionTab(props) {
                 <li>
                   If your school has limited lab space, you can run it on
                   multiple days. If you decide to do so, please try to limit the
-                  interaction between students who have completed the challenge
+                  interaction between students who have completed the Bebras India challenge
                   already and those who still have to complete it.
                 </li>
                 <Divider light />

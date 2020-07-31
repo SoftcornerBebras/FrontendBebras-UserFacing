@@ -106,7 +106,7 @@ export default function BebrasInformation() {
               }}
             >
               <InfoArea
-                title=" Bebras is an international initiative aiming to promote Informatics (Computer Science, or Computing) and computational thinking among school students at all ages. Participants are usually supervised by teachers who may integrate the Bebras challenge in their teaching activities. The challenge is performed at schools using computers or mobile devices."
+                title=" Bebras is an international initiative aiming to promote Informatics (Computer Science, or Computing) and computational thinking among school students at all ages.The challenge is performed at schools using computers or mobile devices.Bebras India Challenge is organized by ACM India’s CSpathshala initiative (www.cspathshala.org​). ACM India/CSpathshala’s goal is to make it possible so that every child in India learns Computational Thinking. "
                 description=" "
                 icon={LiveHelpIcon}
                 iconColor="rose"

@@ -109,7 +109,7 @@ function getStepContent(step) {
               </CardHeader>
               <CardBody>
                 <Quote
-                  text="A practice challenge is available for students so that they know what to expect. The official challenge can be conducted between 18th-30th November 2019"
+                  text="A practice challenge is available for students so that they know what to expect. The official Bebras India challenge can be conducted between 18th-30th November 2019"
                   author=""
                 />
               </CardBody>

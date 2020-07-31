@@ -339,6 +339,7 @@ class GeneralQuestion extends React.Component {
                       <br />
                       <TextField
                         placeholder="Type your answer here"
+                        type={this.props.state.questionsren[0].answertext_type}
                         name="answer"
                         variant="filled"
                         margin="normal"

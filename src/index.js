@@ -6,6 +6,7 @@ import TestEndPractice from 'views/StudentSections/PracticeChallenge/PracticeCha
 import "assets/scss/material-kit-react.scss?v=1.8.0";
 import "./index.css";
 import StudentHeader from "views/StudentNavbar/StudentHeader.jsx";
+import BulkResponses from "views/BulkResponseUpload/BulkResponses";
 import RegisterPage from "views/RegisterPage/RegisterPage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import ForgotPassword from "views/ForgotPassword/ForgotPassword.jsx";
@@ -32,6 +33,7 @@ ReactDOM.render(
       <Route exact path="/" component={StudentHeader} />
       <Route path="/studenthome" component={StudentHeader} />
       <Route exact path="/err404" component={Error404} />
+      <Route exact path="/bulkresponseupload" component={BulkResponses} />
       <Route exact path="/testendpractice" component={TestEndPractice} />
     </Switch>
   </Router>,

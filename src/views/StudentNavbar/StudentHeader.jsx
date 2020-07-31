@@ -86,7 +86,7 @@ export default function StudentHeader(props) {
     }
   };
   const color = "info";
-  const brand = "Bebras Challenge";
+  const brand = "Bebras India Challenge";
   const fixed = true;
   // const absolute=true;
   const { leftLinks, absolute } = props;

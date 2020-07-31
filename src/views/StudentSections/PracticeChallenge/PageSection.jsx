@@ -88,7 +88,7 @@ class Page extends React.Component {
   render() {
     return (
       <div className="whitebg" style={{ marginTop: "-5%" }}>
-        <title>Bebras </title>
+        <title>Bebras India </title>
         <meta charSet="UTF-8"></meta>
 
         <link

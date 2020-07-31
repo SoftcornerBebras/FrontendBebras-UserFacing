@@ -213,7 +213,7 @@ export default function Certificate(props) {
           <br />
           <div style={{ marginLeft: "40%" }}>
             <InfoArea
-              title=" Click on download participation certificates button to download participation certificates of all the students who took part in  bebras challenge"
+              title=" Click on download participation certificates button to download participation certificates of all the students who took part in  Bebras India Challenge"
               icon={NotificationImportantIcon}
               description=" "
               iconColor="rose"
@@ -340,7 +340,7 @@ export default function Certificate(props) {
           <br />
           <div>
             <InfoArea
-              title=" Click on Download school topper Certificate button to download certificates of your school toppers containing their achievement in  bebras challenge"
+              title=" Click on Download school topper Certificate button to download certificates of your school toppers containing their achievement in  Bebras India Challenge"
               icon={NotificationImportantIcon}
               description=" "
               iconColor="rose"
