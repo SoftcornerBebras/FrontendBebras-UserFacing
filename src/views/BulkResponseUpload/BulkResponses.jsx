@@ -6,11 +6,11 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Typography from "@material-ui/core/Typography";
 import Select from "react-select";
 import DropZoneCode from "./BulkDropZoneCode";
-import GridContainer from "components/Grid/GridContainer.js";
+// import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "@material-ui/core/Button";
 import { userService } from "services/user.service";
-import moment from "moment-timezone";
+// import moment from "moment-timezone";
 import XLSX from "xlsx";
 import Notiflix from "notiflix";
 var data1 = [];
@@ -167,7 +167,9 @@ export default function BulkResponses() {
               const wsname = wb.SheetNames[0];
               const ws = wb.Sheets[wsname];
               /* Convert array of arrays */
+              
               const data = XLSX.utils.sheet_to_json(ws, { defval: "" });
+              console.log(data)
               if (data.length === 0) {
                 Notiflix.Notify.Failure(
                   "You have uploaded an empty excel. Please fill and upload again.".toUpperCase()
@@ -177,36 +179,14 @@ export default function BulkResponses() {
                 return;
               }
               /* Update state */
-              function replacer() {
-                for (var i in data) {
-                  var val = data[i];
-                  for (var j in val) {
-                    var sub_key = j;
-                    var sub_val = val[j];
-                    if (sub_key === "birthdate" && val[j]) {
-                      var dateformat1 = val[j];
-                      dateformat1.toString();
-                      var chr = moment(dateformat1);
-                      sub_val = chr.tz("Asia/Kathmandu").format("L");
-                      sub_val.toString();
-                      var sub_val1 = moment(sub_val).format("YYYY-MM-DD");
-                      val[j] = sub_val1;
-                      if (sub_val === "Invalid date") {
-                        Notiflix.Notify.Failure(
-                          `You have entered wrong date for ${data[i].firstName}  ${data[i].lastName}. Please fill and upload again.`.toUpperCase()
-                        );
-                        error = true;
-                      }
-                    }
-                  }
-                }
-              }
+           
 
-              JSON.stringify(data, replacer, 2);
+              // JSON.stringify(data, replacer, 2);
               if (error) {
                 Notiflix.Block.Remove("div#elements");
                 return;
               }
+              console.log(data);
               sessionStorage.setItem("competitionName", JSON.stringify(competitionName));
               sessionStorage.setItem("bulkresponses", JSON.stringify(data, null, 2));
               Notiflix.Block.Remove("div#elements");
@@ -247,6 +227,7 @@ export default function BulkResponses() {
   };
   React.useEffect(() => {
     // code to run on component mount
+    console.log("called")
     Notiflix.Block.Dots("body");
     var arry;
     userService.getActiveCompetitionList().then(
@@ -341,7 +322,8 @@ export default function BulkResponses() {
   return (
     <div id="elements">
       {/* <br></br> */}
-      <GridContainer justify="center">
+      <center>
+      {/* <GridContainer justify="center"> */}
         <GridItem xs={12} md={8}>
           <div
             style={{
@@ -421,7 +403,8 @@ export default function BulkResponses() {
             <br></br>
           </div>
         </GridItem>
-      </GridContainer>
+        </center>
+      {/* </GridContainer> */}
     </div>
   );
 }
