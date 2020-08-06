@@ -123,8 +123,8 @@ export default function DetailsDownload(props) {
               onClick={() => {
                 userService.getStudentDataExcel().then(
                   (user) => {
-                    var fileName = "LoginID_password.xlsx";
-                    var ws = XLSX.utils.json_to_sheet(user);
+                    var fileName = user.UDISECode+".xlsx";
+                    var ws = XLSX.utils.json_to_sheet(user.users);
                     var wb = XLSX.utils.book_new();
                     XLSX.utils.book_append_sheet(wb, ws, "LoginID_password");
                     ws["!protect"] = false;

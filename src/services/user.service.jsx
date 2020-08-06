@@ -1,6 +1,7 @@
 import { Login } from "./constant.jsx";
 import {
   schoolTypes,
+  validateOfflineUpload,
   SaveStudentExcelResponse,
   genderoptions,
   SchoolTopperCertificates,
@@ -142,6 +143,7 @@ export const userService = {
   getNamesUsers,
   getSchoolClasses,
   ResetPasswordView,
+  dovalidateOfflineUpload,
   ConfirmResetPasswordView,
   contactUs,
   getUserResult,
@@ -1068,8 +1070,8 @@ function getStudentDataExcel() {
       },
     })
       .then((respons) => {
-        console.log(respons.data.users);
-        return respons.data.users;
+        console.log(respons.data);
+        return respons.data;
       })
       .catch((err) => {
         console.log(err.response);
@@ -1168,6 +1170,49 @@ function doBulkRegister() {
     throw error;
   }
 }
+function dovalidateOfflineUpload() {
+  try {
+    Notiflix.Block.Dots("body");
+    return Axios({
+      url: `${validateOfflineUpload}`,
+      method: "post",
+      data: {"responses":JSON.parse(sessionStorage.getItem("bulkresponses")),"competitionName":JSON.parse(sessionStorage.getItem("competitionName"))},
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((respons) => {
+        Notiflix.Block.Remove("body");
+        console.log(respons.data);
+        Notiflix.Report.Success(
+          "Everything Looks Good!",
+          `You can proceed by clicking on Submit Bulk Responses Button`,
+          "Close"
+        );
+
+        return respons.data;
+      })
+      .catch((error) => {
+        Notiflix.Block.Remove("body");
+        Notiflix.Report.Failure(
+          "Oh snap!",
+          `Read through comments column in the downloaded excel and upload again`,
+          "Close"
+          );
+        console.log(error.response.data);
+        console.log(error.response.status);
+       
+    
+          // Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
+        
+        throw error;
+      });
+  } catch (error) {
+    Notiflix.Block.Remove("body");
+
+    throw error;
+  }
+}
 function saveBulkStudentResponse() {
   try {
     Notiflix.Block.Dots("body");
@@ -1183,8 +1228,10 @@ function saveBulkStudentResponse() {
       .then((respons) => {
         Notiflix.Block.Remove("body");
         console.log(respons.data);
-        Notiflix.Notify.Success(
-          `Student Responses Added Succesfully! `.toUpperCase()
+        Notiflix.Report.Success(
+          "Good Job!",
+          `You have succesfully uploaded responses in bulk`,
+          "Close"
         );
 
         return respons.data;

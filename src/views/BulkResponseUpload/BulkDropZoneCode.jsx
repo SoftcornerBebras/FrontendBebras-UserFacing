@@ -21,7 +21,7 @@ class DropZoneCode extends Component {
       <DropzoneArea
         filesLimit={1}
         showFileNames={true}
-        acceptedFiles={[".xlsx", ".xlsm", "xls"]}
+        acceptedFiles={[".xlsx", ".xlsm", "xls",".csv"]}
         useChipsForPreview={true}
         showAlerts={true}
         dropzoneText="Drag and drop the excel file on click"

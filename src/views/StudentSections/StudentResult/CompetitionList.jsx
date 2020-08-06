@@ -64,9 +64,7 @@ export default function StudentResCompList(props) {
       },
       (error) => {
         Notiflix.Block.Remove("body");
-        if (error.response.status !== 401) {
-          Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
-        }
+       
         console.log(error.response.data);
       }
     );

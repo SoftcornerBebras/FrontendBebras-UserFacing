@@ -8,6 +8,7 @@ import Select from "react-select";
 import DropZoneCode from "./BulkDropZoneCode";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
+import Button from "@material-ui/core/Button";
 import { userService } from "services/user.service";
 import moment from "moment-timezone";
 import XLSX from "xlsx";
@@ -208,21 +209,7 @@ export default function BulkResponses() {
               }
               sessionStorage.setItem("competitionName", JSON.stringify(competitionName));
               sessionStorage.setItem("bulkresponses", JSON.stringify(data, null, 2));
-
-              userService.saveBulkStudentResponse().then(
-                (user) => {
-                  Notiflix.Block.Remove("div#elements");
-                  data1 = user;
-                  console.log(data1);
-                },
-                (error) => {
-                  Notiflix.Block.Remove("div#elements");
-                  console.log(error);
-                  if (error.response.status === 401) {
-                    window.location.reload(false);
-                  }
-                }
-              );
+              Notiflix.Block.Remove("div#elements");
             };
           }
         }
@@ -281,10 +268,79 @@ export default function BulkResponses() {
       setCompetitionName(optionSelected.value);
     }
   }
+  const handleValidate=()=>{
+    Notiflix.Block.Dots("div#elements");
+    if(competitionName==="")
+    {
+      Notiflix.Notify.Failure(
+        "You have to select one competition to proceed.".toUpperCase()
+      );
+      Notiflix.Block.Remove("div#elements");
+      return;
+    }
+    userService.dovalidateOfflineUpload().then(
+      (user) => {
+          data1 = user;
+          console.log(data1);
+        
+          Notiflix.Block.Remove("div#elements");
+        
+      },
+      (error) => {
+        Notiflix.Block.Remove("div#elements");
+        console.log(error);
+        if (error.response.status === 400) {
+          console.log(error)
+          data1 = error.response.data;
+          var ws = XLSX.utils.json_to_sheet(data1);
+          console.log(data1);
+          var wb = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, ws, "People");
+          var str = XLSX.write(wb, { bookType: "xlsx", type: "binary" }); // generate a binary string in web browser
+          function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+            return buf;
+          }
+          var FileSaver = require("file-saver");
+          FileSaver.saveAs(
+            new Blob([s2ab(str)], { type: "application/octet-stream" }),
+            "validated_bulk_upload.xlsx"
+          );
 
+        }
+      }
+    );
+  }
+  const handleSubmit=()=>{
+  Notiflix.Block.Dots("div#elements");
+  if(competitionName==="")
+  {
+    Notiflix.Notify.Failure(
+      "You have to select one competition to proceed.".toUpperCase()
+    );
+    Notiflix.Block.Remove("div#elements");
+    return;
+  }
+  userService.saveBulkStudentResponse().then(
+    (user) => {
+      Notiflix.Block.Remove("div#elements");
+      data1 = user;
+      console.log(data1);
+    },
+    (error) => {
+      Notiflix.Block.Remove("div#elements");
+      console.log(error);
+      if (error.response.status === 401) {
+        window.location.reload(false);
+      }
+    }
+  );
+}
   return (
     <div id="elements">
-      <br></br>
+      {/* <br></br> */}
       <GridContainer justify="center">
         <GridItem xs={12} md={8}>
           <div
@@ -335,12 +391,33 @@ export default function BulkResponses() {
                       {getStepContent(activeStep)}
                     </Typography>
                  
-                  </div>
+                  </div>    
                 )}
               </div>
+              <div>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleValidate}
+                        // disabled={enable}
+                      >
+                      Validate uploaded Sheet
+                      </Button>
+                      
+                    </div>
+                    <br></br>
+                    <div>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSubmit}
+                        // disabled={enable}
+                      >
+                       Submit Bulk Responses
+                      </Button>
+                      
+                    </div>
             </center>
-            <br></br>
-            <br></br>
             <br></br>
           </div>
         </GridItem>
