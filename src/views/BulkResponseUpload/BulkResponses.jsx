@@ -187,7 +187,6 @@ export default function BulkResponses() {
                 return;
               }
               console.log(data);
-              sessionStorage.setItem("competitionName", JSON.stringify(competitionName));
               sessionStorage.setItem("bulkresponses", JSON.stringify(data, null, 2));
               Notiflix.Block.Remove("div#elements");
             };
@@ -247,6 +246,8 @@ export default function BulkResponses() {
   const onChangeCmp=(optionSelected)=> {
     if (optionSelected) {
       setCompetitionName(optionSelected.value);
+      sessionStorage.setItem("competitionName", JSON.stringify(optionSelected.value));
+
     }
   }
   const handleValidate=()=>{
