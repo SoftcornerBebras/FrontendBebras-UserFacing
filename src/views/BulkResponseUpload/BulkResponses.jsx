@@ -163,13 +163,23 @@ export default function BulkResponses() {
                 cellDates: true,
                 dateNF: "yyyy/mm/dd;@",
               });
-              /* Get first worksheet */
+              /* Get first worksheet */  
               const wsname = wb.SheetNames[0];
+              var address_of_cell = ['A1','B1','C1','D1','E1','F1','G1','H1','I1','J1','K1','L1','M1','N1','O1','P1','Q1','R1','S1','T1','U1','V1','W1','X1','Y1','Z1'];   
+              var header_names=[];
               const ws = wb.Sheets[wsname];
               /* Convert array of arrays */
-              
-              const data = XLSX.utils.sheet_to_json(ws, { defval: "" });
-              console.log(data)
+              /* Find desired cell */
+              for(var i=0;i<address_of_cell.length;i++)
+              {
+                var desired_cell = ws[address_of_cell[i]];       
+                /* Get the value */
+                var desired_value = (desired_cell ? desired_cell.v : undefined);
+                if (desired_value!==undefined){
+                  header_names.push(desired_value.toString())
+                }
+              }
+              const data = XLSX.utils.sheet_to_json(ws, { defval: "" ,raw:true});
               if (data.length === 0) {
                 Notiflix.Notify.Failure(
                   "You have uploaded an empty excel. Please fill and upload again.".toUpperCase()
@@ -178,15 +188,11 @@ export default function BulkResponses() {
                 Notiflix.Block.Remove("div#elements");
                 return;
               }
-              /* Update state */
-           
-
-              // JSON.stringify(data, replacer, 2);
               if (error) {
                 Notiflix.Block.Remove("div#elements");
                 return;
               }
-              console.log(data);
+              sessionStorage.setItem("headernames", JSON.stringify(header_names));
               sessionStorage.setItem("bulkresponses", JSON.stringify(data, null, 2));
               Notiflix.Block.Remove("div#elements");
             };
@@ -273,9 +279,9 @@ export default function BulkResponses() {
         console.log(error);
         if (error.response.status === 400) {
           console.log(error)
-          data1 = error.response.data;
-          var ws = XLSX.utils.json_to_sheet(data1);
-          console.log(data1);
+          data1 = error.response.data.responses;
+          var headers=error.response.data.headers;
+          var ws = XLSX.utils.json_to_sheet(data1,{header: headers});
           var wb = XLSX.utils.book_new();
           XLSX.utils.book_append_sheet(wb, ws, "People");
           var str = XLSX.write(wb, { bookType: "xlsx", type: "binary" }); // generate a binary string in web browser

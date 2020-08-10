@@ -1176,7 +1176,7 @@ function dovalidateOfflineUpload() {
     return Axios({
       url: `${validateOfflineUpload}`,
       method: "post",
-      data: {"responses":JSON.parse(sessionStorage.getItem("bulkresponses")),"competitionName":JSON.parse(sessionStorage.getItem("competitionName"))},
+      data: {"responses":JSON.parse(sessionStorage.getItem("bulkresponses")),"headers":JSON.parse(sessionStorage.getItem("headernames")),"competitionName":JSON.parse(sessionStorage.getItem("competitionName"))},
       headers: {
         "content-type": "application/json",
       },
@@ -1200,11 +1200,7 @@ function dovalidateOfflineUpload() {
           "Close"
           );
         console.log(error.response.data);
-        console.log(error.response.status);
-       
-    
-          // Notiflix.Notify.Failure(`${error.response.data}`.toUpperCase());
-        
+     
         throw error;
       });
   } catch (error) {

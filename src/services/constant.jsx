@@ -1,5 +1,5 @@
-export const baseurl='http://54.196.61.229:8000/'
-export const METABASE_URL = "http://54.196.61.229:3000";
+export const baseurl='https://challenge.bebras.in:8000/'
+export const METABASE_URL = "https://challenge.bebras.in:3000";
 export const Login = baseurl+'api/usr/login-page';
 export const Register = baseurl+'api/usr/registerteacher';
 export const RegisterSchool = baseurl+'api/usr/registerschool';
