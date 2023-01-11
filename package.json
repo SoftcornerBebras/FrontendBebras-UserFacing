@@ -14,7 +14,7 @@
     "exceljs": "^3.9.0",
     "file-saver": "^2.0.2",
     "history": "^4.10.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "material-ui-dropzone": "^2.5.0",
     "material-ui-image": "^3.2.3",
     "moment": "^2.24.0",
